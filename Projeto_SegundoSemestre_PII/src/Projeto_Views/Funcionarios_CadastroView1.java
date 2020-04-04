@@ -5,16 +5,18 @@
  */
 package Projeto_Views;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nails
  */
-public class Funcionarios_CadastroView extends javax.swing.JFrame {
+public class Funcionarios_CadastroView1 extends javax.swing.JFrame {
 
     /**
      * Creates new form Funcionarios_CadastroView
      */
-    public Funcionarios_CadastroView() {
+    public Funcionarios_CadastroView1() {
         initComponents();
     }
 
@@ -842,21 +844,23 @@ public class Funcionarios_CadastroView extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Funcionarios_CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Funcionarios_CadastroView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Funcionarios_CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Funcionarios_CadastroView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Funcionarios_CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Funcionarios_CadastroView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Funcionarios_CadastroView.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Funcionarios_CadastroView1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Funcionarios_CadastroView().setVisible(true);
+                new Funcionarios_CadastroView1().setVisible(true);
             }
         });
     }
