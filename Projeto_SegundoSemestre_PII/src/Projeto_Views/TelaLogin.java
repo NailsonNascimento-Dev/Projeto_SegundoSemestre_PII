@@ -43,13 +43,13 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(null);
 
-        jLabel1.setText("Usuario ");
+        jLabel1.setText("Usuário");
         jPanel1.add(jLabel1);
         jLabel1.setBounds(150, 190, 70, 15);
 
         LoganInfoHardware.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LogoSample_ByTailorBrands (1).jpg"))); // NOI18N
         jPanel1.add(LoganInfoHardware);
-        LoganInfoHardware.setBounds(150, 20, 220, 110);
+        LoganInfoHardware.setBounds(140, 10, 220, 110);
 
         CampoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +78,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(310, 260, 73, 25);
+        jButton1.setBounds(330, 260, 73, 25);
 
         jButton2.setText("Sair");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -100,7 +100,8 @@ public class TelaLogin extends javax.swing.JFrame {
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
         );
 
-        pack();
+        setSize(new java.awt.Dimension(535, 389));
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void CampoUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CampoUsuarioActionPerformed
@@ -129,7 +130,7 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        System.exit(0); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
