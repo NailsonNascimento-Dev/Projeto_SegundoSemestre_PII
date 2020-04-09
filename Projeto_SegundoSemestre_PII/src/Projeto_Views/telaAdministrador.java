@@ -5,6 +5,9 @@
  */
 package Projeto_Views;
 
+import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author nails
@@ -110,11 +113,29 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel2.setText("Data de Nascimento");
 
+        fieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldNomeKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Nome Completo");
 
         ComboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Vendedor", "Repositor", "Estoquista", " ", " ", " " }));
 
         jLabel4.setText("Cpf");
+
+        try {
+            fieldCPF.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        try {
+            fieldDataNacimento.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel1.setText("#ID");
 
@@ -181,11 +202,41 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Endereço"));
 
+        fieldBairro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldBairroKeyTyped(evt);
+            }
+        });
+
+        fieldRua.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldRuaKeyTyped(evt);
+            }
+        });
+
+        fieldNumeroCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldNumeroCasaKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldNumeroCasaKeyTyped(evt);
+            }
+        });
+
         jLabel8.setText("Nº");
 
         jLabel6.setText("Rua");
 
         jLabel9.setText("Bairro");
+
+        fieldCep.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                fieldCepKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                fieldCepKeyTyped(evt);
+            }
+        });
 
         jLabel10.setText("Cep");
 
@@ -235,6 +286,12 @@ public class telaAdministrador extends javax.swing.JFrame {
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Contato"));
+
+        try {
+            fieldTelefone.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("(##)#####-####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         jLabel11.setText("E-mail");
 
@@ -666,6 +723,56 @@ public class telaAdministrador extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void fieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyTyped
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
+           evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_fieldNomeKeyTyped
+
+    private void fieldRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRuaKeyTyped
+           String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
+           evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_fieldRuaKeyTyped
+
+    private void fieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBairroKeyTyped
+           String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
+           evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_fieldBairroKeyTyped
+
+    private void fieldNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyTyped
+        char c = evt.getKeyChar(); //recebe o evento
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) { 
+            evt.consume();
+        }
+    }//GEN-LAST:event_fieldNumeroCasaKeyTyped
+
+    private void fieldNumeroCasaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyReleased
+           if (fieldNumeroCasa.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
+        }
+    }//GEN-LAST:event_fieldNumeroCasaKeyReleased
+
+    private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
+            char c = evt.getKeyChar(); //recebe o evento
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) { 
+            evt.consume();
+        }
+    }//GEN-LAST:event_fieldCepKeyTyped
+
+    private void fieldCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyReleased
+           if (fieldCep.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
+        }
+    }//GEN-LAST:event_fieldCepKeyReleased
 
     /**
      * @param args the command line arguments
