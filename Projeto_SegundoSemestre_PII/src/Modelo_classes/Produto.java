@@ -5,17 +5,26 @@
  */
 package Modelo_classes;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Nailson Nascimento <nailsonbr@gmail.com>
  */
 public class Produto {
     
+    //atributos da classe
     private String descricao;
     private String codigoFabricante;
     private String marca;
-    private String[] tipo;
+    private String tipo;
+    private String observacao;
     private int quantidade;
+    
+    //variaveis de controle da classe
+    private int linhaTabela;
+    
+    
 
     public String getDescricao() {
         return descricao;
@@ -41,11 +50,11 @@ public class Produto {
         this.marca = marca;
     }
 
-    public String[] getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
-    public void setTipo(String[] tipo) {
+    public void setTipo(String tipo) {
         this.tipo = tipo;
     }
 
@@ -57,8 +66,16 @@ public class Produto {
         this.quantidade = quantidade;
     }
     
+    public String getObservacao(){
+        return observacao;
+    }
     
+    public void setObservacao(String observacao){
+        this.observacao = observacao;
+    }
     
+
+   
     
     
     
@@ -70,10 +87,11 @@ public class Produto {
     public String toString(){
         return(
                 "Nome: "+ descricao+
-                "codigo: "+ codigoFabricante+
-                "Marca: "+ marca+
-                "tipo: "+ tipo[0] +
-                "Quantiade em Estoque: " + quantidade);
+                "\ncodigo: "+ codigoFabricante+
+                "\nMarca: "+ marca+
+                "\ntipo: "+ tipo +
+                "\nQuantiade em Estoque: " + quantidade +
+                "\nobsevação: " + observacao);
     }  
     
     
