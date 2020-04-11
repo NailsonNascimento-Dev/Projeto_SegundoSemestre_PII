@@ -74,14 +74,6 @@ public class Produto {
         this.observacao = observacao;
     }
     
-
-   
-    
-    
-    
-    
-    
-    
     
     
     public String toString(){

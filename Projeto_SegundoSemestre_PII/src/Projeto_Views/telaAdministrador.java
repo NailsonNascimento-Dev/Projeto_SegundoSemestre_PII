@@ -12,9 +12,14 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author nails
+ * @author nailson
  */
 public class telaAdministrador extends javax.swing.JFrame {
+
+    boolean buscaAtivada = false;
+    int indexLinha = 0;
+    
+    
 
     /**
      * Creates new form telaAdministrador
@@ -111,7 +116,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         btnEntradaProdutoEstoque = new javax.swing.JButton();
         cboTipoBusca = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
+        btnDeletarProduto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Administrador");
@@ -728,7 +733,15 @@ public class telaAdministrador extends javax.swing.JFrame {
             new String [] {
                 "Descrição", "Código Fabricante", "Tipo / Grupo", "Quantidade", "Marca"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tblProdutos);
 
         jLabel20.setText("Buscar Produto");
@@ -762,7 +775,12 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel23.setText("Tipo de Busca");
 
-        jButton6.setText("Deleta Produto");
+        btnDeletarProduto.setText("Deleta Produto");
+        btnDeletarProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletarProdutoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -789,7 +807,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEntradaProdutoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(jButton6)))
+                        .addComponent(btnDeletarProduto)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -804,7 +822,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cboTipoBusca)
-                        .addComponent(jButton6)
+                        .addComponent(btnDeletarProduto)
                         .addComponent(btnEditarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnEntradaProdutoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -884,7 +902,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_fieldRuaKeyTyped
 
@@ -892,7 +910,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_fieldBairroKeyTyped
 
@@ -900,7 +918,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!","Aviso",JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_fieldNomeKeyTyped
 
@@ -911,52 +929,77 @@ public class telaAdministrador extends javax.swing.JFrame {
     private void btnEntradaProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaProdutoEstoqueActionPerformed
         // TODO add your handling code here:
         
+        
+        String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
+        System.out.println("Aqui tenho que add os itens a tabela....'tblProdutos'");
+        
+
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         // TODO add your handling code here:
-        Produto produto =  new Produto();
-        
-        produto.setDescricao(txtDescricao.getText());
-        produto.setCodigoFabricante(txtCodFabricante.getText());
-        produto.setMarca(txtMarca.getText());
-        produto.setTipo(cboTipo.getSelectedItem().toString());
-        produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-        produto.setObservacao(txtObservacao.getText());
-        
-        System.out.println(produto.toString());
-        
-        //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-        DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
-        
-        //adiciona os valores do objeto "produto" a linha da tabela
-        model.addRow(new Object[]{  produto.getDescricao(),
-                                    produto.getCodigoFabricante(),
-                                    produto.getTipo(),
-                                    produto.getQuantidade(),
-                                    produto.getMarca()
-                                    
-                                 });
-        
-        //limpa campos para novo cadastro de produtos
-        txtDescricao.setText("");
-        txtCodFabricante.setText("");
-        txtMarca.setText("");
-        txtQuantidade.setText("");
-        txtObservacao.setText("");
-        
-        if (txtQuantidade.getText().length() == 0){
-            System.out.println(" o campo quantiade possui");
-            //
+
+        Produto produto = new Produto();
+
+        if (buscaAtivada == true) {
+            System.out.println("busca realizada");
+            System.out.println("linha: " + indexLinha);
+            
+            tblProdutos.setValueAt(txtDescricao.getText(), indexLinha, 0);
+            tblProdutos.setValueAt(txtCodFabricante.getText(), indexLinha, 1);
+            tblProdutos.setValueAt(cboTipo.getSelectedItem(), indexLinha, 2);
+            tblProdutos.setValueAt(txtMarca.getText(), indexLinha, 3);
+            
+            indexLinha = -1;
+            
+        } else {
+            produto.setDescricao(txtDescricao.getText());
+            produto.setCodigoFabricante(txtCodFabricante.getText());
+            produto.setMarca(txtMarca.getText());
+            produto.setTipo(cboTipo.getSelectedItem().toString());
+            produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+            produto.setObservacao(txtObservacao.getText());
+
+            System.out.println(produto.toString());
+
+            //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
+            DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+
+            //adiciona os valores do objeto "produto" a linha da tabela
+            model.addRow(new Object[]{produto.getDescricao(),
+            
+                produto.getCodigoFabricante(),
+                produto.getTipo(),
+                produto.getQuantidade(),
+                produto.getMarca()
+
+            });
+
+            //limpa campos para novo cadastro de produtos
+            txtDescricao.setText("");
+            txtCodFabricante.setText("");
+            txtMarca.setText("");
+            txtQuantidade.setText("");
+            txtObservacao.setText("");
+
+            if (txtQuantidade.getText().length() == 0) {
+                System.out.println(" o campo quantiade possui");
+                //
+            }
+
         }
+
+
     }//GEN-LAST:event_btnCriarActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
         // TODO add your handling code here:
-        
+
+        buscaAtivada = true;
+
         int tipoBusca = cboTipoBusca.getSelectedIndex();
         String busca = txtBusca.getText();
-        
+
         //exibo os dados do produto buscado porém desabilita a edição.
         btnCriar.setEnabled(false);
         txtDescricao.setEnabled(false);
@@ -965,15 +1008,19 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtQuantidade.setEnabled(false);
         txtObservacao.setEnabled(false);
         cboTipo.setEnabled(false);
-        
-        
-        
-        switch(tipoBusca){
+
+        switch (tipoBusca) {
             case 0:
-                if(busca.length() > 0){
+                //veriiica se existe itens na tabela
+                if (busca.length() > 0) {
                     System.out.println("Busca Código Fabricante ");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        if(busca.equals(tblProdutos.getValueAt(i, 1))){
+                            //pega linha da tabela
+                        if (busca.equals(tblProdutos.getValueAt(i, 1))) {
+                            
+                            //pega valor do index da linha da tabela para podemos auterar os parametros...
+                            indexLinha = i;
+                            
                             txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
                             txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
@@ -984,10 +1031,14 @@ public class telaAdministrador extends javax.swing.JFrame {
                 }
                 break;
             case 1:
-                if(busca.length() > 0){
+                if (busca.length() > 0) {
                     System.out.println("Busca Descrição");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        if(busca.equals(tblProdutos.getValueAt(i, 0))){
+                        if (busca.equals(tblProdutos.getValueAt(i, 0))) {
+                            
+                            //pega valor do index da linha da tabela para podemos auterar os parametros...
+                            indexLinha = i;
+                            
                             txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
                             txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
@@ -998,10 +1049,14 @@ public class telaAdministrador extends javax.swing.JFrame {
                 }
                 break;
             case 2:
-                if(busca.length() > 0){
+                if (busca.length() > 0) {
                     System.out.println("Busca tipo/Grupo");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        if(busca.equals(tblProdutos.getValueAt(i, 2))){
+                        if (busca.equals(tblProdutos.getValueAt(i, 2))) {
+
+                            //pega valor do index da linha da tabela para podemos auterar os parametros...
+                            indexLinha = i;
+
                             txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
                             txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
@@ -1012,62 +1067,58 @@ public class telaAdministrador extends javax.swing.JFrame {
                 }
                 break;
         }
-        
-        
-        
-    /*    
-        if(busca.length() > 0){
-            //System.out.println("maior");
-            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                if(busca.equals(tblProdutos.getValueAt(i, 0))){
-                    txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                    txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                    cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                    txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                }
-            }
-        }
-        
-    */   
-        
-        
-        
-        
+
+
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        
+
         btnCriar.setEnabled(true);
         txtDescricao.setText("");
         txtCodFabricante.setText("");
         txtMarca.setText("");
         txtQuantidade.setText("");
         txtObservacao.setText("");
-        
-        
+
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
         txtMarca.setEnabled(true);
         txtQuantidade.setEnabled(true);
         txtObservacao.setEnabled(true);
         cboTipo.setEnabled(true);
-        
-        
+
+
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
         // TODO add your handling code here:
-        
+
         //Abilita campos para nova edição
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
         txtMarca.setEnabled(true);
         cboTipo.setEnabled(true);
         txtObservacao.setEnabled(true);
-        
-        
+        btnCriar.setEnabled(true);
+
+
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
+
+    private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
+        // TODO add your handling code here:
+        
+       
+        
+        if(indexLinha >=0){
+            
+        //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+        model.removeRow(indexLinha);
+            
+        }
+        
+    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1108,6 +1159,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> ComboBoxCargo;
     private javax.swing.JButton btnBusca;
     private javax.swing.JButton btnCriar;
+    private javax.swing.JButton btnDeletarProduto;
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JButton btnEntradaProdutoEstoque;
     private javax.swing.JButton btnNovo;
@@ -1132,7 +1184,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
