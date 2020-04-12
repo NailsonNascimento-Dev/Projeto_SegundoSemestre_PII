@@ -231,14 +231,11 @@
                 <Component class="javax.swing.JComboBox" name="ComboBoxCargo">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="Administrador"/>
-                        <StringItem index="1" value="Vendedor"/>
+                      <StringArray count="4">
+                        <StringItem index="0" value="Vendedor"/>
+                        <StringItem index="1" value="Estoquista"/>
                         <StringItem index="2" value="Repositor"/>
-                        <StringItem index="3" value="Estoquista"/>
-                        <StringItem index="4" value=" "/>
-                        <StringItem index="5" value=" "/>
-                        <StringItem index="6" value=" "/>
+                        <StringItem index="3" value="Administrador"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -552,6 +549,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastrar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jToggleButton1ActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel9">
               <Properties>
@@ -569,11 +569,11 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel24" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPasswordField1" min="-2" pref="139" max="-2" attributes="0"/>
+                          <Component id="fieldPW_1" min="-2" pref="139" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jLabel25" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jPasswordField2" min="-2" pref="133" max="-2" attributes="0"/>
+                          <Component id="fieldPW_2" min="-2" pref="133" max="-2" attributes="0"/>
                           <EmptySpace pref="29" max="32767" attributes="0"/>
                       </Group>
                   </Group>
@@ -584,8 +584,8 @@
                           <EmptySpace max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel24" alignment="3" min="-2" pref="39" max="-2" attributes="0"/>
-                              <Component id="jPasswordField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="jPasswordField2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fieldPW_1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="fieldPW_2" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -598,14 +598,14 @@
                     <Property name="text" type="java.lang.String" value="Digite sua senha:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+                <Component class="javax.swing.JPasswordField" name="fieldPW_1">
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel25">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Confirme a sua senha:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="jPasswordField2">
+                <Component class="javax.swing.JPasswordField" name="fieldPW_2">
                 </Component>
               </SubComponents>
             </Container>

@@ -5,12 +5,16 @@
  */
 package Projeto_Views;
 
+import Atributos.Funcionarios;
 import Modelo_classes.Produto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
+
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,19 +25,13 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     boolean buscaAtivada = false;
     int indexLinha = 0;
-    
-    
 
     /**
      * Creates new form telaAdministrador
      */
     public telaAdministrador() {
-        
+
         initComponents();
-       
-        
-        
-     
 
     }
 
@@ -86,9 +84,9 @@ public class telaAdministrador extends javax.swing.JFrame {
         jToggleButton1 = new javax.swing.JToggleButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        fieldPW_1 = new javax.swing.JPasswordField();
         jLabel25 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        fieldPW_2 = new javax.swing.JPasswordField();
         jPRelatorios = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jToggleButton4 = new javax.swing.JToggleButton();
@@ -158,7 +156,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel3.setText("Nome Completo");
 
-        ComboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Vendedor", "Repositor", "Estoquista", " ", " ", " " }));
+        ComboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Estoquista", "Repositor", "Administrador" }));
 
         jLabel4.setText("Cpf");
 
@@ -437,6 +435,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         );
 
         jToggleButton1.setText("Cadastrar");
+        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jToggleButton1ActionPerformed(evt);
+            }
+        });
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Senha"));
 
@@ -452,11 +455,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel24)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldPW_1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel25)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(fieldPW_2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -465,8 +468,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldPW_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldPW_2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25)))
         );
 
@@ -985,11 +988,10 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     private void btnEntradaProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaProdutoEstoqueActionPerformed
         // TODO add your handling code here:
-        
-        
+
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
         System.out.println("Aqui tenho que add os itens a tabela....'tblProdutos'");
-        
+
 
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
 
@@ -1001,14 +1003,14 @@ public class telaAdministrador extends javax.swing.JFrame {
         if (buscaAtivada == true) {
             System.out.println("busca realizada");
             System.out.println("linha: " + indexLinha);
-            
+
             tblProdutos.setValueAt(txtDescricao.getText(), indexLinha, 0);
             tblProdutos.setValueAt(txtCodFabricante.getText(), indexLinha, 1);
             tblProdutos.setValueAt(cboTipo.getSelectedItem(), indexLinha, 2);
             tblProdutos.setValueAt(txtMarca.getText(), indexLinha, 3);
-            
+
             indexLinha = -1;
-            
+
         } else {
             produto.setDescricao(txtDescricao.getText());
             produto.setCodigoFabricante(txtCodFabricante.getText());
@@ -1024,7 +1026,6 @@ public class telaAdministrador extends javax.swing.JFrame {
 
             //adiciona os valores do objeto "produto" a linha da tabela
             model.addRow(new Object[]{produto.getDescricao(),
-            
                 produto.getCodigoFabricante(),
                 produto.getTipo(),
                 produto.getQuantidade(),
@@ -1072,12 +1073,12 @@ public class telaAdministrador extends javax.swing.JFrame {
                 if (busca.length() > 0) {
                     System.out.println("Busca Código Fabricante ");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                            //pega linha da tabela
+                        //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 1))) {
-                            
+
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
                             indexLinha = i;
-                            
+
                             txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
                             txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
@@ -1092,10 +1093,10 @@ public class telaAdministrador extends javax.swing.JFrame {
                     System.out.println("Busca Descrição");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                         if (busca.equals(tblProdutos.getValueAt(i, 0))) {
-                            
+
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
                             indexLinha = i;
-                            
+
                             txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
                             txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
@@ -1164,18 +1165,55 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
         // TODO add your handling code here:
+
+        if (indexLinha >= 0) {
+
+            //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
+            DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+            model.removeRow(indexLinha);
+
+        }
+
+    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
+
+    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        Funcionarios funcionarios = new Funcionarios();
+        funcionarios.setNome(fieldNome.getText());
+        funcionarios.setCpf(fieldCPF.getText());
+        funcionarios.setRua(fieldRua.getText());
+        funcionarios.setBairro(fieldBairro.getText());
+        funcionarios.setEmail(fieldEmail.getText());
+        funcionarios.setTelefone(fieldTelefone.getText());
+        funcionarios.setCargo(ComboBoxCargo.getSelectedItem().toString());
+        funcionarios.setSenha1(String.valueOf(fieldPW_1.getPassword()));
+        funcionarios.setSenha2(String.valueOf(fieldPW_2.getPassword()));
         
        
         
-        if(indexLinha >=0){
-            
-        //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-        DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
-        model.removeRow(indexLinha);
-            
-        }
+       if((funcionarios.getSenha1().trim().equals("")) || (funcionarios.getSenha2().trim().equals(""))){
+           JOptionPane.showMessageDialog(this, "Campo senha vazio");
+       }
         
-    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
+       else if(!funcionarios.getSenha1().equals(funcionarios.getSenha2()) ){
+           JOptionPane.showMessageDialog(this, "Senha está errada em algum dos campos");
+       }
+
+        try {
+
+            funcionarios.setCep(Integer.parseInt(fieldCep.getText()));
+            funcionarios.setNumeroCasa(Integer.parseInt(fieldNumeroCasa.getText()));
+
+        } catch (NumberFormatException e) {
+
+            JOptionPane.showMessageDialog(this, "Erro de conversão numérica ou campos numéricos vazios.");
+
+        }
+
+       
+        
+
+        //FIM BOTAO CADASTRAR  
+    }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1233,6 +1271,8 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField fieldEmail;
     private javax.swing.JTextField fieldNome;
     private javax.swing.JTextField fieldNumeroCasa;
+    private javax.swing.JPasswordField fieldPW_1;
+    private javax.swing.JPasswordField fieldPW_2;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JFormattedTextField fieldTelefone;
     private javax.swing.JButton jButton1;
@@ -1279,8 +1319,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
