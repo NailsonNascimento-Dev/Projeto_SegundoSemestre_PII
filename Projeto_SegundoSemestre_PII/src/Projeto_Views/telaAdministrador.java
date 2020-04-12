@@ -35,6 +35,118 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }
 
+    public void limparCampos() {
+        fieldBairro.setText("");
+        fieldBuscarFuncionarios.setText("");
+        fieldCPF.setText("");
+        fieldCep.setText("");
+        fieldDataNacimento.setText("");
+        fieldEmail.setText("");
+        fieldNome.setText("");
+        fieldNumeroCasa.setText("");
+        fieldPW_1.setText("");
+        fieldPW_2.setText("");
+        fieldRua.setText("");
+        fieldTelefone.setText("");
+    }
+
+    public boolean validarCampos(
+            //int cep,
+            //int numeroCasa,
+            String nome,
+            String cpf,
+            //String data,
+            String cargo,
+            String rua,
+            String bairro,
+            String email,
+            String telefone,
+            String senha1,
+            String senha2) {
+
+        boolean camposOK1 = false;
+        boolean camposOK2 = false;
+        boolean camposOK3 = false;
+        boolean camposOK4 = false;
+        boolean camposOK5 = false;
+        boolean camposOK6 = false;
+        boolean camposOK7 = false;
+        boolean camposOK8 = false;
+        boolean camposOK9 = false;
+
+        boolean camposOK = false;
+
+        if (nome.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de Nome vazio");
+            camposOK1 = false;
+        } else {
+            camposOK1 = true;
+        }
+        //  if(data.trim().equals("")){
+        //     JOptionPane.showMessageDialog(this, "Campo de Data vazio");
+        //   }
+        if (cpf.equals("   .   .   -  ")) {
+            JOptionPane.showMessageDialog(this, "Campo de CPF vazio");
+            camposOK2 = false;
+        } else {
+            camposOK2 = true;
+        }
+
+        if (rua.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de Rua vazio");
+            camposOK3 = false;
+        } else {
+            camposOK3 = true;
+        }
+
+        if (fieldCep.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de Cep vazio");
+            camposOK4 = false;
+        } else {
+            camposOK4 = true;
+        }
+        if (fieldNumeroCasa.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de Nº vazio");
+            camposOK5 = false;
+        } else {
+            camposOK5 = true;
+        }
+
+        if (bairro.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de Bairro vazio");
+            camposOK6 = false;
+        } else {
+            camposOK6 = true;
+        }
+        if (email.trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Campo de E-mail vazio");
+            camposOK7 = false;
+        } else {
+            camposOK7 = true;
+        }
+        if (telefone.equals("(  )     -    ")) {
+            JOptionPane.showMessageDialog(this, "Campo de Telefone vazio");
+            camposOK8 = false;
+        } else {
+            camposOK8 = true;
+        }
+        if ((senha1.trim().equals("")) || (senha2.trim().equals(""))) {
+            JOptionPane.showMessageDialog(this, "Campo senha vazio");
+            camposOK9 = false;
+        } else if (!senha1.equals(senha2)) {
+            JOptionPane.showMessageDialog(this, "A senha está errada em algum dos campos");
+            camposOK9 = false;
+        } else {
+            camposOK9 = true;
+        }
+        if (camposOK1 == true && camposOK2 == true && camposOK3 == true && camposOK4 == true && camposOK5 == true
+                && camposOK6 == true && camposOK7 == true && camposOK8 == true && camposOK9 == true) {
+            camposOK = true;
+        }
+
+        return camposOK;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -1177,6 +1289,9 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+        boolean campoValidado = false;
+        boolean conversao = false;
+
         Funcionarios funcionarios = new Funcionarios();
         funcionarios.setNome(fieldNome.getText());
         funcionarios.setCpf(fieldCPF.getText());
@@ -1187,32 +1302,30 @@ public class telaAdministrador extends javax.swing.JFrame {
         funcionarios.setCargo(ComboBoxCargo.getSelectedItem().toString());
         funcionarios.setSenha1(String.valueOf(fieldPW_1.getPassword()));
         funcionarios.setSenha2(String.valueOf(fieldPW_2.getPassword()));
-        
-       
-        
-       if((funcionarios.getSenha1().trim().equals("")) || (funcionarios.getSenha2().trim().equals(""))){
-           JOptionPane.showMessageDialog(this, "Campo senha vazio");
-       }
-        
-       else if(!funcionarios.getSenha1().equals(funcionarios.getSenha2()) ){
-           JOptionPane.showMessageDialog(this, "Senha está errada em algum dos campos");
-       }
+
+        campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getCargo(),
+                funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
+                funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
 
         try {
 
             funcionarios.setCep(Integer.parseInt(fieldCep.getText()));
             funcionarios.setNumeroCasa(Integer.parseInt(fieldNumeroCasa.getText()));
 
+            conversao = true;
+
         } catch (NumberFormatException e) {
 
-            JOptionPane.showMessageDialog(this, "Erro de conversão numérica ou campos numéricos vazios.");
+            conversao = false;
 
         }
 
-       
-        
+        if (campoValidado == true && conversao == true) {
+            JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!");
+            limparCampos();
+        }
 
-        //FIM BOTAO CADASTRAR  
+
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
     /**
