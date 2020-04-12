@@ -7,6 +7,7 @@ package Atributos;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  *
@@ -18,7 +19,7 @@ public class Funcionarios {
     private int cep;
     private int numeroCasa;
     private String nome;
-    private DateFormat data = new SimpleDateFormat("dd-MM-yyyy");
+    private String data;
     private String cpf;
     private String cargo;
     private String rua;
@@ -124,13 +125,17 @@ public class Funcionarios {
         this.senha2 = senha2;
     }
 
-    public DateFormat getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DateFormat data) {
+    public void setData(String data) {
         this.data = data;
     }
+
+  
+
+  
     
     
     
