@@ -31,7 +31,6 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        LoganInfoHardware = new javax.swing.JLabel();
         CampoUsuario = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         CampoSenha = new javax.swing.JPasswordField();
@@ -45,11 +44,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel1.setText("Usuário");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(150, 190, 70, 15);
-
-        LoganInfoHardware.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/LogoSample_ByTailorBrands (1).jpg"))); // NOI18N
-        jPanel1.add(LoganInfoHardware);
-        LoganInfoHardware.setBounds(140, 10, 220, 110);
+        jLabel1.setBounds(150, 190, 70, 16);
 
         CampoUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -61,7 +56,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Senha");
         jPanel1.add(jLabel2);
-        jLabel2.setBounds(150, 230, 40, 15);
+        jLabel2.setBounds(150, 230, 40, 16);
 
         CampoSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -78,7 +73,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(330, 260, 73, 25);
+        jButton1.setBounds(330, 260, 73, 32);
 
         jButton2.setText("Sair");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -87,7 +82,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(410, 260, 60, 25);
+        jButton2.setBounds(410, 260, 60, 32);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -171,7 +166,6 @@ public class TelaLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPasswordField CampoSenha;
     private javax.swing.JTextField CampoUsuario;
-    private javax.swing.JLabel LoganInfoHardware;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
