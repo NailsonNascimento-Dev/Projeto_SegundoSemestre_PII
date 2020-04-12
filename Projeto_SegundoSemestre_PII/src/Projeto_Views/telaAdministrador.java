@@ -131,7 +131,7 @@ public class telaAdministrador extends javax.swing.JFrame {
             camposOK8 = true;
         }
         if ((senha1.trim().equals("")) || (senha2.trim().equals(""))) {
-            JOptionPane.showMessageDialog(this, "Campo senha vazio");
+            JOptionPane.showMessageDialog(this, "Campo de senha vazio");
             camposOK9 = false;
         } else if (!senha1.equals(senha2)) {
             JOptionPane.showMessageDialog(this, "A senha está errada em algum dos campos");
