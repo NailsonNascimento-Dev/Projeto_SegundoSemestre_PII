@@ -20,11 +20,16 @@ public class Produto {
     private String tipo;
     private String observacao;
     private int quantidade;
+    private double preco;
     
-    //variaveis de controle da classe
-    private int linhaTabela;
-    
-    
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
 
     public String getDescricao() {
         return descricao;

@@ -235,6 +235,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtQuantidade = new javax.swing.JTextField();
         btnCriar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
+        jLabel26 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         txtBusca = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -264,6 +266,11 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel2.setText("Data de Nascimento");
 
+        fieldNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldNomeActionPerformed(evt);
+            }
+        });
         fieldNome.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 fieldNomeKeyTyped(evt);
@@ -796,6 +803,18 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel16.setText("Código Fabricante");
 
+        txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDescricaoKeyTyped(evt);
+            }
+        });
+
+        txtCodFabricante.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodFabricanteKeyTyped(evt);
+            }
+        });
+
         jLabel14.setText("Marca");
 
         jLabel15.setText("Quantidade");
@@ -804,9 +823,21 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel13.setText("Descrição");
 
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
+
         txtObservacao.setColumns(20);
         txtObservacao.setRows(5);
         jScrollPane2.setViewportView(txtObservacao);
+
+        txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtQuantidadeKeyTyped(evt);
+            }
+        });
 
         btnCriar.setText("Salvar");
         btnCriar.addActionListener(new java.awt.event.ActionListener() {
@@ -822,6 +853,15 @@ public class telaAdministrador extends javax.swing.JFrame {
             }
         });
 
+        jLabel26.setText("Preço - R$");
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
+        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jFormattedTextField1KeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -834,7 +874,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                                .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -847,21 +887,22 @@ public class telaAdministrador extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addComponent(txtDescricao)))))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel26))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jFormattedTextField1)
                             .addComponent(txtCodFabricante)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(cboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 539, Short.MAX_VALUE)
                         .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -870,7 +911,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(jLabel16)
@@ -886,7 +927,9 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel26)
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1027,8 +1070,6 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Estoque", jPEstoque);
 
-        jTabbedPane1.setSelectedIndex(1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -1110,7 +1151,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
-
+    
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         // TODO add your handling code here:
 
@@ -1333,6 +1374,62 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jToggleButton1ActionPerformed
 
+    private void fieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldNomeActionPerformed
+    
+    //função para validar a utilização de caracters
+    private void validacaoCaracter(java.awt.event.KeyEvent evt){
+        
+        String naoPermitidos = "!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";//caracteres que não serão aceitos (Resolver " e \)
+        if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
+            evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    
+    //função para validar a utilização de caracters e numeros
+    private void validacaoCaracterNumero(java.awt.event.KeyEvent evt){
+        
+        String naoPermitidos = "0987654321!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";//caracteres que não serão aceitos (Resolver " e \)
+        if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
+            evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    //função para validar a utilização de caracters e numeros
+    private void validacaoQuantidadeEstoque(java.awt.event.KeyEvent evt){
+        
+        String naoPermitidos = "abcdefghijklmnopqrstuvwxyz.!@#$%¨&*('-){}[]+=,./:;?|_ºª°§ABCDEFGHIJKLMNOPQRSTUVWXYZ";//caracteres que não serão aceitos (Resolver " e \)
+        if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
+            evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    
+    
+    private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
+        validacaoCaracter(evt);
+    }//GEN-LAST:event_txtDescricaoKeyTyped
+
+    private void txtCodFabricanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFabricanteKeyTyped
+        validacaoCaracter(evt);
+    }//GEN-LAST:event_txtCodFabricanteKeyTyped
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        validacaoCaracter(evt);
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
+        validacaoQuantidadeEstoque(evt);
+    }//GEN-LAST:event_txtQuantidadeKeyTyped
+
+    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
+        validacaoQuantidadeEstoque(evt);
+    }//GEN-LAST:event_jFormattedTextField1KeyTyped
+
     /**
      * @param args the command line arguments
      */
@@ -1400,6 +1497,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1418,6 +1516,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
