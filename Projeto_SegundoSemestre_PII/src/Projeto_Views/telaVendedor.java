@@ -1244,6 +1244,19 @@ public class telaVendedor extends javax.swing.JFrame {
                 tabelaCliente.setValueAt(txtEmail.getText(), linha, 9);
                 tabelaCliente.setValueAt(txtFone.getText(), linha, 10);
 
+                txtBuscarCpf.setText("");
+                txtNome.setText("");
+                txtData.setText("");
+                txtCpf.setText("");
+                txtRua.setText("");
+                txtCep.setText("");
+                txtNum.setText("");
+                txtBairro.setText("");
+                txtEmail.setText("");
+                txtFone.setText("");
+                
+                pesquisar = false;
+
             } else {
 
                 cliente.setNome(txtNome.getText());
@@ -1298,6 +1311,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         try {
             pesquisar = true;
+            boolean buscar = false;
 
             String busca = txtBuscarCpf.getText();
 
@@ -1305,7 +1319,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
                 if (busca.equals(tabelaCliente.getValueAt(i, 2))) {
 
-                    linha = 1;
+                    linha = i;
 
                     txtNome.setEnabled(false);
                     txtData.setEnabled(false);
@@ -1331,7 +1345,12 @@ public class telaVendedor extends javax.swing.JFrame {
                     txtBairro.setText(tabelaCliente.getValueAt(i, 8).toString());
                     txtEmail.setText(tabelaCliente.getValueAt(i, 9).toString());
                     txtFone.setText(tabelaCliente.getValueAt(i, 10).toString());
+
+                    buscar = true;
                 }
+            }
+            if (buscar == false) {
+                JOptionPane.showMessageDialog(null, "Cpf não encontrados");
             }
 
         } catch (Exception e) {
@@ -1365,7 +1384,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtEmail.setEnabled(true);
         txtFone.setEnabled(true);
         btSalvar.setEnabled(true);
-        
+
         pesquisar = false;
 
 
@@ -1392,10 +1411,57 @@ public class telaVendedor extends javax.swing.JFrame {
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
         // TODO add your handling code here:
-        if (pesquisar == true) {
-            DefaultTableModel tblCliente = (DefaultTableModel) tabelaCliente.getModel();
-            tblCliente.removeRow(linha);
+
+        try {
+
+            String deletar = txtBuscarCpf.getText();
+            boolean delete = false;
+
+            for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
+
+                if (deletar.equals(tabelaCliente.getValueAt(i, 2))) {
+
+                    DefaultTableModel tblCliente = (DefaultTableModel) tabelaCliente.getModel();
+                    tblCliente.removeRow(i);
+
+                    txtBuscarCpf.setText("");
+                    txtNome.setText("");
+                    txtData.setText("");
+                    txtCpf.setText("");
+                    txtRua.setText("");
+                    txtCep.setText("");
+                    txtNum.setText("");
+                    txtBairro.setText("");
+                    txtEmail.setText("");
+                    txtFone.setText("");
+
+                    txtNome.setEnabled(true);
+                    txtData.setEnabled(true);
+                    txtCpf.setEnabled(true);
+                    comboSexo.setEnabled(true);
+                    comboECivil.setEnabled(true);
+                    txtRua.setEnabled(true);
+                    txtCep.setEnabled(true);
+                    txtNum.setEnabled(true);
+                    txtBairro.setEnabled(true);
+                    txtEmail.setEnabled(true);
+                    txtFone.setEnabled(true);
+                    btSalvar.setEnabled(true);
+
+                    delete = true;
+                    pesquisar = false;
+                }
+            }
+            if (delete == false) {
+                JOptionPane.showMessageDialog(null, "Cpf não encontrado");
+
+            }
+            
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro!!!");
         }
+
     }//GEN-LAST:event_btDeletarActionPerformed
 
     /**
