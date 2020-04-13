@@ -5,8 +5,6 @@
  */
 package Atributos;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 
 /**
  *
@@ -16,7 +14,7 @@ public class Cliente {
     
     private int id;
     private String nome;
-    private DateFormat data = new SimpleDateFormat("yyyy-MM-dd");
+    private String data;
     private String cpf;
     private String sexo;
     private String estadoCivil;
@@ -43,11 +41,11 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public DateFormat getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(DateFormat data) {
+    public void setData(String data) {
         this.data = data;
     }
 
