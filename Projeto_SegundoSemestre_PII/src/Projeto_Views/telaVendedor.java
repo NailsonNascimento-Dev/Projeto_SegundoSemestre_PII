@@ -6,6 +6,8 @@
 package Projeto_Views;
 
 import Atributos.Cliente;
+import ValidacaoDeCampos.soCaracteres;
+import ValidacaoDeCampos.soNumeros;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.parser.TokenType;
@@ -20,14 +22,19 @@ import javax.swing.table.TableRowSorter;
  */
 public class telaVendedor extends javax.swing.JFrame {
 
-    boolean pesquisar = false;
-    int linha = 0;
+    boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
+    int linha = 0;//Variavel para salvar a linha da tabela cliente
 
     /**
      * Creates new form telaVendedor
      */
     public telaVendedor() {
         initComponents();
+        txtNum.setDocument(new soNumeros());//Importação da classe que aceita somente numeros
+        txtNome.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
+        txtRua.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
+        txtBairro.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
+
     }
 
     /**
@@ -130,7 +137,7 @@ public class telaVendedor extends javax.swing.JFrame {
         jScrollPane6 = new javax.swing.JScrollPane();
         tabelaCliente = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
-        txtBuscarCpf = new javax.swing.JFormattedTextField();
+        txtBCpf = new javax.swing.JFormattedTextField();
         btEditar = new javax.swing.JButton();
         btBuscar = new javax.swing.JButton();
         btDeletar = new javax.swing.JButton();
@@ -614,6 +621,12 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jLabel7.setText("Nome Completo:");
 
+        txtNome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNomeActionPerformed(evt);
+            }
+        });
+
         jLabel8.setText("Data de Nascimento:");
 
         try {
@@ -866,10 +879,15 @@ public class telaVendedor extends javax.swing.JFrame {
         jLabel15.setText("Cpf:");
 
         try {
-            txtBuscarCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+            txtBCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtBCpf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBCpfActionPerformed(evt);
+            }
+        });
 
         btEditar.setText("Editar");
         btEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -903,7 +921,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addGroup(jPanel17Layout.createSequentialGroup()
                         .addComponent(jLabel15)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBCpf, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btBuscar)
                         .addGap(18, 18, 18)
@@ -919,7 +937,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel17Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
-                    .addComponent(txtBuscarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btEditar)
                     .addComponent(btBuscar)
                     .addComponent(btDeletar))
@@ -1230,36 +1248,55 @@ public class telaVendedor extends javax.swing.JFrame {
 
             Cliente cliente = new Cliente();
 
-            if (pesquisar == true) {
+            if (pesquisar == false) {//Modo buscar cliente desativado
 
-                tabelaCliente.setValueAt(txtNome.getText(), linha, 0);
-                tabelaCliente.setValueAt(txtData.getText(), linha, 1);
-                tabelaCliente.setValueAt(txtCpf.getText(), linha, 2);
-                tabelaCliente.setValueAt(comboSexo.getSelectedItem(), linha, 3);
-                tabelaCliente.setValueAt(comboECivil.getSelectedItem(), linha, 4);
-                tabelaCliente.setValueAt(txtRua.getText(), linha, 5);
-                tabelaCliente.setValueAt(txtCep.getText(), linha, 6);
-                tabelaCliente.setValueAt(txtNum.getText(), linha, 7);
-                tabelaCliente.setValueAt(txtBairro.getText(), linha, 8);
-                tabelaCliente.setValueAt(txtEmail.getText(), linha, 9);
-                tabelaCliente.setValueAt(txtFone.getText(), linha, 10);
+                if (txtNome.getText().trim().equals("")) {//Validar se o campo esta vazios
+                    txtNome.requestFocus();//Se o campo estiver vazio ao apertar o botão salvar tera um foco no campo para digitar os valores 
+                    JOptionPane.showMessageDialog(null, "Campo Nome incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);//Aviso de campo vazio
+                    return;
+                }
+                if (txtData.getText().equals("  /  /    ")) {
+                    txtData.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Data incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtCpf.getText().equals("   .   .   -  ")) {
+                    txtCpf.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtRua.getText().trim().equals("")) {
+                    txtRua.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Rua incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtCep.getText().equals("     -   ")) {
+                    txtCep.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Cep incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtNum.getText().trim().equals("")) {
+                    txtNum.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Nº incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtBairro.getText().trim().equals("")) {
+                    txtBairro.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Bairro incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtEmail.getText().trim().equals("")) {
+                    txtEmail.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Email incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtFone.getText().equals("(  )     -    ")) {
+                    txtFone.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Telefone incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
 
-                txtBuscarCpf.setText("");
-                txtNome.setText("");
-                txtData.setText("");
-                txtCpf.setText("");
-                txtRua.setText("");
-                txtCep.setText("");
-                txtNum.setText("");
-                txtBairro.setText("");
-                txtEmail.setText("");
-                txtFone.setText("");
-                
-                pesquisar = false;
-
-            } else {
-
-                cliente.setNome(txtNome.getText());
+                cliente.setNome(txtNome.getText());//
                 cliente.setData(txtData.getText());
                 cliente.setCpf(txtCpf.getText());
                 cliente.setSexo(comboSexo.getSelectedItem().toString());
@@ -1273,6 +1310,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
                 DefaultTableModel tblCliente = (DefaultTableModel) tabelaCliente.getModel();
 
+                //Adicionas os os dados do cliente na tabela
                 tblCliente.addRow(new Object[]{cliente.getNome(),
                     cliente.getData(),
                     cliente.getCpf(),
@@ -1285,6 +1323,83 @@ public class telaVendedor extends javax.swing.JFrame {
                     cliente.getEmail(),
                     cliente.getTelefone()});
 
+                //Limpa os campos de digitação
+                txtNome.setText("");
+                txtData.setText("");
+                txtCpf.setText("");
+                txtRua.setText("");
+                txtCep.setText("");
+                txtNum.setText("");
+                txtBairro.setText("");
+                txtEmail.setText("");
+                txtFone.setText("");
+                txtBCpf.setText("");
+
+                JOptionPane.showMessageDialog(null, "Cadastro efetuado");
+
+            } else {//Modo pesquisar cliente ativado
+
+                if (txtNome.getText().trim().equals("")) {//Validar se o campo esta vazios
+                    txtNome.requestFocus();//Se o campo estiver vazio ao apertar o botão salvar tera um foco no campo para digitar os valores 
+                    JOptionPane.showMessageDialog(null, "Campo Nome incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);//Aviso de campo vazio
+                    return;
+                }
+                if (txtData.getText().equals("  /  /    ")) {
+                    txtData.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Data incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtCpf.getText().equals("   .   .   -  ")) {
+                    txtCpf.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtRua.getText().trim().equals("")) {
+                    txtRua.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Rua incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtCep.getText().equals("     -   ")) {
+                    txtCep.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Cep incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtNum.getText().trim().equals("")) {
+                    txtNum.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Nº incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtBairro.getText().trim().equals("")) {
+                    txtBairro.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Bairro incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtEmail.getText().trim().equals("")) {
+                    txtEmail.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Email incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                if (txtFone.getText().equals("(  )     -    ")) {
+                    txtFone.requestFocus();
+                    JOptionPane.showMessageDialog(null, "Campo Telefone incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
+                //Altera os valores da tabela 
+                tabelaCliente.setValueAt(txtNome.getText(), linha, 0);
+                tabelaCliente.setValueAt(txtData.getText(), linha, 1);
+                tabelaCliente.setValueAt(txtCpf.getText(), linha, 2);
+                tabelaCliente.setValueAt(comboSexo.getSelectedItem(), linha, 3);
+                tabelaCliente.setValueAt(comboECivil.getSelectedItem(), linha, 4);
+                tabelaCliente.setValueAt(txtRua.getText(), linha, 5);
+                tabelaCliente.setValueAt(txtCep.getText(), linha, 6);
+                tabelaCliente.setValueAt(txtNum.getText(), linha, 7);
+                tabelaCliente.setValueAt(txtBairro.getText(), linha, 8);
+                tabelaCliente.setValueAt(txtEmail.getText(), linha, 9);
+                tabelaCliente.setValueAt(txtFone.getText(), linha, 10);
+
+                //Limpa os campos de digitação
+                txtBCpf.setText("");
                 txtNome.setText("");
                 txtData.setText("");
                 txtCpf.setText("");
@@ -1295,7 +1410,10 @@ public class telaVendedor extends javax.swing.JFrame {
                 txtEmail.setText("");
                 txtFone.setText("");
 
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado");
+                pesquisar = false;//Desativa o modo pesquisar cliente
+                
+                JOptionPane.showMessageDialog(null, "Cadastro alterado");
+                
 
             }
 
@@ -1310,17 +1428,19 @@ public class telaVendedor extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         try {
-            pesquisar = true;
-            boolean buscar = false;
+            pesquisar = true;//Ativa o modo pesquisar cliente
+            boolean buscar = false;//Variavel para saber se CPf foi encontrado
 
-            String busca = txtBuscarCpf.getText();
+            String busca = txtBCpf.getText();//Campo para pesquisar cliente com o CPF
 
+            //For para identificar em qual linhas os dados do cliente estão de acordo com o CPF pesquisado
             for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
 
                 if (busca.equals(tabelaCliente.getValueAt(i, 2))) {
 
-                    linha = i;
+                    linha = i;//Salva a linha em que os dados do cliente pesquisado estão
 
+                    //Desativa os campos de digitação
                     txtNome.setEnabled(false);
                     txtData.setEnabled(false);
                     txtCpf.setEnabled(false);
@@ -1334,6 +1454,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     txtFone.setEnabled(false);
                     btSalvar.setEnabled(false);
 
+                    //Mostra os valores dos dados do cliente no campos de digitação 
                     txtNome.setText(tabelaCliente.getValueAt(i, 0).toString());
                     txtData.setText(tabelaCliente.getValueAt(i, 1).toString());
                     txtCpf.setText(tabelaCliente.getValueAt(i, 2).toString());
@@ -1346,7 +1467,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     txtEmail.setText(tabelaCliente.getValueAt(i, 9).toString());
                     txtFone.setText(tabelaCliente.getValueAt(i, 10).toString());
 
-                    buscar = true;
+                    buscar = true;//Ativa o modo buscar cliente
                 }
             }
             if (buscar == false) {
@@ -1362,6 +1483,7 @@ public class telaVendedor extends javax.swing.JFrame {
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         // TODO add your handling code here:
 
+        //Limpa os campos de digitação
         txtNome.setText("");
         txtData.setText("");
         txtCpf.setText("");
@@ -1371,7 +1493,9 @@ public class telaVendedor extends javax.swing.JFrame {
         txtBairro.setText("");
         txtEmail.setText("");
         txtFone.setText("");
+        txtBCpf.setText("");
 
+        //Ativa os campos de digitação
         txtNome.setEnabled(true);
         txtData.setEnabled(true);
         txtCpf.setEnabled(true);
@@ -1385,7 +1509,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtFone.setEnabled(true);
         btSalvar.setEnabled(true);
 
-        pesquisar = false;
+        pesquisar = false;//Modo pesquisar cliente desativado
 
 
     }//GEN-LAST:event_btNovoActionPerformed
@@ -1393,9 +1517,9 @@ public class telaVendedor extends javax.swing.JFrame {
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         // TODO add your handling code here:
 
+        //Ativa os campos de digitação para alterar os dados
         txtNome.setEnabled(true);
         txtData.setEnabled(true);
-        txtCpf.setEnabled(true);
         comboSexo.setEnabled(true);
         comboECivil.setEnabled(true);
         txtRua.setEnabled(true);
@@ -1414,17 +1538,20 @@ public class telaVendedor extends javax.swing.JFrame {
 
         try {
 
-            String deletar = txtBuscarCpf.getText();
-            boolean delete = false;
+            String deletar = txtBCpf.getText();//Campo para digitar CPF que vai ser deletados
+            boolean delete = false;//Variavel para saber se o CPF foi encontrado
 
+            //For para identificar em qual linhas os dados do cliente estão de acordo com o CPF pesquisado
             for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
 
-                if (deletar.equals(tabelaCliente.getValueAt(i, 2))) {
+                if (deletar.equals(tabelaCliente.getValueAt(i, 2))) {//Compara CPF pesquisado com os da tabela
 
+                    //Deleta todos os dados na mesma linha que o CPF pesquisado
                     DefaultTableModel tblCliente = (DefaultTableModel) tabelaCliente.getModel();
                     tblCliente.removeRow(i);
 
-                    txtBuscarCpf.setText("");
+                    //Limpa os campos de digitação
+                    txtBCpf.setText("");
                     txtNome.setText("");
                     txtData.setText("");
                     txtCpf.setText("");
@@ -1435,6 +1562,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     txtEmail.setText("");
                     txtFone.setText("");
 
+                    //Ativa os campos de digitação
                     txtNome.setEnabled(true);
                     txtData.setEnabled(true);
                     txtCpf.setEnabled(true);
@@ -1449,20 +1577,32 @@ public class telaVendedor extends javax.swing.JFrame {
                     btSalvar.setEnabled(true);
 
                     delete = true;
-                    pesquisar = false;
+                    pesquisar = false;//Desativa o modo pesquisar cliente
+                    
+                    JOptionPane.showMessageDialog(null, "Cadastro deletado");
+                    
                 }
             }
             if (delete == false) {
                 JOptionPane.showMessageDialog(null, "Cpf não encontrado");
 
             }
-            
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro!!!");
         }
 
     }//GEN-LAST:event_btDeletarActionPerformed
+
+    private void txtBCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBCpfActionPerformed
+        // TODO add your handling code here:   
+    }//GEN-LAST:event_txtBCpfActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+
+
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1595,10 +1735,10 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTable tabelaCliente;
     private javax.swing.JTable tblVendaRealizada;
+    private javax.swing.JFormattedTextField txtBCpf;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtBuscaCpf;
     private javax.swing.JTextField txtBuscaNumeroCompra;
-    private javax.swing.JFormattedTextField txtBuscarCpf;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;

@@ -1027,6 +1027,9 @@
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNome">
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNomeActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel8">
                           <Properties>
@@ -1297,7 +1300,7 @@
                                   <Group type="102" attributes="0">
                                       <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtBuscarCpf" min="-2" pref="288" max="-2" attributes="0"/>
+                                      <Component id="txtBCpf" min="-2" pref="288" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
                                       <Component id="btBuscar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -1317,7 +1320,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtBuscarCpf" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtBCpf" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btEditar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btBuscar" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="btDeletar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -1425,12 +1428,15 @@
                         <Property name="text" type="java.lang.String" value="Cpf:"/>
                       </Properties>
                     </Component>
-                    <Component class="javax.swing.JFormattedTextField" name="txtBuscarCpf">
+                    <Component class="javax.swing.JFormattedTextField" name="txtBCpf">
                       <Properties>
                         <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor" preCode="try {" postCode="} catch (java.text.ParseException ex) {&#xa;ex.printStackTrace();&#xa;}">
                           <Format format="###.###.###-##" subtype="-1" type="5"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBCpfActionPerformed"/>
+                      </Events>
                     </Component>
                     <Component class="javax.swing.JButton" name="btEditar">
                       <Properties>
