@@ -1433,7 +1433,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldNumeroCasaKeyReleased
 
     private void fieldRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRuaKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1441,7 +1441,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldRuaKeyTyped
 
     private void fieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBairroKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1449,7 +1449,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldBairroKeyTyped
 
     private void fieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
