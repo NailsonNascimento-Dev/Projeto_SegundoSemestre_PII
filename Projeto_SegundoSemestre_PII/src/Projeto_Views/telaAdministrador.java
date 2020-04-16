@@ -10,12 +10,21 @@ import Modelo_classes.Produto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 /**
  *
@@ -34,6 +43,41 @@ public class telaAdministrador extends javax.swing.JFrame {
         initComponents();
 
     }
+    
+   public void exporTabela(JTable tabela,  File file ) throws IOException, NullPointerException{
+        
+        TableModel model = tabela.getModel();
+        FileWriter out = new FileWriter(file);
+        BufferedWriter bw = new BufferedWriter(out);
+            for(int i = 0; i < model.getColumnCount(); i++){
+                bw.write(model.getColumnName(i) + "\t");
+            }
+            bw.write("\n");
+            for(int i = 0; i < model.getRowCount(); i++){
+                for(int j = 0; j < model.getColumnCount(); j++){
+                    bw.write(model.getValueAt(i, j).toString()+"\t");
+                }
+            bw.write("\n");  
+            }
+            bw.close();
+            out.close();
+        }
+    
+    public void caminhoArquivo(JTable tabela){
+        JFileChooser f = new JFileChooser();
+        f.showSaveDialog(this);
+        String path = f.getSelectedFile().getPath();
+        
+        
+
+        try{
+            exporTabela(tabela, new File(path+".xls"));
+            JOptionPane.showMessageDialog(this, "Exportado com sucesso!");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "Erro ao exportar", "Erro", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+     
 
     public void limparCampos() {
         fieldBairro.setText("");
@@ -207,13 +251,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jToggleButton4 = new javax.swing.JToggleButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
+        tableMelhoresVendedores = new javax.swing.JTable();
         jLabel22 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        tableMaisVendidos = new javax.swing.JTable();
+        exportarExcel1 = new javax.swing.JButton();
+        exportarExcel2 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jButton2 = new javax.swing.JButton();
@@ -632,7 +676,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 61, Short.MAX_VALUE)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -646,49 +690,56 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Impressão de Relatórios"));
 
         jToggleButton4.setText("Imprimir");
+        jToggleButton4.setPreferredSize(new java.awt.Dimension(85, 32));
 
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tableMelhoresVendedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"1", "Madara", "M", "100"},
+                {"2", "Sasuke", "M", "19"},
+                {"3", "Itachi", "M", "15"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "id", "nome", "sexo", "idade"
             }
         ));
-        jScrollPane5.setViewportView(jTable4);
+        jScrollPane5.setViewportView(tableMelhoresVendedores);
 
         jLabel22.setText("Melhores Vendedores");
 
         jLabel21.setText("Produtos Mais Vendidos");
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tableMaisVendidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {"1", "Madara", "100", "I9"},
+                {"2", "Sasuke", "50", "Placa de video"},
+                {"3", "Itachi", "70", "Pc gamer"},
+                {"4", "Naruto", "32", "Gabinete"},
+                {"5", "Sakura", "51", "Notebook"},
+                {"6", "Tsunade", "61", "Mouses"},
+                {"7", "Ino", "47", "Teclados"},
+                {"8", "Hinata", "71", "Cadeiras gamers"}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "id", "nome", "quantidade", "produto"
             }
         ));
-        jScrollPane4.setViewportView(jTable3);
+        jScrollPane4.setViewportView(tableMaisVendidos);
 
-        jButton4.setText("Exportar");
-        jButton4.setPreferredSize(new java.awt.Dimension(85, 32));
+        exportarExcel1.setText("Exportar");
+        exportarExcel1.setPreferredSize(new java.awt.Dimension(85, 32));
+        exportarExcel1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarExcel1ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Exportar");
+        exportarExcel2.setText("Exportar");
+        exportarExcel2.setPreferredSize(new java.awt.Dimension(85, 32));
+        exportarExcel2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportarExcel2ActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Imprimir");
         jButton9.setPreferredSize(new java.awt.Dimension(85, 32));
@@ -699,24 +750,24 @@ public class telaAdministrador extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel22)
-                            .addComponent(jLabel21)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton5)
-                                    .addComponent(jToggleButton4)))))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jLabel22)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(exportarExcel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(exportarExcel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jToggleButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                     .addComponent(jScrollPane5))
                 .addContainerGap())
         );
@@ -727,23 +778,21 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addComponent(jLabel21)
                         .addGap(18, 18, 18)
                         .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(35, 35, 35)
+                        .addComponent(exportarExcel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(42, 42, 42)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
                         .addComponent(jLabel22)
                         .addGap(18, 18, 18)
-                        .addComponent(jToggleButton4)
+                        .addComponent(jToggleButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5))
+                        .addComponent(exportarExcel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder("Graficos"));
@@ -1089,77 +1138,145 @@ public class telaAdministrador extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 580, Short.MAX_VALUE)
+                .addGap(13, 13, 13))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
-        char c = evt.getKeyChar(); //recebe o evento
-        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_fieldCepKeyTyped
-
-    private void fieldCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyReleased
-        if (fieldCep.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
-        }
-    }//GEN-LAST:event_fieldCepKeyReleased
-
-    private void fieldNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyTyped
-        char c = evt.getKeyChar(); //recebe o evento
-        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_fieldNumeroCasaKeyTyped
-
-    private void fieldNumeroCasaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyReleased
-        if (fieldNumeroCasa.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
-        }
-    }//GEN-LAST:event_fieldNumeroCasaKeyReleased
-
-    private void fieldRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRuaKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
-        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
-            evt.consume();//aciona esse propriedade para eliminar a ação do evento
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_fieldRuaKeyTyped
-
-    private void fieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBairroKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
-        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
-            evt.consume();//aciona esse propriedade para eliminar a ação do evento
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_fieldBairroKeyTyped
-
-    private void fieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
-        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
-            evt.consume();//aciona esse propriedade para eliminar a ação do evento
-            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }//GEN-LAST:event_fieldNomeKeyTyped
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+        if (indexLinha >= 0) {
+
+            //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
+            DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+            model.removeRow(indexLinha);
+
+        }
+    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
     private void btnEntradaProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaProdutoEstoqueActionPerformed
         // TODO add your handling code here:
 
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
         System.out.println("Aqui tenho que add os itens a tabela....'tblProdutos'");
-
-
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
-    
+
+    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
+        // TODO add your handling code here:
+
+        //Abilita campos para nova edição
+        txtDescricao.setEnabled(true);
+        txtCodFabricante.setEnabled(true);
+        txtMarca.setEnabled(true);
+        cboTipo.setEnabled(true);
+        txtObservacao.setEnabled(true);
+        btnCriar.setEnabled(true);
+    }//GEN-LAST:event_btnEditarProdutoActionPerformed
+
+    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+        // TODO add your handling code here:
+
+        buscaAtivada = true;
+
+        int tipoBusca = cboTipoBusca.getSelectedIndex();
+        String busca = txtBusca.getText();
+
+        //exibo os dados do produto buscado porém desabilita a edição.
+        btnCriar.setEnabled(false);
+        txtDescricao.setEnabled(false);
+        txtCodFabricante.setEnabled(false);
+        txtMarca.setEnabled(false);
+        txtQuantidade.setEnabled(false);
+        txtObservacao.setEnabled(false);
+        cboTipo.setEnabled(false);
+
+        switch (tipoBusca) {
+            case 0:
+            //veriiica se existe itens na tabela
+            if (busca.length() > 0) {
+                System.out.println("Busca Código Fabricante ");
+                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                    //pega linha da tabela
+                    if (busca.equals(tblProdutos.getValueAt(i, 1))) {
+
+                        //pega valor do index da linha da tabela para podemos auterar os parametros...
+                        indexLinha = i;
+
+                        txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
+                        txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
+                        cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
+                        txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
+                        txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                    }
+                }
+            }
+            break;
+            case 1:
+            if (busca.length() > 0) {
+                System.out.println("Busca Descrição");
+                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                    if (busca.equals(tblProdutos.getValueAt(i, 0))) {
+
+                        //pega valor do index da linha da tabela para podemos auterar os parametros...
+                        indexLinha = i;
+
+                        txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
+                        txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
+                        cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
+                        txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
+                        txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                    }
+                }
+            }
+            break;
+            case 2:
+            if (busca.length() > 0) {
+                System.out.println("Busca tipo/Grupo");
+                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                    if (busca.equals(tblProdutos.getValueAt(i, 2))) {
+
+                        //pega valor do index da linha da tabela para podemos auterar os parametros...
+                        indexLinha = i;
+
+                        txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
+                        txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
+                        cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
+                        txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
+                        txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                    }
+                }
+            }
+            break;
+        }
+    }//GEN-LAST:event_btnBuscaActionPerformed
+
+    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
+        validacaoQuantidadeEstoque(evt);
+    }//GEN-LAST:event_jFormattedTextField1KeyTyped
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+        // TODO add your handling code here:
+
+        btnCriar.setEnabled(true);
+        txtDescricao.setText("");
+        txtCodFabricante.setText("");
+        txtMarca.setText("");
+        txtQuantidade.setText("");
+        txtObservacao.setText("");
+
+        txtDescricao.setEnabled(true);
+        txtCodFabricante.setEnabled(true);
+        txtMarca.setEnabled(true);
+        txtQuantidade.setEnabled(true);
+        txtObservacao.setEnabled(true);
+        cboTipo.setEnabled(true);
+    }//GEN-LAST:event_btnNovoActionPerformed
+
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
         // TODO add your handling code here:
 
@@ -1211,135 +1328,40 @@ public class telaAdministrador extends javax.swing.JFrame {
             }
 
         }
-
-
     }//GEN-LAST:event_btnCriarActionPerformed
 
-    private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
+    private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
+        validacaoQuantidadeEstoque(evt);
+    }//GEN-LAST:event_txtQuantidadeKeyTyped
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        validacaoCaracter(evt);
+    }//GEN-LAST:event_txtMarcaKeyTyped
+
+    private void txtCodFabricanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFabricanteKeyTyped
+        validacaoCaracter(evt);
+    }//GEN-LAST:event_txtCodFabricanteKeyTyped
+
+    private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
+        validacaoCaracter(evt);
+    }//GEN-LAST:event_txtDescricaoKeyTyped
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-        buscaAtivada = true;
-
-        int tipoBusca = cboTipoBusca.getSelectedIndex();
-        String busca = txtBusca.getText();
-
-        //exibo os dados do produto buscado porém desabilita a edição.
-        btnCriar.setEnabled(false);
-        txtDescricao.setEnabled(false);
-        txtCodFabricante.setEnabled(false);
-        txtMarca.setEnabled(false);
-        txtQuantidade.setEnabled(false);
-        txtObservacao.setEnabled(false);
-        cboTipo.setEnabled(false);
-
-        switch (tipoBusca) {
-            case 0:
-                //veriiica se existe itens na tabela
-                if (busca.length() > 0) {
-                    System.out.println("Busca Código Fabricante ");
-                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        //pega linha da tabela
-                        if (busca.equals(tblProdutos.getValueAt(i, 1))) {
-
-                            //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            indexLinha = i;
-
-                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
-                        }
-                    }
-                }
-                break;
-            case 1:
-                if (busca.length() > 0) {
-                    System.out.println("Busca Descrição");
-                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        if (busca.equals(tblProdutos.getValueAt(i, 0))) {
-
-                            //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            indexLinha = i;
-
-                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
-                        }
-                    }
-                }
-                break;
-            case 2:
-                if (busca.length() > 0) {
-                    System.out.println("Busca tipo/Grupo");
-                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        if (busca.equals(tblProdutos.getValueAt(i, 2))) {
-
-                            //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            indexLinha = i;
-
-                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
-                        }
-                    }
-                }
-                break;
+    private void exportarExcel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarExcel1ActionPerformed
+        File arquivo1 = new File("Excel1.txt");
+         
+        try {
+            exporTabela(tableMaisVendidos, arquivo1);
+            caminhoArquivo(tableMaisVendidos);
+        } catch (IOException ex) {
+            Logger.getLogger(telaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(NullPointerException e){
+            e.printStackTrace();
         }
-
-
-    }//GEN-LAST:event_btnBuscaActionPerformed
-
-    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
-
-        btnCriar.setEnabled(true);
-        txtDescricao.setText("");
-        txtCodFabricante.setText("");
-        txtMarca.setText("");
-        txtQuantidade.setText("");
-        txtObservacao.setText("");
-
-        txtDescricao.setEnabled(true);
-        txtCodFabricante.setEnabled(true);
-        txtMarca.setEnabled(true);
-        txtQuantidade.setEnabled(true);
-        txtObservacao.setEnabled(true);
-        cboTipo.setEnabled(true);
-
-
-    }//GEN-LAST:event_btnNovoActionPerformed
-
-    private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
-        // TODO add your handling code here:
-
-        //Abilita campos para nova edição
-        txtDescricao.setEnabled(true);
-        txtCodFabricante.setEnabled(true);
-        txtMarca.setEnabled(true);
-        cboTipo.setEnabled(true);
-        txtObservacao.setEnabled(true);
-        btnCriar.setEnabled(true);
-
-
-    }//GEN-LAST:event_btnEditarProdutoActionPerformed
-
-    private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
-        // TODO add your handling code here:
-
-        if (indexLinha >= 0) {
-
-            //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-            DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
-            model.removeRow(indexLinha);
-
-        }
-
-    }//GEN-LAST:event_btnDeletarProdutoActionPerformed
+    }//GEN-LAST:event_exportarExcel1ActionPerformed
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         boolean campoValidado = false;
@@ -1358,8 +1380,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         funcionarios.setData(fieldDataNacimento.getText());
 
         campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getData(),
-                funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
-                funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
+            funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
+            funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
 
         try {
 
@@ -1378,14 +1400,79 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!");
             limparCampos();
         }
-
-
     }//GEN-LAST:event_jToggleButton1ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
+        char c = evt.getKeyChar(); //recebe o evento
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_fieldCepKeyTyped
+
+    private void fieldCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyReleased
+        if (fieldCep.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
+        }
+    }//GEN-LAST:event_fieldCepKeyReleased
+
+    private void fieldNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyTyped
+        char c = evt.getKeyChar(); //recebe o evento
+        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_fieldNumeroCasaKeyTyped
+
+    private void fieldNumeroCasaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyReleased
+        if (fieldNumeroCasa.getText().trim().equals("")) {
+            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
+        }
+    }//GEN-LAST:event_fieldNumeroCasaKeyReleased
+
+    private void fieldRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRuaKeyTyped
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
+            evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_fieldRuaKeyTyped
+
+    private void fieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBairroKeyTyped
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
+            evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_fieldBairroKeyTyped
+
+    private void fieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyTyped
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç";// lista de caracters que não devem ser aceitos
+        if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
+            evt.consume();//aciona esse propriedade para eliminar a ação do evento
+            JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_fieldNomeKeyTyped
 
     private void fieldNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldNomeActionPerformed
-    
+
+    private void exportarExcel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarExcel2ActionPerformed
+           File arquivo2 = new File("Excel2.txt");
+         
+        try {
+            exporTabela(tableMelhoresVendedores, arquivo2);
+            caminhoArquivo(tableMelhoresVendedores);
+        } catch (IOException ex) {
+            Logger.getLogger(telaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(NullPointerException e){
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_exportarExcel2ActionPerformed
+        
     //função para validar a utilização de caracters
     private void validacaoCaracter(java.awt.event.KeyEvent evt){
         
@@ -1418,30 +1505,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     }
     
     
-    private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
-        validacaoCaracter(evt);
-    }//GEN-LAST:event_txtDescricaoKeyTyped
-
-    private void txtCodFabricanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFabricanteKeyTyped
-        validacaoCaracter(evt);
-    }//GEN-LAST:event_txtCodFabricanteKeyTyped
-
-    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
-        validacaoCaracter(evt);
-    }//GEN-LAST:event_txtMarcaKeyTyped
-
-    private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
-        validacaoQuantidadeEstoque(evt);
-    }//GEN-LAST:event_txtQuantidadeKeyTyped
-
-    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
-        validacaoQuantidadeEstoque(evt);
-    }//GEN-LAST:event_jFormattedTextField1KeyTyped
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -1490,6 +1553,8 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JComboBox<String> cboTipo;
     private javax.swing.JComboBox<String> cboTipoBusca;
+    private javax.swing.JButton exportarExcel1;
+    private javax.swing.JButton exportarExcel2;
     private javax.swing.JTextField fieldBairro;
     private javax.swing.JTextField fieldBuscarFuncionarios;
     private javax.swing.JFormattedTextField fieldCPF;
@@ -1506,8 +1571,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton9;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
@@ -1555,10 +1618,10 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JTable tableMaisVendidos;
+    private javax.swing.JTable tableMelhoresVendedores;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtCodFabricante;
