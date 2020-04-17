@@ -43,41 +43,46 @@ public class telaAdministrador extends javax.swing.JFrame {
         initComponents();
 
     }
-    
-   public void exporTabela(JTable tabela,  File file ) throws IOException, NullPointerException{
-        
+
+    public void exporTabela(JTable tabela, File file) throws IOException, NullPointerException {
+
         TableModel model = tabela.getModel();
         FileWriter out = new FileWriter(file);
         BufferedWriter bw = new BufferedWriter(out);
-            for(int i = 0; i < model.getColumnCount(); i++){
-                bw.write(model.getColumnName(i) + "\t");
+        for (int i = 0; i < model.getColumnCount(); i++) {
+            bw.write(model.getColumnName(i) + "\t");
+        }
+        bw.write("\n");
+        for (int i = 0; i < model.getRowCount(); i++) {
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                bw.write(model.getValueAt(i, j).toString() + "\t");
             }
             bw.write("\n");
-            for(int i = 0; i < model.getRowCount(); i++){
-                for(int j = 0; j < model.getColumnCount(); j++){
-                    bw.write(model.getValueAt(i, j).toString()+"\t");
-                }
-            bw.write("\n");  
-            }
-            bw.close();
-            out.close();
         }
-    
-    public void caminhoArquivo(JTable tabela){
-        JFileChooser f = new JFileChooser();
-        f.showSaveDialog(this);
-        String path = f.getSelectedFile().getPath();
-        
-        
+        bw.close();
+        out.close();
+    }
 
-        try{
-            exporTabela(tabela, new File(path+".xls"));
+    public void caminhoArquivo(JTable tabela) {
+        JFileChooser f = null;
+        String path = null;
+        try {
+            f = new JFileChooser();
+            f.showSaveDialog(this);
+            path = f.getSelectedFile().getPath();
+
+            exporTabela(tabela, new File(path + ".xls"));
             JOptionPane.showMessageDialog(this, "Exportado com sucesso!");
-        }catch(Exception e){
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cancelado!");
+        }
+
+        try {
+
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Erro ao exportar", "Erro", JOptionPane.ERROR_MESSAGE);
         }
     }
-     
 
     public void limparCampos() {
         fieldBairro.setText("");
@@ -1197,61 +1202,61 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         switch (tipoBusca) {
             case 0:
-            //veriiica se existe itens na tabela
-            if (busca.length() > 0) {
-                System.out.println("Busca Código Fabricante ");
-                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                    //pega linha da tabela
-                    if (busca.equals(tblProdutos.getValueAt(i, 1))) {
+                //veriiica se existe itens na tabela
+                if (busca.length() > 0) {
+                    System.out.println("Busca Código Fabricante ");
+                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                        //pega linha da tabela
+                        if (busca.equals(tblProdutos.getValueAt(i, 1))) {
 
-                        //pega valor do index da linha da tabela para podemos auterar os parametros...
-                        indexLinha = i;
+                            //pega valor do index da linha da tabela para podemos auterar os parametros...
+                            indexLinha = i;
 
-                        txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                        txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                        cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                        txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                        txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
+                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
+                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
+                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
+                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                        }
                     }
                 }
-            }
-            break;
+                break;
             case 1:
-            if (busca.length() > 0) {
-                System.out.println("Busca Descrição");
-                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                    if (busca.equals(tblProdutos.getValueAt(i, 0))) {
+                if (busca.length() > 0) {
+                    System.out.println("Busca Descrição");
+                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                        if (busca.equals(tblProdutos.getValueAt(i, 0))) {
 
-                        //pega valor do index da linha da tabela para podemos auterar os parametros...
-                        indexLinha = i;
+                            //pega valor do index da linha da tabela para podemos auterar os parametros...
+                            indexLinha = i;
 
-                        txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                        txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                        cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                        txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                        txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
+                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
+                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
+                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
+                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                        }
                     }
                 }
-            }
-            break;
+                break;
             case 2:
-            if (busca.length() > 0) {
-                System.out.println("Busca tipo/Grupo");
-                for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                    if (busca.equals(tblProdutos.getValueAt(i, 2))) {
+                if (busca.length() > 0) {
+                    System.out.println("Busca tipo/Grupo");
+                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                        if (busca.equals(tblProdutos.getValueAt(i, 2))) {
 
-                        //pega valor do index da linha da tabela para podemos auterar os parametros...
-                        indexLinha = i;
+                            //pega valor do index da linha da tabela para podemos auterar os parametros...
+                            indexLinha = i;
 
-                        txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                        txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                        cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                        txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                        txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
+                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
+                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
+                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
+                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                        }
                     }
                 }
-            }
-            break;
+                break;
         }
     }//GEN-LAST:event_btnBuscaActionPerformed
 
@@ -1352,13 +1357,13 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     private void exportarExcel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarExcel1ActionPerformed
         File arquivo1 = new File("Excel1.txt");
-         
+
         try {
             exporTabela(tableMaisVendidos, arquivo1);
             caminhoArquivo(tableMaisVendidos);
         } catch (IOException ex) {
             Logger.getLogger(telaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_exportarExcel1ActionPerformed
@@ -1380,8 +1385,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         funcionarios.setData(fieldDataNacimento.getText());
 
         campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getData(),
-            funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
-            funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
+                funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
+                funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
 
         try {
 
@@ -1461,50 +1466,48 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldNomeActionPerformed
 
     private void exportarExcel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportarExcel2ActionPerformed
-           File arquivo2 = new File("Excel2.txt");
-         
+        File arquivo2 = new File("Excel2.txt");
+
         try {
             exporTabela(tableMelhoresVendedores, arquivo2);
             caminhoArquivo(tableMelhoresVendedores);
         } catch (IOException ex) {
             Logger.getLogger(telaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
-        }catch(NullPointerException e){
+        } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_exportarExcel2ActionPerformed
-        
+
     //função para validar a utilização de caracters
-    private void validacaoCaracter(java.awt.event.KeyEvent evt){
-        
+    private void validacaoCaracter(java.awt.event.KeyEvent evt) {
+
         String naoPermitidos = "!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";//caracteres que não serão aceitos (Resolver " e \)
         if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
-    
+
     //função para validar a utilização de caracters e numeros
-    private void validacaoCaracterNumero(java.awt.event.KeyEvent evt){
-        
+    private void validacaoCaracterNumero(java.awt.event.KeyEvent evt) {
+
         String naoPermitidos = "0987654321!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";//caracteres que não serão aceitos (Resolver " e \)
         if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
+
     //função para validar a utilização de caracters e numeros
-    private void validacaoQuantidadeEstoque(java.awt.event.KeyEvent evt){
-        
+    private void validacaoQuantidadeEstoque(java.awt.event.KeyEvent evt) {
+
         String naoPermitidos = "abcdefghijklmnopqrstuvwxyz.!@#$%¨&*('-){}[]+=,./:;?|_ºª°§ABCDEFGHIJKLMNOPQRSTUVWXYZ";//caracteres que não serão aceitos (Resolver " e \)
         if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }
-    
-    
+
     /**
      * @param args the command line arguments
      */
