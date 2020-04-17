@@ -35,6 +35,12 @@ public class telaVendedor extends javax.swing.JFrame {
         txtRua.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
         txtBairro.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
 
+        //Implementacao da classe ValidacaoDeCampos na aba de estoque
+        txtTipo.setDocument(new soCaracteres());
+        txtModelo.setDocument(new soCaracteres());
+        txtMarca.setDocument(new soCaracteres());
+        txtidProduto.setDocument(new soNumeros());
+               
     }
 
     /**
@@ -80,7 +86,7 @@ public class telaVendedor extends javax.swing.JFrame {
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tblEstoque = new javax.swing.JTable();
         jPanel15 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         txtTipo = new javax.swing.JTextField();
@@ -89,8 +95,10 @@ public class telaVendedor extends javax.swing.JFrame {
         jLabel24 = new javax.swing.JLabel();
         txtMarca = new javax.swing.JTextField();
         jLabel25 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtidProduto = new javax.swing.JTextField();
+        btnPesquisa = new javax.swing.JButton();
+        btnclearSeach = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -413,7 +421,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tblEstoque.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -429,7 +437,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tblEstoque);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -452,24 +460,81 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jLabel17.setText("Tipo:");
 
+        txtTipo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTipoMouseClicked(evt);
+            }
+        });
+        txtTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTipoKeyTyped(evt);
+            }
+        });
+
         jLabel18.setText("Modelo:");
+
+        txtModelo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtModeloMouseClicked(evt);
+            }
+        });
+        txtModelo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtModeloActionPerformed(evt);
+            }
+        });
+        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtModeloKeyTyped(evt);
+            }
+        });
 
         jLabel24.setText("Marca:");
 
+        txtMarca.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtMarcaMouseClicked(evt);
+            }
+        });
+        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtMarcaKeyTyped(evt);
+            }
+        });
+
         jLabel25.setText("#ID:");
 
-        txtID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
+        txtidProduto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtidProdutoMouseClicked(evt);
             }
         });
-        txtID.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtidProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtidProdutoActionPerformed(evt);
+            }
+        });
+        txtidProduto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIDKeyTyped(evt);
+                txtidProdutoKeyTyped(evt);
             }
         });
 
-        jButton2.setText("Pesquisar");
+        btnPesquisa.setText("Pesquisar");
+        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisaActionPerformed(evt);
+            }
+        });
+
+        btnclearSeach.setText("Limpar Pesquisa");
+        btnclearSeach.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnclearSeachActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa de Vídeo", "Placa de Capitura", "Placa Mãe", "Fonte", "Hard Disk (HD) / SSD", "Memória", "Gabinete" }));
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -485,7 +550,11 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)))
+                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel15Layout.createSequentialGroup()
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))))
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -496,11 +565,13 @@ public class telaVendedor extends javax.swing.JFrame {
                         .addGap(38, 38, 38)
                         .addComponent(jLabel25)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtID)))
+                        .addComponent(txtidProduto)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnclearSeach)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
         jPanel15Layout.setVerticalGroup(
@@ -517,9 +588,12 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addComponent(jLabel24)
                     .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel25)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtidProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPesquisa)
+                    .addComponent(btnclearSeach)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -1087,27 +1161,6 @@ public class telaVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     TableRowSorter trs;
-    
-    // essa função partilha os mesmo atributos da feita pelo nailson apenas reescrecendo ela aqui
-    // ref : validacaoCaractereNumero package view/telaAdministrador
-    private void checkCaractere (java.awt.event.KeyEvent evt){
-        String notPermission = "0987654321!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";
-        if (notPermission.contains(evt.getKeyChar()+"")){
-            evt.consume(); 
-            JOptionPane.showMessageDialog(this, "Caractere invalido!");
-        }
-    }
-    
-    private void checkText (java.awt.event.KeyEvent evt){
-    String dontPermission = "QWERTYUIOPLKJHGFDSAZXCVBNMqwertyuioplkjhgfdsazxcvbnm!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";
-       if (dontPermission.contains(evt.getKeyChar()+"")){
-         evt.consume();
-         JOptionPane.showMessageDialog(this,"Somente Números!");
-          
-        }
-
-        
-    }
                    
     private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
         // TODO add your handling code here:
@@ -1172,6 +1225,40 @@ public class telaVendedor extends javax.swing.JFrame {
         System.out.println(itensTeste[0][6]);
         System.out.println(itensTeste[3][6]);
         System.out.println(itensTeste[7][6]);
+        
+        // **SOMENTE PARA TESTE** 
+        //autor renan.smaciel
+        
+        
+        //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
+        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
+        
+       //uma lista que preenche a tabela estoque
+        String itensTesteEstoque [][]
+                = {
+                    {"Placa de Video", "RTX2080", "Nvidia", "1000",  "2.999,00", "33"},
+                    {"Placa de Video", "GTX970", "Nvidia", "1001",  "499,00", "33"},
+                    {"Placa de Video", "V100S", "Nvidia", "1002", "299,00", "33"},
+                    {"Placa de Video","RTX8000", "Nvidia", "1004", "3.999,00", "03"},
+                    {"Placa Mãe", "AORUS B630M", "Asus", "1003", "486,00", "99"},
+                    {"Processador","AMD RYZEN 3", "AMD", "1005", "999,00", "99"},
+                    {"Processador", "I5-9600KF", "INTEL", "1006", "1.209,97", "53"},
+                    {"HDD", "ST1000DM010", "Seagate", "1007", "486,00", "96"},
+                    {"Processador", "AMD RYZEN 7", "AMD", "1008", "999,00", "34"},
+                    {"Processador", "I7-9600KF", "INTEL", "42","1.209,97", "31"},
+                    {"Teclado","Mx Master 2S", "LOGITECH", "1042","350,00", "31"},};
+       
+        for (int i = 0; i < itensTesteEstoque.length; i++) {
+                     
+            tblestoque.addRow(new Object[] {itensTesteEstoque [i][0],
+                                            itensTesteEstoque [i][1],
+                                            itensTesteEstoque [i][2],
+                                            itensTesteEstoque [i][3],
+                                            itensTesteEstoque [i][4],
+                                            itensTesteEstoque [i][5],});
+        }
+        
+        
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -1575,13 +1662,120 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+    private void txtidProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidProdutoActionPerformed
 
-    }//GEN-LAST:event_txtIDActionPerformed
+    }//GEN-LAST:event_txtidProdutoActionPerformed
 
-    private void txtIDKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIDKeyTyped
-        checkText(evt);
-    }//GEN-LAST:event_txtIDKeyTyped
+    private void txtidProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidProdutoKeyTyped
+        txtidProduto.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtidProduto.getText(), 3));
+            }
+        });
+
+        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
+        trs = new TableRowSorter(tblestoque);
+        tblEstoque.setRowSorter(trs);
+    }//GEN-LAST:event_txtidProdutoKeyTyped
+
+    private void txtTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTipoMouseClicked
+        // quando clica no campo de filtro desabilita os outros campos
+        txtModelo.setEnabled(false);
+        txtMarca.setEnabled(false);
+        txtidProduto.setEnabled(false);
+        
+    }//GEN-LAST:event_txtTipoMouseClicked
+
+    private void txtModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtModeloMouseClicked
+       // quando clica no campo de filtro desabilita os outros campos
+        txtTipo.setEnabled(false);
+        txtMarca.setEnabled(false);
+        txtidProduto.setEnabled(false);
+    }//GEN-LAST:event_txtModeloMouseClicked
+
+    private void txtMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMarcaMouseClicked
+        // quando clica no campo de filtro desabilita os outros campos
+        txtModelo.setEnabled(false);
+        txtTipo.setEnabled(false);
+        txtidProduto.setEnabled(false);
+    }//GEN-LAST:event_txtMarcaMouseClicked
+
+    private void txtidProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtidProdutoMouseClicked
+        // quando clica no campo de filtro desabilita os outros campos
+        txtModelo.setEnabled(false);
+        txtMarca.setEnabled(false);
+        txtTipo.setEnabled(false);
+    }//GEN-LAST:event_txtidProdutoMouseClicked
+
+    private void btnclearSeachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearSeachActionPerformed
+        //Reabilita todos os campos de pesquisa
+        txtModelo.setEnabled(true);
+        txtMarca.setEnabled(true);
+        txtTipo.setEnabled(true);
+        txtidProduto.setEnabled(true);
+        
+        
+        
+        //limpa os campos
+        txtModelo.setText("");
+        txtMarca.setText("");
+        txtTipo.setText("");
+        txtidProduto.setText("");
+        
+    }//GEN-LAST:event_btnclearSeachActionPerformed
+
+    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
+        // aguardando implementacao
+    }//GEN-LAST:event_btnPesquisaActionPerformed
+
+    private void txtTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyTyped
+       
+        txtTipo.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtTipo.getText(), 0));
+            }
+        });
+
+        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
+        trs = new TableRowSorter(tblestoque);
+        tblEstoque.setRowSorter(trs);
+    }//GEN-LAST:event_txtTipoKeyTyped
+
+    private void txtModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtModeloActionPerformed
+
+    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
+        txtModelo.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtModelo.getText(), 1));
+            }
+        });
+
+        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
+        trs = new TableRowSorter(tblestoque);
+        tblEstoque.setRowSorter(trs);
+    }//GEN-LAST:event_txtModeloKeyTyped
+
+    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
+        txtMarca.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtMarca.getText(), 2));
+            }
+        });
+
+        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
+        trs = new TableRowSorter(tblestoque);
+        tblEstoque.setRowSorter(trs);
+    }//GEN-LAST:event_txtMarcaKeyTyped
 
     
     /**
@@ -1628,14 +1822,16 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
+    private javax.swing.JButton btnPesquisa;
+    private javax.swing.JButton btnclearSeach;
     private javax.swing.JComboBox<String> comboECivil;
     private javax.swing.JComboBox<String> comboSexo;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1691,7 +1887,6 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
     private javax.swing.JTextField jTextField19;
@@ -1702,6 +1897,7 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTable tabelaCliente;
+    private javax.swing.JTable tblEstoque;
     private javax.swing.JTable tblVendaRealizada;
     private javax.swing.JFormattedTextField txtBCpf;
     private javax.swing.JTextField txtBairro;
@@ -1712,13 +1908,13 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JFormattedTextField txtFone;
-    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNum;
     private javax.swing.JTextField txtRua;
     private javax.swing.JTextField txtTipo;
+    private javax.swing.JTextField txtidProduto;
     // End of variables declaration//GEN-END:variables
 
 }
