@@ -35,15 +35,11 @@ public class telaVendedor extends javax.swing.JFrame {
         txtRua.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
         txtBairro.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
 
-        //Implementacao da classe ValidacaoDeCampos na aba de estoque
-        txtTipo.setDocument(new soCaracteres());
-        txtModelo.setDocument(new soCaracteres());
-        txtMarca.setDocument(new soCaracteres());
-        txtidProduto.setDocument(new soNumeros());
-
         //Implementacao da classe ValidacaoDeCampos na aba de venda
         txtCarrinhoID.setDocument(new soNumeros());
         txtCarrinhoQuantidade.setDocument(new soNumeros());
+        txtFiltroTipo.setDocument(new soCaracteres());
+        txtFiltroMarca.setDocument(new soCaracteres());
 
     }
 
@@ -86,23 +82,6 @@ public class telaVendedor extends javax.swing.JFrame {
         txtCarrinhoID = new javax.swing.JTextField();
         jLabel32 = new javax.swing.JLabel();
         jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jPanel14 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tblEstoque = new javax.swing.JTable();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel17 = new javax.swing.JLabel();
-        txtTipo = new javax.swing.JTextField();
-        jLabel18 = new javax.swing.JLabel();
-        txtModelo = new javax.swing.JTextField();
-        jLabel24 = new javax.swing.JLabel();
-        txtMarca = new javax.swing.JTextField();
-        jLabel25 = new javax.swing.JLabel();
-        txtidProduto = new javax.swing.JTextField();
-        btnPesquisa = new javax.swing.JButton();
-        btnclearSeach = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -284,7 +263,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
             },
             new String [] {
-
+                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
             }
         ));
         jScrollPane3.setViewportView(tabelaCarrinho);
@@ -416,224 +395,6 @@ public class telaVendedor extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Venda", jPanel1);
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder("Produtos"));
-
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabela"));
-
-        tblEstoque.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane2.setViewportView(tblEstoque);
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2)
-                .addContainerGap())
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 268, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
-
-        jLabel17.setText("Tipo:");
-
-        txtTipo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtTipoMouseClicked(evt);
-            }
-        });
-        txtTipo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtTipoKeyTyped(evt);
-            }
-        });
-
-        jLabel18.setText("Modelo:");
-
-        txtModelo.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtModeloMouseClicked(evt);
-            }
-        });
-        txtModelo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtModeloActionPerformed(evt);
-            }
-        });
-        txtModelo.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtModeloKeyTyped(evt);
-            }
-        });
-
-        jLabel24.setText("Marca:");
-
-        txtMarca.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtMarcaMouseClicked(evt);
-            }
-        });
-        txtMarca.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtMarcaKeyTyped(evt);
-            }
-        });
-
-        jLabel25.setText("#ID:");
-
-        txtidProduto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtidProdutoMouseClicked(evt);
-            }
-        });
-        txtidProduto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtidProdutoActionPerformed(evt);
-            }
-        });
-        txtidProduto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtidProdutoKeyTyped(evt);
-            }
-        });
-
-        btnPesquisa.setText("Pesquisar");
-        btnPesquisa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPesquisaActionPerformed(evt);
-            }
-        });
-
-        btnclearSeach.setText("Limpar Pesquisa");
-        btnclearSeach.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnclearSeachActionPerformed(evt);
-            }
-        });
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa de Vídeo", "Placa de Capitura", "Placa Mãe", "Fonte", "Hard Disk (HD) / SSD", "Memória", "Gabinete" }));
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTipo))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))))
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel18)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel15Layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(jLabel25)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtidProduto)))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnclearSeach)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel18)
-                    .addComponent(txtModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel24)
-                    .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel25)
-                    .addComponent(txtidProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPesquisa)
-                    .addComponent(btnclearSeach)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Estoque", jPanel2);
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro"));
 
@@ -1151,7 +912,7 @@ public class telaVendedor extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
         );
 
         pack();
@@ -1220,11 +981,6 @@ public class telaVendedor extends javax.swing.JFrame {
         System.out.println(itensTeste[3][6]);
         System.out.println(itensTeste[7][6]);
 
-        // **SOMENTE PARA TESTE** 
-        //autor renan.smaciel
-        //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
-
         //uma lista que preenche a tabela estoque
         String itensTesteEstoque[][]
                 = {
@@ -1239,17 +995,6 @@ public class telaVendedor extends javax.swing.JFrame {
                     {"Processador", "AMD RYZEN 7", "AMD", "1008", "999,00", "34"},
                     {"Processador", "I7-9600KF", "INTEL", "42", "1.209,97", "31"},
                     {"Teclado", "Mx Master 2S", "LOGITECH", "1042", "350,00", "31"},};
-
-        for (int i = 0; i < itensTesteEstoque.length; i++) {
-
-            tblestoque.addRow(new Object[]{itensTesteEstoque[i][0],
-                itensTesteEstoque[i][1],
-                itensTesteEstoque[i][2],
-                itensTesteEstoque[i][3],
-                itensTesteEstoque[i][4],
-                itensTesteEstoque[i][5],});
-        }
-
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -1652,119 +1397,6 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void txtidProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtidProdutoActionPerformed
-
-    }//GEN-LAST:event_txtidProdutoActionPerformed
-
-    private void txtidProdutoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtidProdutoKeyTyped
-        txtidProduto.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter(txtidProduto.getText(), 3));
-            }
-        });
-
-        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
-        trs = new TableRowSorter(tblestoque);
-        tblEstoque.setRowSorter(trs);
-    }//GEN-LAST:event_txtidProdutoKeyTyped
-
-    private void txtTipoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTipoMouseClicked
-        // quando clica no campo de filtro desabilita os outros campos
-        txtModelo.setEnabled(false);
-        txtMarca.setEnabled(false);
-        txtidProduto.setEnabled(false);
-
-    }//GEN-LAST:event_txtTipoMouseClicked
-
-    private void txtModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtModeloMouseClicked
-        // quando clica no campo de filtro desabilita os outros campos
-        txtTipo.setEnabled(false);
-        txtMarca.setEnabled(false);
-        txtidProduto.setEnabled(false);
-    }//GEN-LAST:event_txtModeloMouseClicked
-
-    private void txtMarcaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtMarcaMouseClicked
-        // quando clica no campo de filtro desabilita os outros campos
-        txtModelo.setEnabled(false);
-        txtTipo.setEnabled(false);
-        txtidProduto.setEnabled(false);
-    }//GEN-LAST:event_txtMarcaMouseClicked
-
-    private void txtidProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtidProdutoMouseClicked
-        // quando clica no campo de filtro desabilita os outros campos
-        txtModelo.setEnabled(false);
-        txtMarca.setEnabled(false);
-        txtTipo.setEnabled(false);
-    }//GEN-LAST:event_txtidProdutoMouseClicked
-
-    private void btnclearSeachActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnclearSeachActionPerformed
-        //Reabilita todos os campos de pesquisa
-        txtModelo.setEnabled(true);
-        txtMarca.setEnabled(true);
-        txtTipo.setEnabled(true);
-        txtidProduto.setEnabled(true);
-
-        //limpa os campos
-        txtModelo.setText("");
-        txtMarca.setText("");
-        txtTipo.setText("");
-        txtidProduto.setText("");
-
-    }//GEN-LAST:event_btnclearSeachActionPerformed
-
-    private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
-        // aguardando implementacao
-    }//GEN-LAST:event_btnPesquisaActionPerformed
-
-    private void txtTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyTyped
-
-        txtTipo.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter(txtTipo.getText(), 0));
-            }
-        });
-
-        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
-        trs = new TableRowSorter(tblestoque);
-        tblEstoque.setRowSorter(trs);
-    }//GEN-LAST:event_txtTipoKeyTyped
-
-    private void txtModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtModeloActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtModeloActionPerformed
-
-    private void txtModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtModeloKeyTyped
-        txtModelo.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter(txtModelo.getText(), 1));
-            }
-        });
-
-        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
-        trs = new TableRowSorter(tblestoque);
-        tblEstoque.setRowSorter(trs);
-    }//GEN-LAST:event_txtModeloKeyTyped
-
-    private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
-        txtMarca.addKeyListener(new KeyAdapter() {
-
-            @Override
-            public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter(txtMarca.getText(), 2));
-            }
-        });
-
-        DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
-        trs = new TableRowSorter(tblestoque);
-        tblEstoque.setRowSorter(trs);
-    }//GEN-LAST:event_txtMarcaKeyTyped
-
     private void txtFiltroTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroTipoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFiltroTipoActionPerformed
@@ -1926,15 +1558,12 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
-    private javax.swing.JButton btnPesquisa;
-    private javax.swing.JButton btnclearSeach;
     private javax.swing.JComboBox<String> comboECivil;
     private javax.swing.JComboBox<String> comboSexo;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -1944,16 +1573,12 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
@@ -1969,14 +1594,10 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
     private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
@@ -1986,7 +1607,6 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JPanel jPvendaRealizada;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
@@ -1995,7 +1615,6 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JTable tabelaCarrinho;
     private javax.swing.JTable tabelaCliente;
     private javax.swing.JTable tabelaVenda;
-    private javax.swing.JTable tblEstoque;
     private javax.swing.JTable tblVendaRealizada;
     private javax.swing.JFormattedTextField txtBCpf;
     private javax.swing.JTextField txtBairro;
@@ -2011,13 +1630,9 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtFiltroModelo;
     private javax.swing.JTextField txtFiltroTipo;
     private javax.swing.JFormattedTextField txtFone;
-    private javax.swing.JTextField txtMarca;
-    private javax.swing.JTextField txtModelo;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNum;
     private javax.swing.JTextField txtRua;
-    private javax.swing.JTextField txtTipo;
-    private javax.swing.JTextField txtidProduto;
     // End of variables declaration//GEN-END:variables
 
 }
