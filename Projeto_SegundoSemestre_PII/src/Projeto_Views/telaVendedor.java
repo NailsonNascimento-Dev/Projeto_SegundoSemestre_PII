@@ -40,7 +40,11 @@ public class telaVendedor extends javax.swing.JFrame {
         txtModelo.setDocument(new soCaracteres());
         txtMarca.setDocument(new soCaracteres());
         txtidProduto.setDocument(new soNumeros());
-               
+
+        //Implementacao da classe ValidacaoDeCampos na aba de venda
+        txtCarrinhoID.setDocument(new soNumeros());
+        txtCarrinhoQuantidade.setDocument(new soNumeros());
+
     }
 
     /**
@@ -61,27 +65,27 @@ public class telaVendedor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel16 = new javax.swing.JPanel();
         jLabel30 = new javax.swing.JLabel();
-        jTextField19 = new javax.swing.JTextField();
         jPanel18 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jTextField21 = new javax.swing.JTextField();
+        txtFiltroTipo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField7 = new javax.swing.JTextField();
+        txtFiltroModelo = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        jLabel32 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable4 = new javax.swing.JTable();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel31 = new javax.swing.JLabel();
-        jTextField20 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        tabelaVenda = new javax.swing.JTable();
+        txtFiltroMarca = new javax.swing.JTextField();
         jPanel19 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tabelaCarrinho = new javax.swing.JTable();
         jLabel33 = new javax.swing.JLabel();
         jTextField22 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
+        btAdicionar = new javax.swing.JButton();
+        jLabel31 = new javax.swing.JLabel();
+        txtCarrinhoQuantidade = new javax.swing.JTextField();
+        txtCarrinhoID = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -174,65 +178,65 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jLabel30.setText("Cpf:");
 
-        jTextField19.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField19ActionPerformed(evt);
-            }
-        });
-
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
 
         jLabel1.setText("Tipo");
 
+        txtFiltroTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFiltroTipoActionPerformed(evt);
+            }
+        });
+        txtFiltroTipo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroTipoKeyTyped(evt);
+            }
+        });
+
         jLabel3.setText("Modelo:");
+
+        txtFiltroModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroModeloKeyTyped(evt);
+            }
+        });
 
         jLabel12.setText("Marca:");
 
-        jLabel32.setText("Quantidade");
-
-        jTable4.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {"Placa de Video", "RTX2080", "Nvidia", "1000", "2.999,00", "33"},
+                {"Placa de Video", "GTX970", "Nvidia", "1001", "499,00", "33"},
+                {"Placa de Video", "V100S", "Nvidia", "1002", "299,00", "33"},
+                {"Placa de Video", "RTX8000", "Nvidia", "1004", "3.999,00", "03"},
+                {"Placa Mãe", "AORUS B630M", "Asus", "1003", "486,00", "99"},
+                {"Processador", "AMD RYZEN 3", "AMD", "1005", "999,00", "99"},
+                {"Processador", "I5-9600KF", "IINTEL", "1006", "1209,97", "53"},
+                {"HD", "ST1000DM010", "Seagate", "1007", "486,00", "96"},
+                {"Processador", "AMD RYZEN", " AMD", "1008", "999,00", "34"},
+                {"Teclado", "Mx Master 2S", "LOGITECH", "1042", "350,00", "31"}
             },
             new String [] {
                 "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
             }
         ));
-        jScrollPane4.setViewportView(jTable4);
-
-        jLabel31.setText("#ID produto:");
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+        tabelaVenda.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaVendaMouseClicked(evt);
             }
         });
+        jScrollPane4.setViewportView(tabelaVenda);
 
-        jButton4.setText("Pesquisar");
+        txtFiltroMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtFiltroMarcaActionPerformed(evt);
+            }
+        });
+        txtFiltroMarca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtFiltroMarcaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
         jPanel18.setLayout(jPanel18Layout);
@@ -241,33 +245,20 @@ public class telaVendedor extends javax.swing.JFrame {
             .addGroup(jPanel18Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
                     .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel3))
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel31)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFiltroTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFiltroModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jLabel32)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
-                                .addComponent(jButton4))
-                            .addGroup(jPanel18Layout.createSequentialGroup()
-                                .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField9)))))
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFiltroMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel18Layout.setVerticalGroup(
@@ -276,57 +267,27 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField21, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltroTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltroModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGap(17, 17, 17)
-                        .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel32)
-                            .addComponent(jLabel31)
-                            .addComponent(jTextField20, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel18Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton4)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                .addContainerGap())
+                    .addComponent(txtFiltroMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 164, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
         );
 
         jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder("Carrinho"));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaCarrinho.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
+
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tabelaCarrinho);
 
         jLabel33.setText("Valor Final");
 
@@ -338,28 +299,61 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jButton7.setText("Finalizar");
 
+        btAdicionar.setText("Adicionar");
+        btAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btAdicionarActionPerformed(evt);
+            }
+        });
+
+        jLabel31.setText("#ID produto:");
+
+        txtCarrinhoQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCarrinhoQuantidadeActionPerformed(evt);
+            }
+        });
+
+        jLabel32.setText("Quantidade");
+
         javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
         jPanel19.setLayout(jPanel19Layout);
         jPanel19Layout.setHorizontalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
+            .addGroup(jPanel19Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(jPanel19Layout.createSequentialGroup()
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel33)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jTextField22, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7)))
+                        .addComponent(jButton7))
+                    .addGroup(jPanel19Layout.createSequentialGroup()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCarrinhoID, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtCarrinhoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btAdicionar)))
                 .addContainerGap())
         );
         jPanel19Layout.setVerticalGroup(
             jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel19Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
+                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel31)
+                    .addComponent(txtCarrinhoID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel32)
+                    .addComponent(txtCarrinhoQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAdicionar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton7)
@@ -367,6 +361,12 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addComponent(jLabel33))
                 .addContainerGap())
         );
+
+        try {
+            jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -377,8 +377,8 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel16Layout.createSequentialGroup()
                         .addComponent(jLabel30)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -390,7 +390,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(jTextField19, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -551,10 +551,8 @@ public class telaVendedor extends javax.swing.JFrame {
                         .addComponent(jLabel24)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel15Layout.createSequentialGroup()
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 396, Short.MAX_VALUE))))
+                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))))
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel15Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -594,7 +592,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addComponent(btnPesquisa)
                     .addComponent(btnclearSeach)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1153,7 +1151,7 @@ public class telaVendedor extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 564, Short.MAX_VALUE)
         );
 
         pack();
@@ -1161,10 +1159,6 @@ public class telaVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     TableRowSorter trs;
-                   
-    private void jTextField19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField19ActionPerformed
 
     private void jTextField22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField22ActionPerformed
         // TODO add your handling code here:
@@ -1178,9 +1172,9 @@ public class telaVendedor extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscaNumeroCompraActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtCarrinhoQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarrinhoQuantidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtCarrinhoQuantidadeActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
 
@@ -1225,40 +1219,37 @@ public class telaVendedor extends javax.swing.JFrame {
         System.out.println(itensTeste[0][6]);
         System.out.println(itensTeste[3][6]);
         System.out.println(itensTeste[7][6]);
-        
+
         // **SOMENTE PARA TESTE** 
         //autor renan.smaciel
-        
-        
         //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
         DefaultTableModel tblestoque = (DefaultTableModel) tblEstoque.getModel();
-        
-       //uma lista que preenche a tabela estoque
-        String itensTesteEstoque [][]
+
+        //uma lista que preenche a tabela estoque
+        String itensTesteEstoque[][]
                 = {
-                    {"Placa de Video", "RTX2080", "Nvidia", "1000",  "2.999,00", "33"},
-                    {"Placa de Video", "GTX970", "Nvidia", "1001",  "499,00", "33"},
+                    {"Placa de Video", "RTX2080", "Nvidia", "1000", "2.999,00", "33"},
+                    {"Placa de Video", "GTX970", "Nvidia", "1001", "499,00", "33"},
                     {"Placa de Video", "V100S", "Nvidia", "1002", "299,00", "33"},
-                    {"Placa de Video","RTX8000", "Nvidia", "1004", "3.999,00", "03"},
+                    {"Placa de Video", "RTX8000", "Nvidia", "1004", "3.999,00", "03"},
                     {"Placa Mãe", "AORUS B630M", "Asus", "1003", "486,00", "99"},
-                    {"Processador","AMD RYZEN 3", "AMD", "1005", "999,00", "99"},
+                    {"Processador", "AMD RYZEN 3", "AMD", "1005", "999,00", "99"},
                     {"Processador", "I5-9600KF", "INTEL", "1006", "1.209,97", "53"},
                     {"HDD", "ST1000DM010", "Seagate", "1007", "486,00", "96"},
                     {"Processador", "AMD RYZEN 7", "AMD", "1008", "999,00", "34"},
-                    {"Processador", "I7-9600KF", "INTEL", "42","1.209,97", "31"},
-                    {"Teclado","Mx Master 2S", "LOGITECH", "1042","350,00", "31"},};
-       
+                    {"Processador", "I7-9600KF", "INTEL", "42", "1.209,97", "31"},
+                    {"Teclado", "Mx Master 2S", "LOGITECH", "1042", "350,00", "31"},};
+
         for (int i = 0; i < itensTesteEstoque.length; i++) {
-                     
-            tblestoque.addRow(new Object[] {itensTesteEstoque [i][0],
-                                            itensTesteEstoque [i][1],
-                                            itensTesteEstoque [i][2],
-                                            itensTesteEstoque [i][3],
-                                            itensTesteEstoque [i][4],
-                                            itensTesteEstoque [i][5],});
+
+            tblestoque.addRow(new Object[]{itensTesteEstoque[i][0],
+                itensTesteEstoque[i][1],
+                itensTesteEstoque[i][2],
+                itensTesteEstoque[i][3],
+                itensTesteEstoque[i][4],
+                itensTesteEstoque[i][5],});
         }
-        
-        
+
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
@@ -1469,9 +1460,8 @@ public class telaVendedor extends javax.swing.JFrame {
                 txtFone.setText("");
 
                 pesquisar = false;//Desativa o modo pesquisar cliente
-                
+
                 JOptionPane.showMessageDialog(null, "Cadastro alterado");
-                
 
             }
 
@@ -1636,9 +1626,9 @@ public class telaVendedor extends javax.swing.JFrame {
 
                     delete = true;
                     pesquisar = false;//Desativa o modo pesquisar cliente
-                    
+
                     JOptionPane.showMessageDialog(null, "Cadastro deletado");
-                    
+
                 }
             }
             if (delete == false) {
@@ -1685,11 +1675,11 @@ public class telaVendedor extends javax.swing.JFrame {
         txtModelo.setEnabled(false);
         txtMarca.setEnabled(false);
         txtidProduto.setEnabled(false);
-        
+
     }//GEN-LAST:event_txtTipoMouseClicked
 
     private void txtModeloMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtModeloMouseClicked
-       // quando clica no campo de filtro desabilita os outros campos
+        // quando clica no campo de filtro desabilita os outros campos
         txtTipo.setEnabled(false);
         txtMarca.setEnabled(false);
         txtidProduto.setEnabled(false);
@@ -1715,15 +1705,13 @@ public class telaVendedor extends javax.swing.JFrame {
         txtMarca.setEnabled(true);
         txtTipo.setEnabled(true);
         txtidProduto.setEnabled(true);
-        
-        
-        
+
         //limpa os campos
         txtModelo.setText("");
         txtMarca.setText("");
         txtTipo.setText("");
         txtidProduto.setText("");
-        
+
     }//GEN-LAST:event_btnclearSeachActionPerformed
 
     private void btnPesquisaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisaActionPerformed
@@ -1731,7 +1719,7 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisaActionPerformed
 
     private void txtTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTipoKeyTyped
-       
+
         txtTipo.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -1777,7 +1765,122 @@ public class telaVendedor extends javax.swing.JFrame {
         tblEstoque.setRowSorter(trs);
     }//GEN-LAST:event_txtMarcaKeyTyped
 
-    
+    private void txtFiltroTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroTipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFiltroTipoActionPerformed
+
+    private void txtFiltroTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroTipoKeyTyped
+        // TODO add your handling code here:         
+        txtFiltroTipo.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtFiltroTipo.getText(), 0));
+            }
+        });
+
+        DefaultTableModel tblVenda = (DefaultTableModel) tabelaVenda.getModel();
+        trs = new TableRowSorter(tblVenda);
+        tabelaVenda.setRowSorter(trs);
+    }//GEN-LAST:event_txtFiltroTipoKeyTyped
+
+    private void txtFiltroModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroModeloKeyTyped
+        // TODO add your handling code here:
+        txtFiltroModelo.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtFiltroModelo.getText(), 1));
+            }
+        });
+
+        DefaultTableModel tblVenda = (DefaultTableModel) tabelaVenda.getModel();
+        trs = new TableRowSorter(tblVenda);
+        tabelaVenda.setRowSorter(trs);
+    }//GEN-LAST:event_txtFiltroModeloKeyTyped
+
+    private void txtFiltroMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroMarcaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFiltroMarcaActionPerformed
+
+    private void txtFiltroMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroMarcaKeyTyped
+        // TODO add your handling code here:
+        txtFiltroMarca.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtFiltroMarca.getText(), 2));
+            }
+        });
+
+        DefaultTableModel tblVenda = (DefaultTableModel) tabelaVenda.getModel();
+        trs = new TableRowSorter(tblVenda);
+        tabelaVenda.setRowSorter(trs);
+    }//GEN-LAST:event_txtFiltroMarcaKeyTyped
+
+    private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            boolean adicionar = false;
+            String salvar[] = new String[5];
+
+            if (txtCarrinhoID.getText().trim().equals("")) {
+                txtCarrinhoID.requestFocus();
+                JOptionPane.showMessageDialog(null, "ID vazio", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (txtCarrinhoQuantidade.getText().trim().equals("")) {
+                txtCarrinhoQuantidade.requestFocus();
+                JOptionPane.showMessageDialog(null, "Quantidade vazio", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+
+            DefaultTableModel tblVenda = (DefaultTableModel) tabelaVenda.getModel();
+            DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
+
+            String busca = txtCarrinhoID.getText();
+
+            for (int i = 0; i < tabelaVenda.getRowCount(); i++) {
+                if (busca.equals(tabelaVenda.getValueAt(i, 3))) {
+
+                    salvar[0] = tabelaVenda.getValueAt(i, 0).toString();
+                    salvar[1] = tabelaVenda.getValueAt(i, 1).toString();
+                    salvar[2] = tabelaVenda.getValueAt(i, 2).toString();
+                    salvar[3] = tabelaVenda.getValueAt(i, 3).toString();
+                    salvar[4] = tabelaVenda.getValueAt(i, 4).toString();
+                    salvar[5] = txtCarrinhoQuantidade.getText();
+
+                    tblCarrinho.addRow(new Object[]{
+                        salvar[0],
+                        salvar[1],
+                        salvar[2],
+                        salvar[3],
+                        salvar[4],
+                        salvar[5]});
+
+                    txtCarrinhoID.setText("");
+                    txtCarrinhoQuantidade.setText("");
+
+                    adicionar = true;
+                }
+
+            }
+            if (adicionar == false) {
+                JOptionPane.showMessageDialog(null, "ID não encontrado");
+            }
+
+        } catch (Exception e) {
+
+        }
+
+
+    }//GEN-LAST:event_btAdicionarActionPerformed
+
+    private void tabelaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVendaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tabelaVendaMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1817,6 +1920,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btBuscar;
     private javax.swing.JButton btDeletar;
     private javax.swing.JButton btEditar;
@@ -1827,11 +1931,11 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> comboECivil;
     private javax.swing.JComboBox<String> comboSexo;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1887,26 +1991,25 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable3;
-    private javax.swing.JTable jTable4;
-    private javax.swing.JTextField jTextField19;
-    private javax.swing.JTextField jTextField20;
-    private javax.swing.JTextField jTextField21;
     private javax.swing.JTextField jTextField22;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTable tabelaCarrinho;
     private javax.swing.JTable tabelaCliente;
+    private javax.swing.JTable tabelaVenda;
     private javax.swing.JTable tblEstoque;
     private javax.swing.JTable tblVendaRealizada;
     private javax.swing.JFormattedTextField txtBCpf;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JFormattedTextField txtBuscaCpf;
     private javax.swing.JTextField txtBuscaNumeroCompra;
+    private javax.swing.JTextField txtCarrinhoID;
+    private javax.swing.JTextField txtCarrinhoQuantidade;
     private javax.swing.JFormattedTextField txtCep;
     private javax.swing.JFormattedTextField txtCpf;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFiltroMarca;
+    private javax.swing.JTextField txtFiltroModelo;
+    private javax.swing.JTextField txtFiltroTipo;
     private javax.swing.JFormattedTextField txtFone;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextField txtModelo;
