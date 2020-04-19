@@ -24,7 +24,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
     boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
     int linha = 0;//Variavel para salvar a linha da tabela cliente
-    Double valorFinal = 0.0;
+    Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
 
     /**
      * Creates new form telaVendedor
@@ -1455,9 +1455,11 @@ public class telaVendedor extends javax.swing.JFrame {
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         // TODO add your handling code here:
 
-        int quantidade;
-        double valor;
+        int quantidade;//Variavel para salvar a quantidade de produtos
+        double valor;//Variavel para salvar o valor dos produtos
+        boolean adicionar = false;//Variavel para saber se ID do produto foi encontrado
 
+        //Matriz para usar de referencia dos valor da tabela
         String estoque[][]
                 = {
                     {"Placa de Video", "RTX2080", "Nvidia", "1000", "2999.00", "33"},
@@ -1473,13 +1475,13 @@ public class telaVendedor extends javax.swing.JFrame {
                     {"Teclado", "Mx Master 2S", "LOGITECH", "1042", "350.00", "31"},};
 
         try {
-            boolean adicionar = false;
-
+            //Verifica se o campo ID do produto esta vazio
             if (txtCarrinhoID.getText().trim().equals("")) {
                 txtCarrinhoID.requestFocus();
                 JOptionPane.showMessageDialog(null, "ID vazio", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
                 return;
             }
+            //Varifica se o campo Quantidade esta vazio
             if (txtCarrinhoQuantidade.getText().trim().equals("")) {
                 txtCarrinhoQuantidade.requestFocus();
                 JOptionPane.showMessageDialog(null, "Quantidade vazio", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
@@ -1488,13 +1490,16 @@ public class telaVendedor extends javax.swing.JFrame {
 
             DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
 
-            String busca = txtCarrinhoID.getText();
+            String busca = txtCarrinhoID.getText();//String que recebe o ID do produto para buscar na tabela
 
+            //Quantidade digitada e transformada em numero inteiro
             quantidade = Integer.parseInt(txtCarrinhoQuantidade.getText());
 
+            //Busca na tabela o ID digitado
             for (int i = 0; i < estoque.length; i++) {
                 if (busca.equals(estoque[i][3])) {
 
+                    //Adiciona na tabela carrinho os dados do produto
                     tblCarrinho.addRow(new Object[]{
                         estoque[i][0],
                         estoque[i][1],
@@ -1503,15 +1508,20 @@ public class telaVendedor extends javax.swing.JFrame {
                         estoque[i][4],
                         quantidade,});
 
+                    //Limpa os campos de digitação
                     txtCarrinhoID.setText("");
                     txtCarrinhoQuantidade.setText("");
 
+                    //Valor do produto pesquisado em transformado em numero
                     valor = Double.parseDouble(estoque[i][4]);
 
+                    //Conta para saber o valor final da compra
                     valorFinal += valor * quantidade;
 
+                    //Valor final e transformado em String
                     String valFinal = String.valueOf(valorFinal);
 
+                    //Campo de texto valor final recebe a String com o valor final
                     txtValorFinal.setText(valFinal);
 
                     adicionar = true;
@@ -1539,13 +1549,21 @@ public class telaVendedor extends javax.swing.JFrame {
         try {
             DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
 
+            //For para limpar os dodos da tabela carrinho
             for (int i = tabelaCarrinho.getRowCount() - 1; i >= 0; i--) {
                 tblCarrinho.removeRow(i);
             }
+            //Limpa os campos de texto
+            txtCpfCompra.setText("");
             txtCarrinhoID.setText("");
             txtCarrinhoQuantidade.setText("");
+            
+            //Valor final recebe 0
             valorFinal = 0.0;
+            
+            //Transforma valor final em String
             String valFinal = String.valueOf(valorFinal);
+            //Imprime no campo de texto 0 valor final 
             txtValorFinal.setText(valFinal);
 
         } catch (Exception e) {
@@ -1556,6 +1574,7 @@ public class telaVendedor extends javax.swing.JFrame {
     private void btFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarCompraActionPerformed
         // TODO add your handling code here:
         try {
+            //Verifica se o campo de texto Cpf esta vazio
             if (txtCpfCompra.getText().equals("   .   .   -  ")) {
                 txtCpfCompra.requestFocus();
                 JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
@@ -1563,16 +1582,22 @@ public class telaVendedor extends javax.swing.JFrame {
             }
             DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
 
+            //Verifica se na tabela carrinho existe algum item
             if (tabelaCarrinho.getRowCount() > 0) {
+                //For para limpar os dados da tabela carrinho
                 for (int i = tabelaCarrinho.getRowCount() - 1; i >= 0; i--) {
                     tblCarrinho.removeRow(i);
                 }
+                //Limpa os campos de texto
                 txtCpfCompra.setText("");
                 txtCarrinhoID.setText("");
                 txtCarrinhoQuantidade.setText("");
 
+                //Valor final recebe 0
                 valorFinal = 0.0;
+                //Valor final e transformado emString
                 String valFinal = String.valueOf(valorFinal);
+                //Imprime no campo de texto valor final 
                 txtValorFinal.setText(valFinal);
 
                 JOptionPane.showMessageDialog(null, "Compra Finalizada");
