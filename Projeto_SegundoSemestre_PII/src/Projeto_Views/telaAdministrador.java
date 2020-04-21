@@ -7,24 +7,21 @@ package Projeto_Views;
 
 import Atributos.Funcionarios;
 import Modelo_classes.Produto;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import ValidacaoDeCampos.soCaracteres;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+
+
 
 /**
  *
@@ -39,9 +36,12 @@ public class telaAdministrador extends javax.swing.JFrame {
      * Creates new form telaAdministrador
      */
     public telaAdministrador() {
-
         initComponents();
-
+        btnBusca.setEnabled(false);
+        btnEditarProduto.setEnabled(false);
+        btnEntradaProdutoEstoque.setEnabled(false);
+        btnDeletarProduto.setEnabled(false);
+        
     }
 
     public void exporTabela(JTable tabela, File file) throws IOException, NullPointerException {
@@ -285,7 +285,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         btnCriar = new javax.swing.JButton();
         btnNovo = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        txtPreco = new javax.swing.JFormattedTextField();
         jPanel2 = new javax.swing.JPanel();
         txtBusca = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -343,6 +343,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        fieldDataNacimento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fieldDataNacimentoActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("#ID");
 
@@ -684,7 +689,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -868,6 +873,11 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel16.setText("Código Fabricante");
 
+        txtDescricao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDescricaoActionPerformed(evt);
+            }
+        });
         txtDescricao.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDescricaoKeyTyped(evt);
@@ -898,13 +908,18 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtObservacao.setRows(5);
         jScrollPane2.setViewportView(txtObservacao);
 
+        txtQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantidadeActionPerformed(evt);
+            }
+        });
         txtQuantidade.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtQuantidadeKeyTyped(evt);
             }
         });
 
-        btnCriar.setText("Salvar");
+        btnCriar.setText("Cadastrar");
         btnCriar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCriarActionPerformed(evt);
@@ -920,10 +935,14 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel26.setText("Preço - R$");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(java.text.NumberFormat.getCurrencyInstance())));
-        jFormattedTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
+        txtPreco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jFormattedTextField1KeyTyped(evt);
+                txtPrecoKeyTyped(evt);
             }
         });
 
@@ -959,7 +978,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                             .addComponent(jLabel26))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jFormattedTextField1)
+                            .addComponent(txtPreco)
                             .addComponent(txtCodFabricante)
                             .addComponent(cboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -990,11 +1009,12 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addComponent(txtMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cboTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel26)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtPreco, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel15)
+                        .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel26)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1008,16 +1028,22 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Produtos Cadastrados"));
 
+        txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscaKeyTyped(evt);
+            }
+        });
+
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Descrição", "Código Fabricante", "Tipo / Grupo", "Quantidade", "Marca"
+                "Descrição", "Código Fabricante", "Tipo / Grupo", "Quantidade", "Marca", "Preço R$"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, false, false, false
+                false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1044,7 +1070,7 @@ public class telaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        btnEntradaProdutoEstoque.setText("Ent. Estoqie");
+        btnEntradaProdutoEstoque.setText("Ent. Estoque");
         btnEntradaProdutoEstoque.setMaximumSize(new java.awt.Dimension(85, 32));
         btnEntradaProdutoEstoque.setMinimumSize(new java.awt.Dimension(85, 32));
         btnEntradaProdutoEstoque.addActionListener(new java.awt.event.ActionListener() {
@@ -1171,7 +1197,14 @@ public class telaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
-        System.out.println("Aqui tenho que add os itens a tabela....'tblProdutos'");
+        int quandidaEntradaInt = Integer.parseInt(quandidaEntrada);
+        
+        
+        String valorAtualEstoque = tblProdutos.getValueAt(indexLinha, 3).toString();
+        int valorEstoqueInt = Integer.parseInt(valorAtualEstoque );
+        
+        tblProdutos.setValueAt((quandidaEntradaInt + valorEstoqueInt), indexLinha, 3);
+        
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
 
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
@@ -1183,12 +1216,15 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtMarca.setEnabled(true);
         cboTipo.setEnabled(true);
         txtObservacao.setEnabled(true);
+        txtPreco.setEnabled(true);
         btnCriar.setEnabled(true);
+        
+        
+        
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        // TODO add your handling code here:
-
+        
         buscaAtivada = true;
 
         int tipoBusca = cboTipoBusca.getSelectedIndex();
@@ -1202,7 +1238,9 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtQuantidade.setEnabled(false);
         txtObservacao.setEnabled(false);
         cboTipo.setEnabled(false);
-
+        txtPreco.setEnabled(false);
+        
+        boolean valorEncontrado = false;
         switch (tipoBusca) {
             case 0:
                 //veriiica se existe itens na tabela
@@ -1211,6 +1249,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                         //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 1))) {
+                            
+
+                            btnEditarProduto.setEnabled(true);
+                            btnEntradaProdutoEstoque.setEnabled(true);
+                            btnDeletarProduto.setEnabled(true);
 
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
                             indexLinha = i;
@@ -1220,15 +1263,29 @@ public class telaAdministrador extends javax.swing.JFrame {
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
                             txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
                             txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                            txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
+                            valorEncontrado = true;
+                            
                         }
                     }
+                    
+                    if(!valorEncontrado){
+                        JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
+                    }
+                    
                 }
                 break;
             case 1:
                 if (busca.length() > 0) {
-                    System.out.println("Busca Descrição");
+                    System.out.println("Busca Descrição");                  
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                        //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 0))) {
+                            
+
+                            btnEditarProduto.setEnabled(true);
+                            btnEntradaProdutoEstoque.setEnabled(true);
+                            btnDeletarProduto.setEnabled(true);
 
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
                             indexLinha = i;
@@ -1238,7 +1295,14 @@ public class telaAdministrador extends javax.swing.JFrame {
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
                             txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
                             txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                            txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
+                            valorEncontrado = true;
+                            
                         }
+                    }
+                    
+                    if(!valorEncontrado){
+                        JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                     }
                 }
                 break;
@@ -1246,7 +1310,13 @@ public class telaAdministrador extends javax.swing.JFrame {
                 if (busca.length() > 0) {
                     System.out.println("Busca tipo/Grupo");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                        //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 2))) {
+                            
+
+                            btnEditarProduto.setEnabled(true);
+                            btnEntradaProdutoEstoque.setEnabled(true);
+                            btnDeletarProduto.setEnabled(true);
 
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
                             indexLinha = i;
@@ -1256,19 +1326,28 @@ public class telaAdministrador extends javax.swing.JFrame {
                             cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
                             txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
                             txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
+                            txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
+                            valorEncontrado = true;
+                            
                         }
+                    }
+                    
+                    if(!valorEncontrado){
+                        JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                     }
                 }
                 break;
         }
     }//GEN-LAST:event_btnBuscaActionPerformed
 
-    private void jFormattedTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jFormattedTextField1KeyTyped
-        validacaoQuantidadeEstoque(evt);
-    }//GEN-LAST:event_jFormattedTextField1KeyTyped
+    private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
+       validacaoCaracterNumero(evt);
+    }//GEN-LAST:event_txtPrecoKeyTyped
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
+        
+        buscaAtivada = false;
 
         btnCriar.setEnabled(true);
         txtDescricao.setText("");
@@ -1276,6 +1355,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtMarca.setText("");
         txtQuantidade.setText("");
         txtObservacao.setText("");
+        txtPreco.setText("");
 
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
@@ -1283,43 +1363,85 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtQuantidade.setEnabled(true);
         txtObservacao.setEnabled(true);
         cboTipo.setEnabled(true);
+        txtPreco.setEnabled(true);
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        // TODO add your handling code here:
+       
+        
+        
+        try {
+            
+            Produto produto = new Produto();
+            
+            if (buscaAtivada == true) {
+                System.out.println("busca realizada");
+                System.out.println("linha: " + indexLinha);
 
-        Produto produto = new Produto();
+                tblProdutos.setValueAt(txtDescricao.getText(), indexLinha, 0);
+                tblProdutos.setValueAt(txtCodFabricante.getText(), indexLinha, 1);
+                tblProdutos.setValueAt(cboTipo.getSelectedItem(), indexLinha, 2);
+                tblProdutos.setValueAt(txtMarca.getText(), indexLinha, 4);
+                tblProdutos.setValueAt(txtPreco.getText(), indexLinha, 5);
 
-        if (buscaAtivada == true) {
-            System.out.println("busca realizada");
-            System.out.println("linha: " + indexLinha);
-
-            tblProdutos.setValueAt(txtDescricao.getText(), indexLinha, 0);
-            tblProdutos.setValueAt(txtCodFabricante.getText(), indexLinha, 1);
-            tblProdutos.setValueAt(cboTipo.getSelectedItem(), indexLinha, 2);
-            tblProdutos.setValueAt(txtMarca.getText(), indexLinha, 3);
-
-            indexLinha = -1;
-
+                indexLinha = -1;
         } else {
-            produto.setDescricao(txtDescricao.getText());
-            produto.setCodigoFabricante(txtCodFabricante.getText());
-            produto.setMarca(txtMarca.getText());
-            produto.setTipo(cboTipo.getSelectedItem().toString());
-            produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-            produto.setObservacao(txtObservacao.getText());
+                
+                if(txtDescricao.getText().trim().equals("")){
+                    txtDescricao.requestFocus();
+                    JOptionPane.showMessageDialog(null,"Campo 'Descrição'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                if(txtCodFabricante.getText().trim().equals("")){
+                    txtCodFabricante.requestFocus();
+                    JOptionPane.showMessageDialog(null,"Campo 'Código Fabricante'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                if(txtMarca.getText().trim().equals("")){
+                    txtMarca.requestFocus();
+                    JOptionPane.showMessageDialog(null,"Campo 'Marca'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                if(txtQuantidade.getText().trim().equals("")){
+                    txtQuantidade.requestFocus();
+                    JOptionPane.showMessageDialog(null,"Campo 'Quantidade'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                if(txtPreco.getText().trim().equals("")){
+                    txtPreco.requestFocus();
+                    JOptionPane.showMessageDialog(null,"Campo 'Preço'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                
+                
+                
+                
+            
+                produto.setDescricao(txtDescricao.getText());
+                produto.setCodigoFabricante(txtCodFabricante.getText());
+                produto.setTipo(cboTipo.getSelectedItem().toString());
+                produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+                produto.setMarca(txtMarca.getText());
+                produto.setPreco(Double.parseDouble(txtPreco.getText()));
+                produto.setObservacao(txtObservacao.getText());
 
-            System.out.println(produto.toString());
+                System.out.println(produto.toString());
 
-            //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-            DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+                //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
+                DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
 
-            //adiciona os valores do objeto "produto" a linha da tabela
-            model.addRow(new Object[]{produto.getDescricao(),
-                produto.getCodigoFabricante(),
-                produto.getTipo(),
-                produto.getQuantidade(),
-                produto.getMarca()
+                //adiciona os valores do objeto "produto" a linha da tabela
+                model.addRow(new Object[]{
+                    produto.getDescricao(),
+                    produto.getCodigoFabricante(),
+                    produto.getTipo(),
+                    produto.getQuantidade(),
+                    produto.getMarca(),
+                    produto.getPreco()
 
             });
 
@@ -1329,12 +1451,17 @@ public class telaAdministrador extends javax.swing.JFrame {
             txtMarca.setText("");
             txtQuantidade.setText("");
             txtObservacao.setText("");
+            txtPreco.setText("");
 
             if (txtQuantidade.getText().length() == 0) {
                 System.out.println(" o campo quantiade possui");
-                //
+                
             }
 
+        }
+        } catch (Exception e) {
+            
+            JOptionPane.showMessageDialog(this,"Erro no cadastro");
         }
     }//GEN-LAST:event_btnCriarActionPerformed
 
@@ -1481,10 +1608,31 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_exportarExcel2ActionPerformed
 
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+        
+    }//GEN-LAST:event_txtPrecoActionPerformed
+
+    private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDescricaoActionPerformed
+
+    private void fieldDataNacimentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldDataNacimentoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_fieldDataNacimentoActionPerformed
+
+    private void txtBuscaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyTyped
+        validacaoCaracter(evt);
+        btnBusca.setEnabled(true);
+    }//GEN-LAST:event_txtBuscaKeyTyped
+
+    private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantidadeActionPerformed
+
     //função para validar a utilização de caracters
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {
 
-        String naoPermitidos = "!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";//caracteres que não serão aceitos (Resolver " e \)
+        String naoPermitidos = "!@#$%¨&*('-){}[]+=,./:;?|_ºª°§ ";//caracteres que não serão aceitos (Resolver " e \)
         if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1494,7 +1642,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     //função para validar a utilização de caracters e numeros
     private void validacaoCaracterNumero(java.awt.event.KeyEvent evt) {
 
-        String naoPermitidos = "0987654321!@#$%¨&*('-){}[]+=,./:;?|_ºª°§";//caracteres que não serão aceitos (Resolver " e \)
+        String naoPermitidos = "abcdefghijklmnopqrstuvwxyz!@#$%¨&*('-){}[]+=/:;,?|_ºª°§ABCDEFGHIJKLMNOPQRSTUVWXYZ";//caracteres que não serão aceitos (Resolver " e \)
         if (naoPermitidos.contains(evt.getKeyChar() + "")) {// se o campo que ativa o evento 'evt.getKeyChar' conter o caracter 
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1578,7 +1726,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton9;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1634,6 +1781,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextArea txtObservacao;
+    private javax.swing.JFormattedTextField txtPreco;
     private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }

@@ -434,6 +434,11 @@ public class telaVendedor extends javax.swing.JFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        txtData.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDataActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("Cpf:");
 
@@ -1612,6 +1617,10 @@ public class telaVendedor extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_btFinalizarCompraActionPerformed
+
+    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataActionPerformed
 
     /**
      * @param args the command line arguments

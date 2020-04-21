@@ -5,8 +5,6 @@
  */
 package Modelo_classes;
 
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Nailson Nascimento <nailsonbr@gmail.com>
@@ -88,7 +86,8 @@ public class Produto {
                 "\nMarca: "+ marca+
                 "\ntipo: "+ tipo +
                 "\nQuantiade em Estoque: " + quantidade +
-                "\nobsevação: " + observacao);
+                "\nobsevação: " + observacao +
+                "\npreço: " + preco);
     }  
     
     
