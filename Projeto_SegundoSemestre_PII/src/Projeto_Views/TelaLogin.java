@@ -50,7 +50,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(222, 222, 222));
         jPanel1.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/TELLLAA.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon("C:\\Users\\nails\\OneDrive\\Documentos\\Senac_SegundoSemestre\\Projeto_SegundoSemestre_PII\\Projeto_SegundoSemestre_PII\\src\\imagens\\TELLLAA.jpg")); // NOI18N
         jPanel1.add(jLabel2);
         jLabel2.setBounds(70, 30, 360, 130);
         jPanel1.add(Usuario);
@@ -65,7 +65,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(270, 290, 80, 25);
+        jButton1.setBounds(270, 290, 80, 32);
 
         jButton2.setText("sair");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -74,11 +74,11 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(360, 290, 70, 25);
+        jButton2.setBounds(360, 290, 70, 32);
 
         jLabel1.setText("Usuario");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(110, 190, 60, 15);
+        jLabel1.setBounds(110, 190, 60, 16);
 
         jLabel3.setText("Senha");
         jPanel1.add(jLabel3);
@@ -88,11 +88,11 @@ public class TelaLogin extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
         );
 
         setSize(new java.awt.Dimension(549, 439));

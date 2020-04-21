@@ -1219,8 +1219,6 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtPreco.setEnabled(true);
         btnCriar.setEnabled(true);
         
-        
-        
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
@@ -1367,16 +1365,14 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-       
-        
         
         try {
             
             Produto produto = new Produto();
             
             if (buscaAtivada == true) {
-                System.out.println("busca realizada");
-                System.out.println("linha: " + indexLinha);
+                //System.out.println("busca realizada");
+                //System.out.println("linha: " + indexLinha);
 
                 tblProdutos.setValueAt(txtDescricao.getText(), indexLinha, 0);
                 tblProdutos.setValueAt(txtCodFabricante.getText(), indexLinha, 1);
@@ -1417,10 +1413,6 @@ public class telaAdministrador extends javax.swing.JFrame {
                     return;
                 }
                 
-                
-                
-                
-            
                 produto.setDescricao(txtDescricao.getText());
                 produto.setCodigoFabricante(txtCodFabricante.getText());
                 produto.setTipo(cboTipo.getSelectedItem().toString());
@@ -1429,7 +1421,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 produto.setPreco(Double.parseDouble(txtPreco.getText()));
                 produto.setObservacao(txtObservacao.getText());
 
-                System.out.println(produto.toString());
+                //System.out.println(produto.toString());
 
                 //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
                 DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
