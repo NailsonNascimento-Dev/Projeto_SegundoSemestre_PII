@@ -156,7 +156,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder("Realizar Venda"));
 
-        jLabel30.setText("Cpf:");
+        jLabel30.setText("Cpf: *");
 
         jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
 
@@ -419,7 +419,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jLabel6.setText("#ID:");
 
-        jLabel7.setText("Nome Completo:");
+        jLabel7.setText("Nome Completo: *");
 
         txtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,7 +427,7 @@ public class telaVendedor extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setText("Data de Nascimento:");
+        jLabel8.setText("Data de Nascimento: *");
 
         try {
             txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
@@ -440,7 +440,7 @@ public class telaVendedor extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("Cpf:");
+        jLabel9.setText("Cpf: *");
 
         try {
             txtCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
@@ -494,7 +494,7 @@ public class telaVendedor extends javax.swing.JFrame {
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(comboECivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 47, Short.MAX_VALUE)))
+                        .addGap(0, 1, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -580,7 +580,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder("Contato"));
 
-        jLabel22.setText("E-mail:");
+        jLabel22.setText("E-mail: *");
 
         jLabel23.setText("Fone:");
 
@@ -1066,35 +1066,17 @@ public class telaVendedor extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (txtRua.getText().trim().equals("")) {
-                    txtRua.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Rua incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtCep.getText().equals("     -   ")) {
-                    txtCep.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Cep incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtNum.getText().trim().equals("")) {
-                    txtNum.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Nº incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtBairro.getText().trim().equals("")) {
-                    txtBairro.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Bairro incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
                 if (txtEmail.getText().trim().equals("")) {
                     txtEmail.requestFocus();
                     JOptionPane.showMessageDialog(null, "Campo Email incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (txtFone.getText().equals("(  )     -    ")) {
-                    txtFone.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Telefone incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
+                
+                if(txtNum.getText().trim().equals("")){
+                    cliente.setNumeroCasa(0);
+                }
+                else{
+                   cliente.setNumeroCasa(Integer.parseInt(txtNum.getText())); 
                 }
 
                 cliente.setNome(txtNome.getText());//
@@ -1103,8 +1085,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 cliente.setSexo(comboSexo.getSelectedItem().toString());
                 cliente.setEstadoCivil(comboECivil.getSelectedItem().toString());
                 cliente.setRua(txtRua.getText());
-                cliente.setCep(txtCep.getText());
-                cliente.setNumeroCasa(Integer.parseInt(txtNum.getText()));
+                cliente.setCep(txtCep.getText());            
                 cliente.setBairro(txtBairro.getText());
                 cliente.setEmail(txtEmail.getText());
                 cliente.setTelefone(txtFone.getText());
@@ -1155,34 +1136,9 @@ public class telaVendedor extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                if (txtRua.getText().trim().equals("")) {
-                    txtRua.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Rua incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtCep.getText().equals("     -   ")) {
-                    txtCep.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Cep incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtNum.getText().trim().equals("")) {
-                    txtNum.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Nº incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtBairro.getText().trim().equals("")) {
-                    txtBairro.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Bairro incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
                 if (txtEmail.getText().trim().equals("")) {
                     txtEmail.requestFocus();
                     JOptionPane.showMessageDialog(null, "Campo Email incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                    return;
-                }
-                if (txtFone.getText().equals("(  )     -    ")) {
-                    txtFone.requestFocus();
-                    JOptionPane.showMessageDialog(null, "Campo Telefone incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 

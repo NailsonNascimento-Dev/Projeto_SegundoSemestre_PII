@@ -148,7 +148,7 @@
               <SubComponents>
                 <Component class="javax.swing.JLabel" name="jLabel30">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Cpf:"/>
+                    <Property name="text" type="java.lang.String" value="Cpf: *"/>
                   </Properties>
                 </Component>
                 <Container class="javax.swing.JPanel" name="jPanel18">
@@ -722,7 +722,7 @@
                                           <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="comboECivil" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="47" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -763,7 +763,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel7">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Nome Completo:"/>
+                            <Property name="text" type="java.lang.String" value="Nome Completo: *"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtNome">
@@ -773,7 +773,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel8">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Data de Nascimento:"/>
+                            <Property name="text" type="java.lang.String" value="Data de Nascimento: *"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JFormattedTextField" name="txtData">
@@ -788,7 +788,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel9">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Cpf:"/>
+                            <Property name="text" type="java.lang.String" value="Cpf: *"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JFormattedTextField" name="txtCpf">
@@ -987,7 +987,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JLabel" name="jLabel22">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="E-mail:"/>
+                            <Property name="text" type="java.lang.String" value="E-mail: *"/>
                           </Properties>
                         </Component>
                         <Component class="javax.swing.JTextField" name="txtEmail">
