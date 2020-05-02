@@ -5,7 +5,7 @@
  */
 package Projeto_Views;
 
-import Atributos.Cliente;
+import Modelo_classes.Cliente;
 import ValidacaoDeCampos.soCaracteres;
 import ValidacaoDeCampos.soNumeros;
 import javax.swing.JOptionPane;
@@ -999,9 +999,9 @@ public class telaVendedor extends javax.swing.JFrame {
 
         }
 
-        System.out.println(itensTeste[0][6]);
-        System.out.println(itensTeste[3][6]);
-        System.out.println(itensTeste[7][6]);
+        //System.out.println(itensTeste[0][6]);
+        //System.out.println(itensTeste[3][6]);
+        //System.out.println(itensTeste[7][6]);
 
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
