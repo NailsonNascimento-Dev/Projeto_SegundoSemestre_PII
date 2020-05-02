@@ -19,6 +19,7 @@ public class Funcionarios {
     private int cep;
     private int numeroCasa;
     private String nome;
+    private String sexo;
     private String data;
     private String cpf;
     private String cargo;
@@ -44,6 +45,15 @@ public class Funcionarios {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public void setSexo(String sexo) {
+        this.sexo = sexo;
+    }
+    
 
     public String getCpf() {
         return cpf;
