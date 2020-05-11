@@ -13,55 +13,11 @@ import java.util.Date;
  *
  * @author Azazel
  */
-public class Funcionarios {
+public class Funcionarios extends pessoa{
     
-    private int id;
-    private int cep;
-    private int numeroCasa;
-    private String nome;
-    private String sexo;
-    private String data;
-    private String cpf;
     private String cargo;
-    private String rua;
-    private String bairro;
-    private String email;
-    private String telefone;
     private String senha1;
     private String senha2;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getSexo() {
-        return sexo;
-    }
-
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
-    
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
 
     public String getCargo() {
         return cargo;
@@ -69,54 +25,6 @@ public class Funcionarios {
 
     public void setCargo(String cargo) {
         this.cargo = cargo;
-    }
-
-    public String getRua() {
-        return rua;
-    }
-
-    public void setRua(String rua) {
-        this.rua = rua;
-    }
-
-    public int getCep() {
-        return cep;
-    }
-
-    public void setCep(int cep) {
-        this.cep = cep;
-    }
-
-    public int getNumeroCasa() {
-        return numeroCasa;
-    }
-
-    public void setNumeroCasa(int numeroCasa) {
-        this.numeroCasa = numeroCasa;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
     }
 
     public String getSenha1() {
@@ -135,18 +43,4 @@ public class Funcionarios {
         this.senha2 = senha2;
     }
 
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
-    }
-
-  
-
-  
-    
-    
-    
 }

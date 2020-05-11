@@ -1639,14 +1639,14 @@ public class telaAdministrador extends javax.swing.JFrame {
         funcionarios.setSenha1(String.valueOf(fieldPW_1.getPassword()));
         funcionarios.setSenha2(String.valueOf(fieldPW_2.getPassword()));
         funcionarios.setData(fieldDataNacimento.getText());
+        funcionarios.setData(fieldCep.getText());
+       
 
         campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getData(),
                  funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
                 funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
 
         try {
-
-            funcionarios.setCep(Integer.parseInt(fieldCep.getText()));
             funcionarios.setNumeroCasa(Integer.parseInt(fieldNumeroCasa.getText()));
 
             conversao = true;
