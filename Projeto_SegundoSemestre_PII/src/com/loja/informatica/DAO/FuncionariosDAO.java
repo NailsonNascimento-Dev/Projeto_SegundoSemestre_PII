@@ -9,7 +9,9 @@ import com.loja.informatica.MODEL.Funcionarios;
 import com.loja.informatica.UTILS.ConexaoMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -27,7 +29,6 @@ public class FuncionariosDAO {
             conexao = ConexaoMysql.abrirConexao();
 
             instrucaoSQL = conexao.prepareStatement("INSERT INTO loja (nome, sexo, data_nascimento, cpf, cargo, rua, cep, numero_casa, bairro, email, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?)");
-                    
 
             instrucaoSQL.setString(1, funcionarios.getNome());
             instrucaoSQL.setString(2, funcionarios.getSexo());
@@ -67,6 +68,64 @@ public class FuncionariosDAO {
 
         return retorno;
 
+    }
+
+    public static ArrayList<Funcionarios> carregarRegistros() {
+        ResultSet resultado = null;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        ArrayList<Funcionarios> listarRegistros = new ArrayList<>();
+
+        try {
+
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM loja");
+
+            resultado = instrucaoSQL.executeQuery();
+
+            while (resultado.next()) {
+                Funcionarios funcionarios = new Funcionarios();
+
+                funcionarios.setId(resultado.getInt("id"));
+                funcionarios.setNome(resultado.getString("nome"));
+                funcionarios.setSexo(resultado.getString("sexo"));
+                funcionarios.setData(resultado.getString("data_nascimento"));
+                funcionarios.setCpf(resultado.getString("cpf"));
+                funcionarios.setCargo(resultado.getString("cargo"));
+                funcionarios.setRua(resultado.getString("rua"));
+                funcionarios.setCep(resultado.getString("cep"));
+                funcionarios.setNumeroCasa(resultado.getInt("numero_casa"));
+                funcionarios.setBairro(resultado.getString("bairro"));
+                funcionarios.setEmail(resultado.getString("email"));
+                funcionarios.setTelefone(resultado.getString("telefone"));
+                funcionarios.setSenha1(resultado.getString("senha"));
+
+                listarRegistros.add(funcionarios);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            listarRegistros = null;
+        } finally {
+
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMysql.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listarRegistros;
     }
 
 }
