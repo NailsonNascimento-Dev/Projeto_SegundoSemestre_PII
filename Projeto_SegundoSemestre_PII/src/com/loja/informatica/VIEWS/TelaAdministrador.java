@@ -13,6 +13,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -40,6 +41,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         btnEntradaProdutoEstoque.setEnabled(false);
         btnDeletarProduto.setEnabled(false);
 
+        carregarRegistrosFuncionarios();
     }
 
     public void exporTabela(JTable tabela, File file) throws IOException, NullPointerException {
@@ -95,6 +97,47 @@ public class TelaAdministrador extends javax.swing.JFrame {
         fieldPW_2.setText("");
         fieldRua.setText("");
         fieldTelefone.setText("");
+    }
+    
+    public void carregarRegistrosFuncionarios(){
+        ArrayList<String[]> listarRegistros = ControllerFuncionarios.CarregarRegistros();
+         DefaultTableModel tabelaRegistros = new DefaultTableModel();
+         
+         tabelaRegistros.addColumn("ID");
+         tabelaRegistros.addColumn("Nome");
+         tabelaRegistros.addColumn("Sexo");
+         tabelaRegistros.addColumn("Data Nascimento");
+         tabelaRegistros.addColumn("CPF");
+         tabelaRegistros.addColumn("Cargo");
+         tabelaRegistros.addColumn("Rua");
+         tabelaRegistros.addColumn("CEP");
+         tabelaRegistros.addColumn("N° Casa");
+         tabelaRegistros.addColumn("Bairro");
+         tabelaRegistros.addColumn("Email");
+         tabelaRegistros.addColumn("Telefone");
+         tabelaRegistros.addColumn("Senha");
+         
+         tabelaFuncionarios.setModel(tabelaRegistros);
+         
+         for(String[] percorrerRegistros : listarRegistros){
+             tabelaRegistros.addRow(new String []{
+                 percorrerRegistros[0],
+                 percorrerRegistros[1],
+                 percorrerRegistros[2],
+                 percorrerRegistros[3],
+                 percorrerRegistros[4],
+                 percorrerRegistros[5],
+                 percorrerRegistros[6],
+                 percorrerRegistros[7],
+                 percorrerRegistros[8],
+                 percorrerRegistros[9],
+                 percorrerRegistros[10],
+                 percorrerRegistros[11],
+                 percorrerRegistros[12]
+                
+             });
+         }
+        
     }
 
     public boolean validarCampos(
@@ -240,7 +283,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jPanel7 = new javax.swing.JPanel();
         fieldBuscarFuncionarios = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaFuncionarios = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
@@ -556,7 +599,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
         jPanel7.setBorder(javax.swing.BorderFactory.createTitledBorder("Funcionários Cadastrados"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaFuncionarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -587,7 +630,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 "ID", "Nome", "Cargo", "E-mail"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabelaFuncionarios);
 
         jLabel7.setText("Buscar Funcionarios");
 
@@ -1926,8 +1969,8 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JToggleButton jToggleButton4;
+    private javax.swing.JTable tabelaFuncionarios;
     private javax.swing.JTable tableMaisVendidos;
     private javax.swing.JTable tableMelhoresVendedores;
     private javax.swing.JTable tblProdutos;
