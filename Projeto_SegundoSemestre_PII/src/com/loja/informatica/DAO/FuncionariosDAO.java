@@ -119,6 +119,44 @@ public class FuncionariosDAO {
         return retorno;
     }
 
+    public static boolean excluirRegistro(int id) {
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        try {
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM loja WHERE id = ?");
+
+            instrucaoSQL.setInt(1, id);
+
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+
+            if (linhasAfetadas >= 1) {
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMysql.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return retorno;
+
+    }
+
     public static ArrayList<Funcionarios> buscarRegistros(String busca) {
         ResultSet resultado = null;
         Connection conexao = null;
