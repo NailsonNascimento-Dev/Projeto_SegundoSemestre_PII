@@ -69,9 +69,58 @@ public class FuncionariosDAO {
         return retorno;
 
     }
-    
-    public static ArrayList<Funcionarios> buscarRegistros(String busca){
-         ResultSet resultado = null;
+
+    public static boolean atualizarRegistro(Funcionarios funcionarios) {
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        try {
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("UPDATE loja SET nome = ?, sexo = ?, data_nascimento = ?, cpf = ?, cargo = ?, rua = ?, cep = ?, numero_casa = ?, bairro = ?, email = ?, telefone = ?, senha = ? WHERE id = ?");
+
+            instrucaoSQL.setString(1, funcionarios.getNome());
+            instrucaoSQL.setString(2, funcionarios.getSexo());
+            instrucaoSQL.setString(3, funcionarios.getData());
+            instrucaoSQL.setString(4, funcionarios.getCpf());
+            instrucaoSQL.setString(5, funcionarios.getCargo());
+            instrucaoSQL.setString(6, funcionarios.getRua());
+            instrucaoSQL.setString(7, funcionarios.getCep());
+            instrucaoSQL.setInt(8, funcionarios.getNumeroCasa());
+            instrucaoSQL.setString(9, funcionarios.getBairro());
+            instrucaoSQL.setString(10, funcionarios.getEmail());
+            instrucaoSQL.setString(11, funcionarios.getTelefone());
+            instrucaoSQL.setString(12, funcionarios.getSenha1());
+            instrucaoSQL.setInt(13, funcionarios.getId());
+
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+
+            if (linhasAfetadas >= 1) {
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMysql.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+        return retorno;
+    }
+
+    public static ArrayList<Funcionarios> buscarRegistros(String busca) {
+        ResultSet resultado = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
@@ -82,7 +131,7 @@ public class FuncionariosDAO {
             conexao = ConexaoMysql.abrirConexao();
 
             instrucaoSQL = conexao.prepareStatement("SELECT * FROM loja WHERE id = ? OR nome LIKE ? OR cargo LIKE ?;");
-            
+
             instrucaoSQL.setString(1, busca);
             instrucaoSQL.setString(2, "%" + busca + '%');
             instrucaoSQL.setString(3, "%" + busca + '%');
