@@ -731,6 +731,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         buttonExcluir.setText("Excluir");
         buttonExcluir.setMaximumSize(new java.awt.Dimension(63, 32));
         buttonExcluir.setMinimumSize(new java.awt.Dimension(63, 32));
+        buttonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExcluirActionPerformed(evt);
+            }
+        });
 
         buttonCancelar.setText("Cancelar");
         buttonCancelar.setMaximumSize(new java.awt.Dimension(63, 32));
@@ -2018,6 +2023,31 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_buttonAlterarActionPerformed
+
+    private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o registro?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+
+        if (resposta == 0) {
+            try {
+                int id = Integer.parseInt(fieldBuscarFuncionarios.getText());
+
+                boolean retorno = ControllerFuncionarios.ExcluirRegistro(id);
+
+                if (retorno == true) {
+                    JOptionPane.showMessageDialog(this, "Registro Excluido com sucesso!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao Excluir registro!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                }
+            } catch (Exception e) {
+                System.out.print("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Operação Cancelada!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+        }
+
+    }//GEN-LAST:event_buttonExcluirActionPerformed
 
     //função para validar a utilização de caracters
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {

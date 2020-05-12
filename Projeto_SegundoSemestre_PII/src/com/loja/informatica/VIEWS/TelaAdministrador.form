@@ -615,6 +615,9 @@
                       <Dimension value="[63, 32]"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExcluirActionPerformed"/>
+                  </Events>
                 </Component>
                 <Component class="javax.swing.JButton" name="buttonCancelar">
                   <Properties>
