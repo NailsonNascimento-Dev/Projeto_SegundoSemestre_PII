@@ -98,46 +98,46 @@ public class TelaAdministrador extends javax.swing.JFrame {
         fieldRua.setText("");
         fieldTelefone.setText("");
     }
-    
-    public void carregarRegistrosFuncionarios(){
+
+    public void carregarRegistrosFuncionarios() {
         ArrayList<String[]> listarRegistros = ControllerFuncionarios.CarregarRegistros();
-         DefaultTableModel tabelaRegistros = new DefaultTableModel();
-         
-         tabelaRegistros.addColumn("ID");
-         tabelaRegistros.addColumn("Nome");
-         tabelaRegistros.addColumn("Sexo");
-         tabelaRegistros.addColumn("Data Nascimento");
-         tabelaRegistros.addColumn("CPF");
-         tabelaRegistros.addColumn("Cargo");
-         tabelaRegistros.addColumn("Rua");
-         tabelaRegistros.addColumn("CEP");
-         tabelaRegistros.addColumn("N° Casa");
-         tabelaRegistros.addColumn("Bairro");
-         tabelaRegistros.addColumn("Email");
-         tabelaRegistros.addColumn("Telefone");
-         tabelaRegistros.addColumn("Senha");
-         
-         tabelaFuncionarios.setModel(tabelaRegistros);
-         
-         for(String[] percorrerRegistros : listarRegistros){
-             tabelaRegistros.addRow(new String []{
-                 percorrerRegistros[0],
-                 percorrerRegistros[1],
-                 percorrerRegistros[2],
-                 percorrerRegistros[3],
-                 percorrerRegistros[4],
-                 percorrerRegistros[5],
-                 percorrerRegistros[6],
-                 percorrerRegistros[7],
-                 percorrerRegistros[8],
-                 percorrerRegistros[9],
-                 percorrerRegistros[10],
-                 percorrerRegistros[11],
-                 percorrerRegistros[12]
-                
-             });
-         }
-        
+        DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+        tabelaRegistros.addColumn("ID");
+        tabelaRegistros.addColumn("Nome");
+        tabelaRegistros.addColumn("Sexo");
+        tabelaRegistros.addColumn("Data Nascimento");
+        tabelaRegistros.addColumn("CPF");
+        tabelaRegistros.addColumn("Cargo");
+        tabelaRegistros.addColumn("Rua");
+        tabelaRegistros.addColumn("CEP");
+        tabelaRegistros.addColumn("N° Casa");
+        tabelaRegistros.addColumn("Bairro");
+        tabelaRegistros.addColumn("Email");
+        tabelaRegistros.addColumn("Telefone");
+        tabelaRegistros.addColumn("Senha");
+
+        tabelaFuncionarios.setModel(tabelaRegistros);
+
+        for (String[] percorrerRegistros : listarRegistros) {
+            tabelaRegistros.addRow(new String[]{
+                percorrerRegistros[0],
+                percorrerRegistros[1],
+                percorrerRegistros[2],
+                percorrerRegistros[3],
+                percorrerRegistros[4],
+                percorrerRegistros[5],
+                percorrerRegistros[6],
+                percorrerRegistros[7],
+                percorrerRegistros[8],
+                percorrerRegistros[9],
+                percorrerRegistros[10],
+                percorrerRegistros[11],
+                percorrerRegistros[12]
+
+            });
+        }
+
     }
 
     public boolean validarCampos(
@@ -286,7 +286,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         tabelaFuncionarios = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        buttonBuscar = new javax.swing.JButton();
         buttonCadastrar = new javax.swing.JToggleButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
@@ -637,11 +637,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jButton3.setText("Editar");
         jButton3.setPreferredSize(new java.awt.Dimension(85, 32));
 
-        jButton10.setText("Buscar");
-        jButton10.setPreferredSize(new java.awt.Dimension(85, 32));
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        buttonBuscar.setText("Buscar");
+        buttonBuscar.setPreferredSize(new java.awt.Dimension(85, 32));
+        buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                buttonBuscarActionPerformed(evt);
             }
         });
 
@@ -660,7 +660,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fieldBuscarFuncionarios)
                         .addGap(47, 47, 47)
-                        .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(35, 35, 35)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(49, 49, 49))))
@@ -676,7 +676,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(13, 13, 13)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1698,6 +1698,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 if (retorno = true) {
                     JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     limparCampos();
+                    carregarRegistrosFuncionarios();
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao efetuar cadastro!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -1710,9 +1711,47 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton10ActionPerformed
+    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
+       
+        ArrayList<String[]> listarRegistros = ControllerFuncionarios.BuscarRegistro(fieldBuscarFuncionarios.getText());
+        DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+        tabelaRegistros.addColumn("ID");
+        tabelaRegistros.addColumn("Nome");
+        tabelaRegistros.addColumn("Sexo");
+        tabelaRegistros.addColumn("Data Nascimento");
+        tabelaRegistros.addColumn("CPF");
+        tabelaRegistros.addColumn("Cargo");
+        tabelaRegistros.addColumn("Rua");
+        tabelaRegistros.addColumn("CEP");
+        tabelaRegistros.addColumn("N° Casa");
+        tabelaRegistros.addColumn("Bairro");
+        tabelaRegistros.addColumn("Email");
+        tabelaRegistros.addColumn("Telefone");
+        tabelaRegistros.addColumn("Senha");
+
+        tabelaFuncionarios.setModel(tabelaRegistros);
+
+        for (String[] percorrerRegistros : listarRegistros) {
+            tabelaRegistros.addRow(new String[]{
+                percorrerRegistros[0],
+                percorrerRegistros[1],
+                percorrerRegistros[2],
+                percorrerRegistros[3],
+                percorrerRegistros[4],
+                percorrerRegistros[5],
+                percorrerRegistros[6],
+                percorrerRegistros[7],
+                percorrerRegistros[8],
+                percorrerRegistros[9],
+                percorrerRegistros[10],
+                percorrerRegistros[11],
+                percorrerRegistros[12]
+
+            });
+        }
+
+    }//GEN-LAST:event_buttonBuscarActionPerformed
 
     private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
         char c = evt.getKeyChar(); //recebe o evento
@@ -1888,6 +1927,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JButton btnEntradaProdutoEstoque;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton buttonBuscar;
     private javax.swing.JToggleButton buttonCadastrar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
@@ -1909,7 +1949,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldPW_2;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JFormattedTextField fieldTelefone;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton9;
     private javax.swing.JFormattedTextField jFormattedTextField1;
