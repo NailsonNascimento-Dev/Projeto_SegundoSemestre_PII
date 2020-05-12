@@ -143,6 +143,15 @@ public class TelaAdministrador extends javax.swing.JFrame {
         fieldRua.setText("");
         fieldTelefone.setText("");
         txtID.setText("#ID: ");
+
+        carregarRegistrosFuncionarios();
+        buttonCancelar.setVisible(false);
+        buttonCadastrar.setEnabled(true);
+        fieldBuscarFuncionarios.setEnabled(true);
+        buttonBuscar.setEnabled(true);
+        buttonEditar.setEnabled(true);
+        buttonAlterar.setEnabled(false);
+        buttonExcluir.setEnabled(false);
     }
 
     public void carregarRegistrosFuncionarios() {
@@ -713,6 +722,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         buttonAlterar.setText("Alterar");
         buttonAlterar.setMaximumSize(new java.awt.Dimension(63, 32));
         buttonAlterar.setMinimumSize(new java.awt.Dimension(63, 32));
+        buttonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonAlterarActionPerformed(evt);
+            }
+        });
 
         buttonExcluir.setText("Excluir");
         buttonExcluir.setMaximumSize(new java.awt.Dimension(63, 32));
@@ -1950,18 +1964,60 @@ public class TelaAdministrador extends javax.swing.JFrame {
         if (resposta == 0) {
             JOptionPane.showMessageDialog(this, "Voltando ao modo normal!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
             limparCampos();
-            carregarRegistrosFuncionarios();
-            buttonCancelar.setVisible(false);
-            buttonCadastrar.setEnabled(true);
-            fieldBuscarFuncionarios.setEnabled(true);
-            buttonBuscar.setEnabled(true);
-            buttonEditar.setEnabled(true);
-            buttonAlterar.setEnabled(false);
-            buttonExcluir.setEnabled(false);
+
         } else {
             JOptionPane.showMessageDialog(this, "Operação cancelada!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_buttonCancelarActionPerformed
+
+    private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
+        boolean conversao = false;
+        Funcionarios funcionarios = new Funcionarios();
+
+        try {
+            funcionarios.setId(Integer.parseInt(fieldBuscarFuncionarios.getText()));
+            funcionarios.setNumeroCasa(Integer.parseInt(fieldNumeroCasa.getText()));
+
+            funcionarios.setNome(fieldNome.getText());
+            funcionarios.setSexo(comboBoxSexo.getSelectedItem().toString());
+            funcionarios.setData(fieldDataNacimento.getText());
+            funcionarios.setCpf(fieldCPF.getText());
+            funcionarios.setCargo(ComboBoxCargo.getSelectedItem().toString());
+            funcionarios.setRua(fieldRua.getText());
+            funcionarios.setCep(fieldCep.getText());
+            funcionarios.setBairro(fieldBairro.getText());
+            funcionarios.setEmail(fieldEmail.getText());
+            funcionarios.setTelefone(fieldTelefone.getText());
+            funcionarios.setSenha1(String.valueOf(fieldPW_1.getPassword()));
+            funcionarios.setSenha2(String.valueOf(fieldPW_2.getPassword()));
+
+            conversao = true;
+
+            boolean campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getData(),
+                    funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
+                    funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
+
+            if (campoValidado == true && conversao == true) {
+
+                boolean retorno = ControllerFuncionarios.AlterarRegistro(funcionarios.getId(), funcionarios.getNome(), funcionarios.getSexo(), funcionarios.getData(),
+                        funcionarios.getCpf(), funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getCep(),
+                        funcionarios.getNumeroCasa(), funcionarios.getBairro(), funcionarios.getEmail(), funcionarios.getTelefone(), funcionarios.getSenha1());
+
+                if (retorno == true) {
+                    JOptionPane.showMessageDialog(this, "Registro alterado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Falha ao alterar Registro!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            System.out.print("");
+        }
+
+
+    }//GEN-LAST:event_buttonAlterarActionPerformed
 
     //função para validar a utilização de caracters
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {
