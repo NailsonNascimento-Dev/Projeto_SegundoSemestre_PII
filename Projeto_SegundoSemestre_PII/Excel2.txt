@@ -1,0 +1,4 @@
+id	nome	sexo	idade	
+1	Madara	M	100	
+2	Sasuke	M	19	
+3	Itachi	M	15	
