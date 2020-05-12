@@ -41,7 +41,52 @@ public class TelaAdministrador extends javax.swing.JFrame {
         btnEntradaProdutoEstoque.setEnabled(false);
         btnDeletarProduto.setEnabled(false);
 
+        buttonAlterar.setEnabled(false);
+        buttonExcluir.setEnabled(false);
+        buttonCancelar.setVisible(false);
+
         carregarRegistrosFuncionarios();
+    }
+
+    public void buscarRegistro() {
+        ArrayList<String[]> listarRegistros = ControllerFuncionarios.BuscarRegistro(fieldBuscarFuncionarios.getText());
+        DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+        tabelaRegistros.addColumn("ID");
+        tabelaRegistros.addColumn("Nome");
+        tabelaRegistros.addColumn("Sexo");
+        tabelaRegistros.addColumn("Data Nascimento");
+        tabelaRegistros.addColumn("CPF");
+        tabelaRegistros.addColumn("Cargo");
+        tabelaRegistros.addColumn("Rua");
+        tabelaRegistros.addColumn("CEP");
+        tabelaRegistros.addColumn("N° Casa");
+        tabelaRegistros.addColumn("Bairro");
+        tabelaRegistros.addColumn("Email");
+        tabelaRegistros.addColumn("Telefone");
+        tabelaRegistros.addColumn("Senha");
+
+        tabelaFuncionarios.setModel(tabelaRegistros);
+
+        for (String[] percorrerRegistros : listarRegistros) {
+            tabelaRegistros.addRow(new String[]{
+                percorrerRegistros[0],
+                percorrerRegistros[1],
+                percorrerRegistros[2],
+                percorrerRegistros[3],
+                percorrerRegistros[4],
+                percorrerRegistros[5],
+                percorrerRegistros[6],
+                percorrerRegistros[7],
+                percorrerRegistros[8],
+                percorrerRegistros[9],
+                percorrerRegistros[10],
+                percorrerRegistros[11],
+                percorrerRegistros[12]
+
+            });
+        }
+
     }
 
     public void exporTabela(JTable tabela, File file) throws IOException, NullPointerException {
@@ -97,6 +142,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         fieldPW_2.setText("");
         fieldRua.setText("");
         fieldTelefone.setText("");
+        txtID.setText("#ID: ");
     }
 
     public void carregarRegistrosFuncionarios() {
@@ -262,10 +308,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         fieldCPF = new javax.swing.JFormattedTextField();
         fieldDataNacimento = new javax.swing.JFormattedTextField();
-        jLabel1 = new javax.swing.JLabel();
+        txtID = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel33 = new javax.swing.JLabel();
         comboBoxSexo = new javax.swing.JComboBox<>();
+        buttonRecarregarRegistros = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         fieldBairro = new javax.swing.JTextField();
         fieldRua = new javax.swing.JTextField();
@@ -285,8 +332,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabelaFuncionarios = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        buttonEditar = new javax.swing.JButton();
         buttonBuscar = new javax.swing.JButton();
+        buttonAlterar = new javax.swing.JButton();
+        buttonExcluir = new javax.swing.JButton();
+        buttonCancelar = new javax.swing.JButton();
         buttonCadastrar = new javax.swing.JToggleButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
@@ -406,7 +456,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("#ID");
+        txtID.setText("#ID:");
 
         jLabel5.setText("*Cargo");
 
@@ -414,36 +464,47 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
         comboBoxSexo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Homem", "Mulher", "Gay", "Lesbica", "Trans", "Outros(a)", "Não Informar" }));
 
+        buttonRecarregarRegistros.setText("Recarregar Registros");
+        buttonRecarregarRegistros.setMaximumSize(new java.awt.Dimension(63, 32));
+        buttonRecarregarRegistros.setMinimumSize(new java.awt.Dimension(63, 32));
+        buttonRecarregarRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRecarregarRegistrosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(7, 7, 7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(fieldDataNacimento, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
                         .addGap(13, 13, 13)
                         .addComponent(fieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel33)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComboBoxCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel33)
-                        .addGap(18, 18, 18)
                         .addComponent(comboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(ComboBoxCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonRecarregarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -453,19 +514,18 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(fieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel1)
+                    .addComponent(txtID)
                     .addComponent(jLabel33)
-                    .addComponent(comboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(comboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonRecarregarRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(fieldDataNacimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(fieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4)
-                        .addComponent(jLabel5)
-                        .addComponent(ComboBoxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(ComboBoxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fieldDataNacimento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -634,14 +694,36 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
         jLabel7.setText("Buscar Funcionarios");
 
-        jButton3.setText("Editar");
-        jButton3.setPreferredSize(new java.awt.Dimension(85, 32));
+        buttonEditar.setText("Editar");
+        buttonEditar.setPreferredSize(new java.awt.Dimension(85, 32));
+        buttonEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonEditarActionPerformed(evt);
+            }
+        });
 
         buttonBuscar.setText("Buscar");
         buttonBuscar.setPreferredSize(new java.awt.Dimension(85, 32));
         buttonBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonBuscarActionPerformed(evt);
+            }
+        });
+
+        buttonAlterar.setText("Alterar");
+        buttonAlterar.setMaximumSize(new java.awt.Dimension(63, 32));
+        buttonAlterar.setMinimumSize(new java.awt.Dimension(63, 32));
+
+        buttonExcluir.setText("Excluir");
+        buttonExcluir.setMaximumSize(new java.awt.Dimension(63, 32));
+        buttonExcluir.setMinimumSize(new java.awt.Dimension(63, 32));
+
+        buttonCancelar.setText("Cancelar");
+        buttonCancelar.setMaximumSize(new java.awt.Dimension(63, 32));
+        buttonCancelar.setMinimumSize(new java.awt.Dimension(63, 32));
+        buttonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonCancelarActionPerformed(evt);
             }
         });
 
@@ -652,34 +734,35 @@ public class TelaAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fieldBuscarFuncionarios)
-                        .addGap(47, 47, 47)
-                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(49, 49, 49))))
+                        .addComponent(fieldBuscarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fieldBuscarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(buttonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(13, 13, 13)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(fieldBuscarFuncionarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(buttonAlterar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -739,7 +822,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -873,7 +956,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 611, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 616, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -1141,7 +1224,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
+                                .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel13)
@@ -1169,7 +1252,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 525, Short.MAX_VALUE)
+                        .addGap(0, 556, Short.MAX_VALUE)
                         .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1290,7 +1373,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             .addComponent(txtBusca)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(cboTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 75, Short.MAX_VALUE)))
+                                .addGap(0, 106, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEditarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
@@ -1349,7 +1432,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 831, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1711,48 +1794,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
-    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
-       
-        ArrayList<String[]> listarRegistros = ControllerFuncionarios.BuscarRegistro(fieldBuscarFuncionarios.getText());
-        DefaultTableModel tabelaRegistros = new DefaultTableModel();
-
-        tabelaRegistros.addColumn("ID");
-        tabelaRegistros.addColumn("Nome");
-        tabelaRegistros.addColumn("Sexo");
-        tabelaRegistros.addColumn("Data Nascimento");
-        tabelaRegistros.addColumn("CPF");
-        tabelaRegistros.addColumn("Cargo");
-        tabelaRegistros.addColumn("Rua");
-        tabelaRegistros.addColumn("CEP");
-        tabelaRegistros.addColumn("N° Casa");
-        tabelaRegistros.addColumn("Bairro");
-        tabelaRegistros.addColumn("Email");
-        tabelaRegistros.addColumn("Telefone");
-        tabelaRegistros.addColumn("Senha");
-
-        tabelaFuncionarios.setModel(tabelaRegistros);
-
-        for (String[] percorrerRegistros : listarRegistros) {
-            tabelaRegistros.addRow(new String[]{
-                percorrerRegistros[0],
-                percorrerRegistros[1],
-                percorrerRegistros[2],
-                percorrerRegistros[3],
-                percorrerRegistros[4],
-                percorrerRegistros[5],
-                percorrerRegistros[6],
-                percorrerRegistros[7],
-                percorrerRegistros[8],
-                percorrerRegistros[9],
-                percorrerRegistros[10],
-                percorrerRegistros[11],
-                percorrerRegistros[12]
-
-            });
-        }
-
-    }//GEN-LAST:event_buttonBuscarActionPerformed
-
     private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
         char c = evt.getKeyChar(); //recebe o evento
         if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
@@ -1853,6 +1894,75 @@ public class TelaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPW_2ActionPerformed
 
+    private void buttonRecarregarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecarregarRegistrosActionPerformed
+        carregarRegistrosFuncionarios();
+        fieldBuscarFuncionarios.setText("");
+
+    }//GEN-LAST:event_buttonRecarregarRegistrosActionPerformed
+
+    private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
+        buscarRegistro();
+    }//GEN-LAST:event_buttonBuscarActionPerformed
+
+    private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
+
+        try {
+            buscarRegistro();
+            int editar = Integer.parseInt(fieldBuscarFuncionarios.getText());
+            JOptionPane.showMessageDialog(this, "Modo de Edição!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+            buttonAlterar.setEnabled(true);
+            buttonExcluir.setEnabled(true);
+            fieldBuscarFuncionarios.setEnabled(false);
+            buttonBuscar.setEnabled(false);
+            buttonEditar.setEnabled(false);
+            buttonCancelar.setVisible(true);
+            buttonCadastrar.setEnabled(false);
+
+            if (editar >= 1) {
+                for (int i = 0; i < tabelaFuncionarios.getColumnCount(); i++) {
+
+                    txtID.setText("#ID: " + tabelaFuncionarios.getValueAt(i, 0).toString());
+                    fieldNome.setText(tabelaFuncionarios.getValueAt(i, 1).toString());
+                    fieldDataNacimento.setText(tabelaFuncionarios.getValueAt(i, 3).toString());
+                    fieldCPF.setText(tabelaFuncionarios.getValueAt(i, 4).toString());
+                    fieldRua.setText(tabelaFuncionarios.getValueAt(i, 6).toString());
+                    fieldCep.setText(tabelaFuncionarios.getValueAt(i, 7).toString());
+                    fieldNumeroCasa.setText(tabelaFuncionarios.getValueAt(i, 8).toString());
+                    fieldBairro.setText(tabelaFuncionarios.getValueAt(i, 9).toString());
+                    fieldEmail.setText(tabelaFuncionarios.getValueAt(i, 10).toString());
+                    fieldTelefone.setText(tabelaFuncionarios.getValueAt(i, 11).toString());
+                    fieldPW_1.setText(tabelaFuncionarios.getValueAt(i, 12).toString());
+                    fieldPW_2.setText(tabelaFuncionarios.getValueAt(i, 12).toString());
+
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Você precisa informar um ID para editar!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.print("");
+        }
+    }//GEN-LAST:event_buttonEditarActionPerformed
+
+    private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
+        int resposta = JOptionPane.showConfirmDialog(this, "Deseja sair do modo de Edição?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+
+        if (resposta == 0) {
+            JOptionPane.showMessageDialog(this, "Voltando ao modo normal!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+            limparCampos();
+            carregarRegistrosFuncionarios();
+            buttonCancelar.setVisible(false);
+            buttonCadastrar.setEnabled(true);
+            fieldBuscarFuncionarios.setEnabled(true);
+            buttonBuscar.setEnabled(true);
+            buttonEditar.setEnabled(true);
+            buttonAlterar.setEnabled(false);
+            buttonExcluir.setEnabled(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "Operação cancelada!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_buttonCancelarActionPerformed
+
     //função para validar a utilização de caracters
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {
 
@@ -1927,11 +2037,16 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JButton btnEntradaProdutoEstoque;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JButton buttonAlterar;
     private javax.swing.JButton buttonBuscar;
     private javax.swing.JToggleButton buttonCadastrar;
+    private javax.swing.JButton buttonCancelar;
+    private javax.swing.JButton buttonEditar;
+    private javax.swing.JButton buttonExcluir;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JButton buttonRecarregarRegistros;
     private javax.swing.JComboBox<String> cboTipo;
     private javax.swing.JComboBox<String> cboTipoBusca;
     private javax.swing.JComboBox<String> comboBoxSexo;
@@ -1949,13 +2064,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldPW_2;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JFormattedTextField fieldTelefone;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton9;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField2;
     private javax.swing.JFormattedTextField jFormattedTextField3;
     private javax.swing.JFormattedTextField jFormattedTextField4;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -2016,6 +2129,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtCodFabricante;
     private javax.swing.JTextField txtDescricao;
+    private javax.swing.JLabel txtID;
     private javax.swing.JTextField txtMarca;
     private javax.swing.JTextArea txtObservacao;
     private javax.swing.JFormattedTextField txtPreco;
