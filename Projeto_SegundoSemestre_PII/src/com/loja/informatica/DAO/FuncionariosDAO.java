@@ -69,6 +69,69 @@ public class FuncionariosDAO {
         return retorno;
 
     }
+    
+    public static ArrayList<Funcionarios> buscarRegistros(String busca){
+         ResultSet resultado = null;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        ArrayList<Funcionarios> listarRegistros = new ArrayList<>();
+
+        try {
+
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM loja WHERE id = ? OR nome LIKE ? OR cargo LIKE ?;");
+            
+            instrucaoSQL.setString(1, busca);
+            instrucaoSQL.setString(2, "%" + busca + '%');
+            instrucaoSQL.setString(3, "%" + busca + '%');
+
+            resultado = instrucaoSQL.executeQuery();
+
+            while (resultado.next()) {
+                Funcionarios funcionarios = new Funcionarios();
+
+                funcionarios.setId(resultado.getInt("id"));
+                funcionarios.setNome(resultado.getString("nome"));
+                funcionarios.setSexo(resultado.getString("sexo"));
+                funcionarios.setData(resultado.getString("data_nascimento"));
+                funcionarios.setCpf(resultado.getString("cpf"));
+                funcionarios.setCargo(resultado.getString("cargo"));
+                funcionarios.setRua(resultado.getString("rua"));
+                funcionarios.setCep(resultado.getString("cep"));
+                funcionarios.setNumeroCasa(resultado.getInt("numero_casa"));
+                funcionarios.setBairro(resultado.getString("bairro"));
+                funcionarios.setEmail(resultado.getString("email"));
+                funcionarios.setTelefone(resultado.getString("telefone"));
+                funcionarios.setSenha1(resultado.getString("senha"));
+
+                listarRegistros.add(funcionarios);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            listarRegistros = null;
+        } finally {
+
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMysql.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listarRegistros;
+
+    }
 
     public static ArrayList<Funcionarios> carregarRegistros() {
         ResultSet resultado = null;
