@@ -7,6 +7,7 @@ package com.loja.informatica.CONTROLLER;
 
 import com.loja.informatica.DAO.FuncionariosDAO;
 import com.loja.informatica.MODEL.Funcionarios;
+import java.util.ArrayList;
 
 /**
  *
@@ -32,5 +33,34 @@ public class ControllerFuncionarios {
         funcionarios.setSenha1(senha);
         
         return FuncionariosDAO.cadastrarFuncionario(funcionarios);
+    }
+    
+    public static ArrayList<String[]> CarregarRegistros(){
+       
+        ArrayList<Funcionarios> listarRegistros = new ArrayList<>();
+        
+        ArrayList<String[]> retorno = new ArrayList<>();
+        
+        listarRegistros = FuncionariosDAO.carregarRegistros();
+        
+        for (Funcionarios funcionarios : listarRegistros) {
+            retorno.add(new String[]{
+                String.valueOf(funcionarios.getId()),
+                String.valueOf(funcionarios.getNome()),
+                String.valueOf(funcionarios.getSexo()),
+                String.valueOf(funcionarios.getData()),
+                String.valueOf(funcionarios.getCpf()),
+                String.valueOf(funcionarios.getCargo()),
+                String.valueOf(funcionarios.getRua()),
+                String.valueOf(funcionarios.getCep()),
+                String.valueOf(funcionarios.getNumeroCasa()),
+                String.valueOf(funcionarios.getBairro()),
+                String.valueOf(funcionarios.getEmail()),
+                String.valueOf(funcionarios.getTelefone()),
+                String.valueOf(funcionarios.getSenha1())
+            });
+        }
+        
+        return retorno;
     }
 }
