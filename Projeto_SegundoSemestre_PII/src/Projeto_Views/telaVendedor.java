@@ -6,13 +6,19 @@
 package Projeto_Views;
 
 import Modelo_classes.Cliente;
+import Modelo_classes.tabelaCliente;
 import ValidacaoDeCampos.soCaracteres;
 import ValidacaoDeCampos.soNumeros;
+import controle.conexaoBancoDeDados;
+import controle.controleCliente;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.parser.TokenType;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
@@ -23,14 +29,18 @@ import javax.swing.table.TableRowSorter;
 public class telaVendedor extends javax.swing.JFrame {
 
     boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
-    int linha = 0;//Variavel para salvar a linha da tabela cliente
     Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
+
+    controleCliente controle = new controleCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
+    Cliente modelo = new Cliente();
+    conexaoBancoDeDados conectar = new conexaoBancoDeDados();//Classe para conectar e dasconectar do banco de dados
 
     /**
      * Creates new form telaVendedor
      */
     public telaVendedor() {
         initComponents();
+        PreencherTabela("select * from cliente order by id_cli");//Atualiza tabela com os dados do cliente
         txtNum.setDocument(new soNumeros());//Importação da classe que aceita somente numeros
         txtNome.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
         txtRua.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
@@ -41,6 +51,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtCarrinhoQuantidade.setDocument(new soNumeros());
         txtFiltroTipo.setDocument(new soCaracteres());
         txtFiltroMarca.setDocument(new soCaracteres());
+
     }
 
     /**
@@ -99,7 +110,7 @@ public class telaVendedor extends javax.swing.JFrame {
         comboSexo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         comboECivil = new javax.swing.JComboBox<>();
-        jLabel14 = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -461,7 +472,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         comboECivil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Solteiro", "Casado", "Outro" }));
 
-        jLabel14.setText("Nº");
+        txtID.setEnabled(false);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -472,9 +483,9 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel14)
-                        .addGap(67, 67, 67)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtNome))
@@ -505,7 +516,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addComponent(jLabel6)
                     .addComponent(jLabel7)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel14))
+                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(16, 16, 16)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
@@ -676,9 +687,14 @@ public class telaVendedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Nome", "Data", "Cpf", "Sexo", "Estado Civil", "Rua", "Cep", "Nº", "Bairro", "Email", "Fone"
+
             }
         ));
+        tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaClienteMouseClicked(evt);
+            }
+        });
         jScrollPane6.setViewportView(tabelaCliente);
 
         jLabel15.setText("Cpf:");
@@ -691,6 +707,11 @@ public class telaVendedor extends javax.swing.JFrame {
         txtBCpf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBCpfActionPerformed(evt);
+            }
+        });
+        txtBCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBCpfKeyTyped(evt);
             }
         });
 
@@ -942,7 +963,6 @@ public class telaVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     TableRowSorter trs;
-
     private void txtValorFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorFinalActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtValorFinalActionPerformed
@@ -1071,39 +1091,24 @@ public class telaVendedor extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Campo Email incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
-                if(txtNum.getText().trim().equals("")){
-                    cliente.setNumeroCasa(0);
+
+                //Pega os valores digitados para salvar no banco de dados
+                if (txtNum.getText().equals("")) {
+                    modelo.setNumeroCasa(0);
+                } else {
+                    modelo.setNumeroCasa((Integer.parseInt(txtNum.getText())));
                 }
-                else{
-                   cliente.setNumeroCasa(Integer.parseInt(txtNum.getText())); 
-                }
-
-                cliente.setNome(txtNome.getText());//
-                cliente.setData(txtData.getText());
-                cliente.setCpf(txtCpf.getText());
-                cliente.setSexo(comboSexo.getSelectedItem().toString());
-                cliente.setEstadoCivil(comboECivil.getSelectedItem().toString());
-                cliente.setRua(txtRua.getText());
-                cliente.setCep(txtCep.getText());            
-                cliente.setBairro(txtBairro.getText());
-                cliente.setEmail(txtEmail.getText());
-                cliente.setTelefone(txtFone.getText());
-
-                DefaultTableModel tblCliente = (DefaultTableModel) tabelaCliente.getModel();
-
-                //Adicionas os os dados do cliente na tabela
-                tblCliente.addRow(new Object[]{cliente.getNome(),
-                    cliente.getData(),
-                    cliente.getCpf(),
-                    cliente.getSexo(),
-                    cliente.getEstadoCivil(),
-                    cliente.getRua(),
-                    cliente.getCep(),
-                    cliente.getNumeroCasa(),
-                    cliente.getBairro(),
-                    cliente.getEmail(),
-                    cliente.getTelefone()});
+                modelo.setNome(txtNome.getText());
+                modelo.setData(txtData.getText());
+                modelo.setCpf(txtCpf.getText());
+                modelo.setSexo(comboSexo.getSelectedItem().toString());
+                modelo.setEstadoCivil(comboECivil.getSelectedItem().toString());
+                modelo.setRua(txtRua.getText());
+                modelo.setCep(txtCep.getText());
+                modelo.setBairro(txtBairro.getText());
+                modelo.setEmail(txtEmail.getText());
+                modelo.setTelefone(txtFone.getText());
+                controle.cadastrar(modelo);
 
                 //Limpa os campos de digitação
                 txtNome.setText("");
@@ -1116,6 +1121,10 @@ public class telaVendedor extends javax.swing.JFrame {
                 txtEmail.setText("");
                 txtFone.setText("");
                 txtBCpf.setText("");
+                txtID.setText("");
+
+                //Atualiza a tabela cliente
+                PreencherTabela("select * from cliente order by id_cli");
 
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado");
 
@@ -1142,18 +1151,23 @@ public class telaVendedor extends javax.swing.JFrame {
                     return;
                 }
 
-                //Altera os valores da tabela 
-                tabelaCliente.setValueAt(txtNome.getText(), linha, 0);
-                tabelaCliente.setValueAt(txtData.getText(), linha, 1);
-                tabelaCliente.setValueAt(txtCpf.getText(), linha, 2);
-                tabelaCliente.setValueAt(comboSexo.getSelectedItem(), linha, 3);
-                tabelaCliente.setValueAt(comboECivil.getSelectedItem(), linha, 4);
-                tabelaCliente.setValueAt(txtRua.getText(), linha, 5);
-                tabelaCliente.setValueAt(txtCep.getText(), linha, 6);
-                tabelaCliente.setValueAt(txtNum.getText(), linha, 7);
-                tabelaCliente.setValueAt(txtBairro.getText(), linha, 8);
-                tabelaCliente.setValueAt(txtEmail.getText(), linha, 9);
-                tabelaCliente.setValueAt(txtFone.getText(), linha, 10);
+                //Altera os valores do banco de dados
+                if (txtNum.getText().equals("")) {
+                    modelo.setNumeroCasa(0);
+                } else {
+                    modelo.setNumeroCasa((Integer.parseInt(txtNum.getText())));
+                }
+                modelo.setNome(txtNome.getText());
+                modelo.setData(txtData.getText());
+                modelo.setCpf(txtCpf.getText());
+                modelo.setSexo(comboSexo.getSelectedItem().toString());
+                modelo.setEstadoCivil(comboECivil.getSelectedItem().toString());
+                modelo.setRua(txtRua.getText());
+                modelo.setCep(txtCep.getText());
+                modelo.setBairro(txtBairro.getText());
+                modelo.setEmail(txtEmail.getText());
+                modelo.setTelefone(txtFone.getText());
+                controle.alterar(modelo);
 
                 //Limpa os campos de digitação
                 txtBCpf.setText("");
@@ -1166,11 +1180,13 @@ public class telaVendedor extends javax.swing.JFrame {
                 txtBairro.setText("");
                 txtEmail.setText("");
                 txtFone.setText("");
+                txtID.setText("");
+                txtCpf.setEnabled(true);
 
                 pesquisar = false;//Desativa o modo pesquisar cliente
 
-                JOptionPane.showMessageDialog(null, "Cadastro alterado");
-
+                //Atualiza a tabela cliente
+                PreencherTabela("select * from cliente order by id_cli");
             }
 
         } catch (Exception e) {
@@ -1181,58 +1197,40 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-        // TODO add your handling code here:
+        pesquisar = true;//Ativa o modo pesquisar cliente
 
-        try {
-            pesquisar = true;//Ativa o modo pesquisar cliente
-            boolean buscar = false;//Variavel para saber se CPf foi encontrado
+        //Manda para a classe buscarCampo o valor a ser pesquisado
+        modelo.setPesquisar(txtBCpf.getText());
+        Cliente mod = controle.buscarCampo(modelo);
 
-            String busca = txtBCpf.getText();//Campo para pesquisar cliente com o CPF
+        //Imprime nos campos de texto os dados do cliente pesquisado
+        txtID.setText(String.valueOf(mod.getId()));
+        txtNome.setText(mod.getNome());
+        txtData.setText(mod.getData());
+        txtCpf.setText(mod.getCpf());
+        comboSexo.setSelectedItem(mod.getSexo());
+        comboECivil.setSelectedItem(mod.getEstadoCivil());
+        txtRua.setText(mod.getRua());
+        txtCep.setText(mod.getCep());
+        txtNum.setText(String.valueOf(mod.getNumeroCasa()));
+        txtBairro.setText(mod.getBairro());
+        txtEmail.setText(mod.getEmail());
+        txtFone.setText(mod.getTelefone());
+        
+        //Desabilita os campos de texto
+        txtNome.setEnabled(false);
+        txtData.setEnabled(false);
+        txtCpf.setEnabled(false);
+        comboSexo.setEnabled(false);
+        comboECivil.setEnabled(false);
+        txtRua.setEnabled(false);
+        txtCep.setEnabled(false);
+        txtNum.setEnabled(false);
+        txtBairro.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtFone.setEnabled(false);
+        btSalvar.setEnabled(false);
 
-            //For para identificar em qual linhas os dados do cliente estão de acordo com o CPF pesquisado
-            for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
-
-                if (busca.equals(tabelaCliente.getValueAt(i, 2))) {
-
-                    linha = i;//Salva a linha em que os dados do cliente pesquisado estão
-
-                    //Desativa os campos de digitação
-                    txtNome.setEnabled(false);
-                    txtData.setEnabled(false);
-                    txtCpf.setEnabled(false);
-                    comboSexo.setEnabled(false);
-                    comboECivil.setEnabled(false);
-                    txtRua.setEnabled(false);
-                    txtCep.setEnabled(false);
-                    txtNum.setEnabled(false);
-                    txtBairro.setEnabled(false);
-                    txtEmail.setEnabled(false);
-                    txtFone.setEnabled(false);
-                    btSalvar.setEnabled(false);
-
-                    //Mostra os valores dos dados do cliente no campos de digitação 
-                    txtNome.setText(tabelaCliente.getValueAt(i, 0).toString());
-                    txtData.setText(tabelaCliente.getValueAt(i, 1).toString());
-                    txtCpf.setText(tabelaCliente.getValueAt(i, 2).toString());
-                    comboSexo.setSelectedItem(tabelaCliente.getValueAt(i, 3).toString());
-                    comboECivil.setSelectedItem(tabelaCliente.getValueAt(i, 4).toString());
-                    txtRua.setText(tabelaCliente.getValueAt(i, 5).toString());
-                    txtCep.setText(tabelaCliente.getValueAt(i, 6).toString());
-                    txtNum.setText(tabelaCliente.getValueAt(i, 7).toString());
-                    txtBairro.setText(tabelaCliente.getValueAt(i, 8).toString());
-                    txtEmail.setText(tabelaCliente.getValueAt(i, 9).toString());
-                    txtFone.setText(tabelaCliente.getValueAt(i, 10).toString());
-
-                    buscar = true;//Ativa o modo buscar cliente
-                }
-            }
-            if (buscar == false) {
-                JOptionPane.showMessageDialog(null, "Cpf não encontrados");
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro!!!");
-        }
 
     }//GEN-LAST:event_btBuscarActionPerformed
 
@@ -1250,6 +1248,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtEmail.setText("");
         txtFone.setText("");
         txtBCpf.setText("");
+        txtID.setText("");
 
         //Ativa os campos de digitação
         txtNome.setEnabled(true);
@@ -1271,8 +1270,6 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btNovoActionPerformed
 
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
-        // TODO add your handling code here:
-
         //Ativa os campos de digitação para alterar os dados
         txtNome.setEnabled(true);
         txtData.setEnabled(true);
@@ -1290,64 +1287,44 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btEditarActionPerformed
 
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
-        // TODO add your handling code here:
 
-        try {
+        int resposta = 0;
 
-            String deletar = txtBCpf.getText();//Campo para digitar CPF que vai ser deletados
-            boolean delete = false;//Variavel para saber se o CPF foi encontrado
+        resposta = JOptionPane.showConfirmDialog(rootPane, "Deseja realmente excluir?");
+        if (resposta == JOptionPane.YES_OPTION) {
+            //Madanda para a classe excluir o cpf do cliente que deseja excluir
+            modelo.setCpf(txtBCpf.getText());
+            controle.excluir(modelo);
 
-            //For para identificar em qual linhas os dados do cliente estão de acordo com o CPF pesquisado
-            for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
+            //Limpa os campos de digitação
+            txtBCpf.setText("");
+            txtNome.setText("");
+            txtData.setText("");
+            txtCpf.setText("");
+            txtRua.setText("");
+            txtCep.setText("");
+            txtNum.setText("");
+            txtBairro.setText("");
+            txtEmail.setText("");
+            txtFone.setText("");
+            txtID.setText("");
 
-                if (deletar.equals(tabelaCliente.getValueAt(i, 2))) {//Compara CPF pesquisado com os da tabela
+            //ativa os campos de digitação
+            txtNome.setEnabled(true);
+            txtData.setEnabled(true);
+            txtCpf.setEnabled(true);
+            comboSexo.setEnabled(true);
+            comboECivil.setEnabled(true);
+            txtRua.setEnabled(true);
+            txtCep.setEnabled(true);
+            txtNum.setEnabled(true);
+            txtBairro.setEnabled(true);
+            txtEmail.setEnabled(true);
+            txtFone.setEnabled(true);
 
-                    //Deleta todos os dados na mesma linha que o CPF pesquisado
-                    DefaultTableModel tblCliente = (DefaultTableModel) tabelaCliente.getModel();
-                    tblCliente.removeRow(i);
-
-                    //Limpa os campos de digitação
-                    txtBCpf.setText("");
-                    txtNome.setText("");
-                    txtData.setText("");
-                    txtCpf.setText("");
-                    txtRua.setText("");
-                    txtCep.setText("");
-                    txtNum.setText("");
-                    txtBairro.setText("");
-                    txtEmail.setText("");
-                    txtFone.setText("");
-
-                    //Ativa os campos de digitação
-                    txtNome.setEnabled(true);
-                    txtData.setEnabled(true);
-                    txtCpf.setEnabled(true);
-                    comboSexo.setEnabled(true);
-                    comboECivil.setEnabled(true);
-                    txtRua.setEnabled(true);
-                    txtCep.setEnabled(true);
-                    txtNum.setEnabled(true);
-                    txtBairro.setEnabled(true);
-                    txtEmail.setEnabled(true);
-                    txtFone.setEnabled(true);
-                    btSalvar.setEnabled(true);
-
-                    delete = true;
-                    pesquisar = false;//Desativa o modo pesquisar cliente
-
-                    JOptionPane.showMessageDialog(null, "Cadastro deletado");
-
-                }
-            }
-            if (delete == false) {
-                JOptionPane.showMessageDialog(null, "Cpf não encontrado");
-
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro!!!");
+            //Atualiza a tabela cliente
+            PreencherTabela("select * from cliente order by id_cli");
         }
-
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void txtBCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBCpfActionPerformed
@@ -1518,10 +1495,10 @@ public class telaVendedor extends javax.swing.JFrame {
             txtCpfCompra.setText("");
             txtCarrinhoID.setText("");
             txtCarrinhoQuantidade.setText("");
-            
+
             //Valor final recebe 0
             valorFinal = 0.0;
-            
+
             //Transforma valor final em String
             String valFinal = String.valueOf(valorFinal);
             //Imprime no campo de texto 0 valor final 
@@ -1574,9 +1551,120 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btFinalizarCompraActionPerformed
 
+    public void PreencherTabela(String Sql) {
+
+        //Titulos das colunas da tabela cliente
+        ArrayList dados = new ArrayList();
+        String[] colunas = new String[]{"Id", "Nome", "Data", "CPF", "Sexo", "Estado Civil", "Rua", "Cep", "Nº", "Bairro", "Email", "Fone"};
+        conectar.conexao();
+        conectar.executaSQl(Sql);
+
+        //Pega os valores do cliente no banco de dados
+        try {
+            conectar.rs.first();
+            do {
+                dados.add(new Object[]{conectar.rs.getInt("id_cli"), conectar.rs.getString("nome"), conectar.rs.getString("nascimento"), conectar.rs.getString("cpf"),
+                    conectar.rs.getString("sexo"), conectar.rs.getString("estado_civil"), conectar.rs.getString("rua"), conectar.rs.getString("cep"), conectar.rs.getInt("numero_casa"),
+                    conectar.rs.getString("bairro"), conectar.rs.getString("email"), conectar.rs.getString("fone"),});
+
+            } while (conectar.rs.next());
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "erro ao preencher tabela" + ex);
+        }
+
+        tabelaCliente modelo = new tabelaCliente(dados, colunas);
+
+        //Preenche a tabela cliente com os dados do banco de dados
+        tabelaCliente.setModel(modelo);
+        tabelaCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
+        tabelaCliente.getColumnModel().getColumn(0).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(1).setPreferredWidth(180);
+        tabelaCliente.getColumnModel().getColumn(1).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tabelaCliente.getColumnModel().getColumn(2).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(3).setPreferredWidth(110);
+        tabelaCliente.getColumnModel().getColumn(3).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(4).setPreferredWidth(80);
+        tabelaCliente.getColumnModel().getColumn(4).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(5).setPreferredWidth(80);
+        tabelaCliente.getColumnModel().getColumn(5).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(6).setPreferredWidth(100);
+        tabelaCliente.getColumnModel().getColumn(6).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(7).setPreferredWidth(80);
+        tabelaCliente.getColumnModel().getColumn(7).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(8).setPreferredWidth(50);
+        tabelaCliente.getColumnModel().getColumn(8).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(9).setPreferredWidth(80);
+        tabelaCliente.getColumnModel().getColumn(9).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(10).setPreferredWidth(220);
+        tabelaCliente.getColumnModel().getColumn(10).setResizable(false);
+        tabelaCliente.getColumnModel().getColumn(11).setPreferredWidth(150);
+        tabelaCliente.getColumnModel().getColumn(11).setResizable(false);
+        tabelaCliente.getTableHeader().setReorderingAllowed(false);
+        tabelaCliente.setAutoResizeMode(tabelaCliente.AUTO_RESIZE_OFF);
+        tabelaCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
+        conectar.desconecta();
+
+    }
+
+
     private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDataActionPerformed
+
+    private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
+        pesquisar = true;//Ativa o modo pesquisar cliente
+        
+        //Desativa os campos de digitação
+        txtNome.setEnabled(false);
+        txtData.setEnabled(false);
+        txtCpf.setEnabled(false);
+        comboSexo.setEnabled(false);
+        comboECivil.setEnabled(false);
+        txtRua.setEnabled(false);
+        txtCep.setEnabled(false);
+        txtNum.setEnabled(false);
+        txtBairro.setEnabled(false);
+        txtEmail.setEnabled(false);
+        txtFone.setEnabled(false);
+        btSalvar.setEnabled(false);
+        
+        
+        String cpf = "" + tabelaCliente.getValueAt(tabelaCliente.getSelectedRow(), 3);
+        conectar.conexao();
+        conectar.executaSQl("select * from cliente where cpf ='" + cpf + "'");
+        try {
+            //Passa para os campos de texto os valores do cliente em que foi clicado 
+            conectar.rs.first();
+            txtID.setText(String.valueOf(conectar.rs.getInt("id_cli")));
+            txtNome.setText(conectar.rs.getString("nome"));
+            txtData.setText(conectar.rs.getString("nascimento"));
+            txtCpf.setText(conectar.rs.getString("cpf"));
+            txtBCpf.setText(conectar.rs.getString("cpf"));
+            comboSexo.setSelectedItem(conectar.rs.getString("sexo"));
+            comboECivil.setSelectedItem(conectar.rs.getString("estado_civil"));
+            txtRua.setText(conectar.rs.getString("rua"));
+            txtCep.setText(conectar.rs.getString("cep"));
+            txtNum.setText(conectar.rs.getString("numero_casa"));
+            txtBairro.setText(conectar.rs.getString("bairro"));
+            txtEmail.setText(conectar.rs.getString("email"));
+            txtFone.setText(conectar.rs.getString("fone"));
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Erro ao selecionar dados");
+            System.out.println(ex);
+        }
+
+        conectar.desconecta();
+
+
+    }//GEN-LAST:event_tabelaClienteMouseClicked
+
+    private void txtBCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBCpfKeyTyped
+
+    }//GEN-LAST:event_txtBCpfKeyTyped
 
     /**
      * @param args the command line arguments
@@ -1635,7 +1723,6 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
@@ -1695,6 +1782,7 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JTextField txtFiltroModelo;
     private javax.swing.JTextField txtFiltroTipo;
     private javax.swing.JFormattedTextField txtFone;
+    private javax.swing.JTextField txtID;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNum;
     private javax.swing.JTextField txtRua;

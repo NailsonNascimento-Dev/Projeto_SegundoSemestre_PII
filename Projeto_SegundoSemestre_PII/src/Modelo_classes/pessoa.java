@@ -13,6 +13,15 @@ public class pessoa {
     private String bairro;
     private String email;
     private String telefone;
+    String pesquisar;
+
+    public String getPesquisar() {
+        return pesquisar;
+    }
+
+    public void setPesquisar(String pesquisar) {
+        this.pesquisar = pesquisar;
+    }
 
     public int getId() {
         return id;

@@ -16,7 +16,7 @@ public class conexaoBancoDeDados {
     public Connection ctm;
 
     public String Driver = "org.postgresql.Driver";
-    public String caminho = "jdbc:mysql://localhost:3306/";
+    public String caminho = "jdbc:mysql://localhost:3306/Loja";
     public String usuario = "root";
     public String senha = "";
 
@@ -27,7 +27,8 @@ public class conexaoBancoDeDados {
         try {
 
             ctm = DriverManager.getConnection(caminho, usuario, senha);
-            // JOptionPane.showMessageDialog(null, "Conexão realizada");
+             //JOptionPane.showMessageDialog(null, "Conexão realizada");
+             System.out.println("Conexão relizada");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Conexão não realizada");
             System.out.println(ex);
