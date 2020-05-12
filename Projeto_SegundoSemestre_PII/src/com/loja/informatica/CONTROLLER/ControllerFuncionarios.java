@@ -15,7 +15,8 @@ import java.util.ArrayList;
  */
 public class ControllerFuncionarios {
     
-    public static boolean CadastrarFuncionario(String nome, String sexo, String data, String cpf, String cargo, String rua, String cep, int numeroCasa, String bairro, String email, String telefone, String senha){
+    public static boolean CadastrarFuncionario(String nome, String sexo, String data, String cpf, String cargo, String rua,
+            String cep, int numeroCasa, String bairro, String email, String telefone, String senha){
         
         Funcionarios funcionarios = new Funcionarios();
         
@@ -33,6 +34,27 @@ public class ControllerFuncionarios {
         funcionarios.setSenha1(senha);
         
         return FuncionariosDAO.cadastrarFuncionario(funcionarios);
+    }
+    
+    public static boolean AlterarRegistro(int id, String nome, String sexo, String data, String cpf, String cargo, String rua,
+            String cep, int numeroCasa, String bairro, String email, String telefone, String senha){
+        
+        Funcionarios funcionarios = new Funcionarios();
+        funcionarios.setId(id);
+        funcionarios.setNome(nome);
+        funcionarios.setSexo(sexo);
+        funcionarios.setData(data);
+        funcionarios.setCpf(cpf);
+        funcionarios.setCargo(cargo);
+        funcionarios.setRua(rua);
+        funcionarios.setCep(cep);
+        funcionarios.setNumeroCasa(numeroCasa);
+        funcionarios.setBairro(bairro);
+        funcionarios.setEmail(email);
+        funcionarios.setTelefone(telefone);
+        funcionarios.setSenha1(senha);
+        
+        return FuncionariosDAO.atualizarRegistro(funcionarios);
     }
     
     public static ArrayList<String[]> BuscarRegistro(String busca){
