@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Projeto_Views;
+package com.loja.informatica.VIEWS;
 
-import Modelo_classes.Cliente;
-import Modelo_classes.tabelaCliente;
-import ValidacaoDeCampos.soCaracteres;
-import ValidacaoDeCampos.soNumeros;
-import controle.conexaoBancoDeDados;
-import controle.controleCliente;
+import com.loja.informatica.MODEL.Cliente;
+import com.loja.informatica.MODEL.TabelaCliente;
+import com.loja.informatica.UTILS.SoCaracteres;
+import com.loja.informatica.UTILS.SoNumeros;
+import com.loja.informatica.UTILS.ConexaoBancoDeDados;
+import com.loja.informatica.CONTROLLER.ControllerCliente;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.parser.TokenType;
@@ -26,31 +26,31 @@ import javax.swing.table.TableRowSorter;
  *
  * @author Juliano
  */
-public class telaVendedor extends javax.swing.JFrame {
+public class TelaVendedor extends javax.swing.JFrame {
 
     boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
     Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
 
-    controleCliente controle = new controleCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
+    ControllerCliente controle = new ControllerCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
     Cliente modelo = new Cliente();
-    conexaoBancoDeDados conectar = new conexaoBancoDeDados();//Classe para conectar e dasconectar do banco de dados
+    ConexaoBancoDeDados conectar = new ConexaoBancoDeDados();//Classe para conectar e dasconectar do banco de dados
 
     /**
      * Creates new form telaVendedor
      */
-    public telaVendedor() {
+    public TelaVendedor() {
         initComponents();
         PreencherTabela("select * from cliente order by id_cli");//Atualiza tabela com os dados do cliente
-        txtNum.setDocument(new soNumeros());//Importação da classe que aceita somente numeros
-        txtNome.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
-        txtRua.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
-        txtBairro.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
+        txtNum.setDocument(new SoNumeros());//Importação da classe que aceita somente numeros
+        txtNome.setDocument(new SoCaracteres());//Importação da classe que aceita somentes letras e acentos
+        txtRua.setDocument(new SoCaracteres());//Importação da classe que aceita somentes letras e acentos
+        txtBairro.setDocument(new SoCaracteres());//Importação da classe que aceita somentes letras e acentos
 
         //Implementacao da classe ValidacaoDeCampos na aba de venda
-        txtCarrinhoID.setDocument(new soNumeros());
-        txtCarrinhoQuantidade.setDocument(new soNumeros());
-        txtFiltroTipo.setDocument(new soCaracteres());
-        txtFiltroMarca.setDocument(new soCaracteres());
+        txtCarrinhoID.setDocument(new SoNumeros());
+        txtCarrinhoQuantidade.setDocument(new SoNumeros());
+        txtFiltroTipo.setDocument(new SoCaracteres());
+        txtFiltroMarca.setDocument(new SoCaracteres());
 
     }
 
@@ -156,7 +156,6 @@ public class telaVendedor extends javax.swing.JFrame {
         jButton6.setText("jButton6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 730));
 
         jTabbedPane1.setPreferredSize(new java.awt.Dimension(800, 630));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1573,7 +1572,7 @@ public class telaVendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "erro ao preencher tabela" + ex);
         }
 
-        tabelaCliente modelo = new tabelaCliente(dados, colunas);
+        TabelaCliente modelo = new TabelaCliente(dados, colunas);
 
         //Preenche a tabela cliente com os dados do banco de dados
         tabelaCliente.setModel(modelo);
@@ -1683,21 +1682,23 @@ public class telaVendedor extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaVendedor().setVisible(true);
+                new TelaVendedor().setVisible(true);
             }
         });
 

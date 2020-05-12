@@ -1,7 +1,7 @@
 package com.loja.informatica.CONTROLLER;
 
 import com.loja.informatica.MODEL.Cliente;
-import com.loja.informatica.UTILS.conexaoBancoDeDados;
+import com.loja.informatica.UTILS.ConexaoBancoDeDados;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
  *
  * @author Juliano
  */
-public class controleCliente {
+public class ControllerCliente {
 
     Cliente cli = new Cliente();
 
-    conexaoBancoDeDados conectar = new conexaoBancoDeDados();
+    ConexaoBancoDeDados conectar = new ConexaoBancoDeDados();
 
     public void cadastrar(Cliente mod) {//Metodo para cadastrar cliente
 

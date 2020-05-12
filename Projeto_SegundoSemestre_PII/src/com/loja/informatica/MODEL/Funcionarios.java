@@ -10,7 +10,7 @@ package com.loja.informatica.MODEL;
  *
  * @author Azazel
  */
-public class Funcionarios extends pessoa{
+public class Funcionarios extends Pessoa{
     
     private String cargo;
     private String senha1;

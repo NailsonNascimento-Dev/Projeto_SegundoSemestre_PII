@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Projeto_Views;
+package com.loja.informatica.VIEWS;
 
-import Modelo_classes.Funcionarios;
-import Modelo_classes.Produto;
-import ValidacaoDeCampos.soCaracteres;
+import com.loja.informatica.MODEL.Funcionarios;
+import com.loja.informatica.MODEL.Produto;
+import com.loja.informatica.UTILS.SoCaracteres;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -27,7 +27,7 @@ import javax.swing.table.TableModel;
  *
  * @author nailson
  */
-public class telaAdministrador extends javax.swing.JFrame {
+public class TelaAdministrador extends javax.swing.JFrame {
 
     boolean buscaAtivada = false;
     int indexLinha = 0;
@@ -35,7 +35,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     /**
      * Creates new form telaAdministrador
      */
-    public telaAdministrador() {
+    public TelaAdministrador() {
         initComponents();
         btnBusca.setEnabled(false);
         btnEditarProduto.setEnabled(false);
@@ -246,7 +246,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        buttonCadastrar = new javax.swing.JToggleButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel24 = new javax.swing.JLabel();
         fieldPW_1 = new javax.swing.JPasswordField();
@@ -402,7 +402,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(comboBoxSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(ComboBoxCargo, 0, 226, Short.MAX_VALUE))
+                    .addComponent(ComboBoxCargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -488,7 +488,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fieldBairro, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
+                        .addComponent(fieldBairro))
                     .addComponent(fieldRua))
                 .addContainerGap())
         );
@@ -532,7 +532,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(fieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
+                .addComponent(fieldEmail)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel12)
                 .addGap(13, 13, 13)
@@ -637,10 +637,10 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jToggleButton1.setText("Cadastrar");
-        jToggleButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonCadastrar.setText("Cadastrar");
+        buttonCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jToggleButton1ActionPerformed(evt);
+                buttonCadastrarActionPerformed(evt);
             }
         });
 
@@ -691,7 +691,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPFuncionarioLayout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(27, 27, 27)
-                        .addComponent(jToggleButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -709,7 +709,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPFuncionarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
+                    .addComponent(buttonCadastrar, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -839,7 +839,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(8, 8, 8)
                         .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 6, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -950,7 +950,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel12Layout.createSequentialGroup()
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 16, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1117,7 +1117,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtPreco)
                             .addComponent(txtCodFabricante)
-                            .addComponent(cboTipo, 0, 135, Short.MAX_VALUE)))
+                            .addComponent(cboTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel19)
                         .addGap(0, 0, Short.MAX_VALUE))
@@ -1617,13 +1617,13 @@ public class telaAdministrador extends javax.swing.JFrame {
             exporTabela(tableMaisVendidos, arquivo1);
             caminhoArquivo(tableMaisVendidos);
         } catch (IOException ex) {
-            Logger.getLogger(telaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
     }//GEN-LAST:event_exportarExcel1ActionPerformed
 
-    private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
+    private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         boolean campoValidado = false;
         boolean conversao = false;
 
@@ -1661,7 +1661,7 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!");
             limparCampos();
         }
-    }//GEN-LAST:event_jToggleButton1ActionPerformed
+    }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
@@ -1716,7 +1716,7 @@ public class telaAdministrador extends javax.swing.JFrame {
             exporTabela(tableMelhoresVendedores, arquivo2);
             caminhoArquivo(tableMelhoresVendedores);
         } catch (IOException ex) {
-            Logger.getLogger(telaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaAdministrador.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
@@ -1814,20 +1814,21 @@ public class telaAdministrador extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(telaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(telaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(telaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(telaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TelaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new telaAdministrador().setVisible(true);
+                new TelaAdministrador().setVisible(true);
             }
         });
     }
@@ -1840,6 +1841,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnEditarProduto;
     private javax.swing.JButton btnEntradaProdutoEstoque;
     private javax.swing.JButton btnNovo;
+    private javax.swing.JToggleButton buttonCadastrar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1921,7 +1923,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JTable tableMaisVendidos;
     private javax.swing.JTable tableMelhoresVendedores;

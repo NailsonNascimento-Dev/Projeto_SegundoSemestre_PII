@@ -161,7 +161,7 @@ public class TelaLogin extends javax.swing.JFrame {
         
         else  if(Usuario.getText().equals("admin")&& (pass.equals("1234"))){
                
-            telaAdministrador telaAdmin = new telaAdministrador();
+            TelaAdministrador telaAdmin = new TelaAdministrador();
              telaAdmin.setVisible(true);
               dispose();
                
@@ -169,7 +169,7 @@ public class TelaLogin extends javax.swing.JFrame {
             
           else if(Usuario.getText().equals("funcionario")&& (pass.equals("1234"))){
                
-            telaVendedor telavendedor = new telaVendedor();
+            TelaVendedor telavendedor = new TelaVendedor();
              telavendedor.setVisible(true);
              dispose();
                
