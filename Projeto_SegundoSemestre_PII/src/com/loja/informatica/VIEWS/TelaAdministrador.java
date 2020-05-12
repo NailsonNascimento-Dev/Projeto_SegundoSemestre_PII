@@ -5,9 +5,9 @@
  */
 package com.loja.informatica.VIEWS;
 
+import com.loja.informatica.CONTROLLER.ControllerFuncionarios;
 import com.loja.informatica.MODEL.Funcionarios;
 import com.loja.informatica.MODEL.Produto;
-import com.loja.informatica.UTILS.SoCaracteres;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -20,8 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
-
 
 /**
  *
@@ -41,7 +39,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         btnEditarProduto.setEnabled(false);
         btnEntradaProdutoEstoque.setEnabled(false);
         btnDeletarProduto.setEnabled(false);
-        
+
     }
 
     public void exporTabela(JTable tabela, File file) throws IOException, NullPointerException {
@@ -457,6 +455,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
         jLabel9.setText("*Bairro");
 
+        try {
+            fieldCep.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("#####-###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         fieldCep.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 fieldCepKeyReleased(evt);
@@ -1335,13 +1338,12 @@ public class TelaAdministrador extends javax.swing.JFrame {
 
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
         int quandidaEntradaInt = Integer.parseInt(quandidaEntrada);
-        
-        
+
         String valorAtualEstoque = tblProdutos.getValueAt(indexLinha, 3).toString();
-        int valorEstoqueInt = Integer.parseInt(valorAtualEstoque );
-        
+        int valorEstoqueInt = Integer.parseInt(valorAtualEstoque);
+
         tblProdutos.setValueAt((quandidaEntradaInt + valorEstoqueInt), indexLinha, 3);
-        
+
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
 
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
@@ -1355,11 +1357,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
         txtObservacao.setEnabled(true);
         txtPreco.setEnabled(true);
         btnCriar.setEnabled(true);
-        
+
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        
+
         buscaAtivada = true;
 
         int tipoBusca = cboTipoBusca.getSelectedIndex();
@@ -1374,7 +1376,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
         txtObservacao.setEnabled(false);
         cboTipo.setEnabled(false);
         txtPreco.setEnabled(false);
-        
+
         boolean valorEncontrado = false;
         switch (tipoBusca) {
             case 0:
@@ -1384,7 +1386,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                         //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 1))) {
-                            
 
                             btnEditarProduto.setEnabled(true);
                             btnEntradaProdutoEstoque.setEnabled(true);
@@ -1400,23 +1401,22 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
                             txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
                             valorEncontrado = true;
-                            
+
                         }
                     }
-                    
-                    if(!valorEncontrado){
+
+                    if (!valorEncontrado) {
                         JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                     }
-                    
+
                 }
                 break;
             case 1:
                 if (busca.length() > 0) {
-                    System.out.println("Busca Descrição");                  
+                    System.out.println("Busca Descrição");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                         //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 0))) {
-                            
 
                             btnEditarProduto.setEnabled(true);
                             btnEntradaProdutoEstoque.setEnabled(true);
@@ -1432,11 +1432,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
                             txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
                             valorEncontrado = true;
-                            
+
                         }
                     }
-                    
-                    if(!valorEncontrado){
+
+                    if (!valorEncontrado) {
                         JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                     }
                 }
@@ -1447,7 +1447,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                         //pega linha da tabela
                         if (busca.equals(tblProdutos.getValueAt(i, 2))) {
-                            
 
                             btnEditarProduto.setEnabled(true);
                             btnEntradaProdutoEstoque.setEnabled(true);
@@ -1463,11 +1462,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
                             txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
                             txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
                             valorEncontrado = true;
-                            
+
                         }
                     }
-                    
-                    if(!valorEncontrado){
+
+                    if (!valorEncontrado) {
                         JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                     }
                 }
@@ -1476,12 +1475,12 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
-       validacaoCaracterNumero(evt);
+        validacaoCaracterNumero(evt);
     }//GEN-LAST:event_txtPrecoKeyTyped
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         // TODO add your handling code here:
-        
+
         buscaAtivada = false;
 
         btnCriar.setEnabled(true);
@@ -1502,11 +1501,11 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
-        
+
         try {
-            
+
             Produto produto = new Produto();
-            
+
             if (buscaAtivada == true) {
                 //System.out.println("busca realizada");
                 //System.out.println("linha: " + indexLinha);
@@ -1518,38 +1517,38 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 tblProdutos.setValueAt(txtPreco.getText(), indexLinha, 5);
 
                 indexLinha = -1;
-        } else {
-                
-                if(txtDescricao.getText().trim().equals("")){
+            } else {
+
+                if (txtDescricao.getText().trim().equals("")) {
                     txtDescricao.requestFocus();
-                    JOptionPane.showMessageDialog(null,"Campo 'Descrição'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Campo 'Descrição'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
-                if(txtCodFabricante.getText().trim().equals("")){
+
+                if (txtCodFabricante.getText().trim().equals("")) {
                     txtCodFabricante.requestFocus();
-                    JOptionPane.showMessageDialog(null,"Campo 'Código Fabricante'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Campo 'Código Fabricante'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
-                if(txtMarca.getText().trim().equals("")){
+
+                if (txtMarca.getText().trim().equals("")) {
                     txtMarca.requestFocus();
-                    JOptionPane.showMessageDialog(null,"Campo 'Marca'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Campo 'Marca'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
-                if(txtQuantidade.getText().trim().equals("")){
+
+                if (txtQuantidade.getText().trim().equals("")) {
                     txtQuantidade.requestFocus();
-                    JOptionPane.showMessageDialog(null,"Campo 'Quantidade'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Campo 'Quantidade'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
-                if(txtPreco.getText().trim().equals("")){
+
+                if (txtPreco.getText().trim().equals("")) {
                     txtPreco.requestFocus();
-                    JOptionPane.showMessageDialog(null,"Campo 'Preço'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Campo 'Preço'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
+
                 produto.setDescricao(txtDescricao.getText());
                 produto.setCodigoFabricante(txtCodFabricante.getText());
                 produto.setTipo(cboTipo.getSelectedItem().toString());
@@ -1559,7 +1558,6 @@ public class TelaAdministrador extends javax.swing.JFrame {
                 produto.setObservacao(txtObservacao.getText());
 
                 //System.out.println(produto.toString());
-
                 //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
                 DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
 
@@ -1572,25 +1570,25 @@ public class TelaAdministrador extends javax.swing.JFrame {
                     produto.getMarca(),
                     produto.getPreco()
 
-            });
+                });
 
-            //limpa campos para novo cadastro de produtos
-            txtDescricao.setText("");
-            txtCodFabricante.setText("");
-            txtMarca.setText("");
-            txtQuantidade.setText("");
-            txtObservacao.setText("");
-            txtPreco.setText("");
+                //limpa campos para novo cadastro de produtos
+                txtDescricao.setText("");
+                txtCodFabricante.setText("");
+                txtMarca.setText("");
+                txtQuantidade.setText("");
+                txtObservacao.setText("");
+                txtPreco.setText("");
 
-            if (txtQuantidade.getText().length() == 0) {
-                System.out.println(" o campo quantiade possui");
-                
+                if (txtQuantidade.getText().length() == 0) {
+                    System.out.println(" o campo quantiade possui");
+
+                }
+
             }
-
-        }
         } catch (Exception e) {
-            
-            JOptionPane.showMessageDialog(this,"Erro no cadastro");
+
+            JOptionPane.showMessageDialog(this, "Erro no cadastro");
         }
     }//GEN-LAST:event_btnCriarActionPerformed
 
@@ -1624,43 +1622,49 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_exportarExcel1ActionPerformed
 
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
-        boolean campoValidado = false;
         boolean conversao = false;
 
-        Funcionarios funcionarios = new Funcionarios();
-        funcionarios.setNome(fieldNome.getText());
-        funcionarios.setSexo(comboBoxSexo.getSelectedItem().toString());
-        funcionarios.setCpf(fieldCPF.getText());
-        funcionarios.setRua(fieldRua.getText());
-        funcionarios.setBairro(fieldBairro.getText());
-        funcionarios.setEmail(fieldEmail.getText());
-        funcionarios.setTelefone(fieldTelefone.getText());
-        funcionarios.setCargo(ComboBoxCargo.getSelectedItem().toString());
-        funcionarios.setSenha1(String.valueOf(fieldPW_1.getPassword()));
-        funcionarios.setSenha2(String.valueOf(fieldPW_2.getPassword()));
-        funcionarios.setData(fieldDataNacimento.getText());
-        funcionarios.setData(fieldCep.getText());
-       
-
-        campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getData(),
-                 funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
-                funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
-
         try {
+
+            Funcionarios funcionarios = new Funcionarios();
+            funcionarios.setNome(fieldNome.getText());
+            funcionarios.setSexo(comboBoxSexo.getSelectedItem().toString());
+            funcionarios.setData(fieldDataNacimento.getText());
+            funcionarios.setCpf(fieldCPF.getText());
+            funcionarios.setCargo(ComboBoxCargo.getSelectedItem().toString());
+            funcionarios.setRua(fieldRua.getText());
+            funcionarios.setCep(fieldCep.getText());
+            funcionarios.setBairro(fieldBairro.getText());
+            funcionarios.setEmail(fieldEmail.getText());
+            funcionarios.setTelefone(fieldTelefone.getText());
+            funcionarios.setSenha1(String.valueOf(fieldPW_1.getPassword()));
+            funcionarios.setSenha2(String.valueOf(fieldPW_2.getPassword()));
+
+            boolean campoValidado = validarCampos(funcionarios.getNome(), funcionarios.getCpf(), funcionarios.getData(),
+                    funcionarios.getRua(), funcionarios.getBairro(), funcionarios.getEmail(),
+                    funcionarios.getTelefone(), funcionarios.getSenha1(), funcionarios.getSenha2());
+
             funcionarios.setNumeroCasa(Integer.parseInt(fieldNumeroCasa.getText()));
 
             conversao = true;
 
+            if (campoValidado == true && conversao == true) {
+                boolean retorno = ControllerFuncionarios.CadastrarFuncionario(funcionarios.getNome(), funcionarios.getSexo(), funcionarios.getData(),
+                        funcionarios.getCpf(), funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getCep(),
+                        funcionarios.getNumeroCasa(), funcionarios.getBairro(), funcionarios.getEmail(), funcionarios.getTelefone(), funcionarios.getSenha1());
+                if (retorno = true) {
+                    JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao efetuar cadastro!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+
         } catch (NumberFormatException e) {
-
-            conversao = false;
-
+            JOptionPane.showMessageDialog(this, "Campo de N° está vazio ou com caracteries invalidos", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
 
-        if (campoValidado == true && conversao == true) {
-            JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!");
-            limparCampos();
-        }
+
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -1723,7 +1727,7 @@ public class TelaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_exportarExcel2ActionPerformed
 
     private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
-        
+
     }//GEN-LAST:event_txtPrecoActionPerformed
 
     private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
