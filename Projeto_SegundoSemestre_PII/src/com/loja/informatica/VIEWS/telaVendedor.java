@@ -10,7 +10,7 @@ import com.loja.informatica.MODEL.tabelaCliente;
 import com.loja.informatica.UTILS.soCaracteres;
 import com.loja.informatica.UTILS.soNumeros;
 import com.loja.informatica.UTILS.conexaoBancoDeDados;
-import com.loja.informatica.CONTROLLER.controleCliente;
+import com.loja.informatica.CONTROLLER.controllerCliente;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import jdk.nashorn.internal.parser.TokenType;
@@ -31,7 +31,7 @@ public class telaVendedor extends javax.swing.JFrame {
     boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
     Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
 
-    controleCliente controle = new controleCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
+    controllerCliente controle = new controllerCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
     Cliente modelo = new Cliente();
     conexaoBancoDeDados conectar = new conexaoBancoDeDados();//Classe para conectar e dasconectar do banco de dados
 
@@ -1690,6 +1690,12 @@ public class telaVendedor extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(telaVendedor.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
