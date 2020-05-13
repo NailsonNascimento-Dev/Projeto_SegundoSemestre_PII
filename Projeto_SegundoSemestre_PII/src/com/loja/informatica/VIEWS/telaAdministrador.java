@@ -841,7 +841,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(27, 27, 27)
                         .addComponent(buttonCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1797,7 +1797,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 boolean retorno = ControllerFuncionarios.CadastrarFuncionario(funcionarios.getNome(), funcionarios.getSexo(), funcionarios.getData(),
                         funcionarios.getCpf(), funcionarios.getCargo(), funcionarios.getRua(), funcionarios.getCep(),
                         funcionarios.getNumeroCasa(), funcionarios.getBairro(), funcionarios.getEmail(), funcionarios.getTelefone(), funcionarios.getSenha1());
-                if (retorno = true) {
+                if (retorno == true) {
                     JOptionPane.showMessageDialog(this, "Cadastro Efetuado com Sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
                     limparCampos();
                     carregarRegistrosFuncionarios();

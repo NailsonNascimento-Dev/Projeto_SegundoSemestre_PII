@@ -1,10 +1,9 @@
 package com.loja.informatica.CONTROLLER;
 
+import com.loja.informatica.DAO.ClienteDAO;
 import com.loja.informatica.MODEL.Cliente;
-import com.loja.informatica.UTILS.conexaoBancoDeDados;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -12,117 +11,85 @@ import javax.swing.JOptionPane;
  */
 public class controllerCliente {
 
-    Cliente cli = new Cliente();
+    public static boolean CadastrarCliente(String nome, String data, String cpf, String sexo, String estadoCivil, String rua,
+            String cep, int numeroCasa, String bairro, String email, String telefone) {
 
-    conexaoBancoDeDados conectar = new conexaoBancoDeDados();
+        Cliente cliente = new Cliente();
+        cliente.setNome(nome);
+        cliente.setData(data);
+        cliente.setCpf(cpf);
+        cliente.setSexo(sexo);
+        cliente.setEstadoCivil(estadoCivil);
+        cliente.setRua(rua);
+        cliente.setCep(cep);
+        cliente.setNumeroCasa(numeroCasa);
+        cliente.setBairro(bairro);
+        cliente.setEmail(email);
+        cliente.setTelefone(telefone);
 
-    public void cadastrar(Cliente mod) {//Metodo para cadastrar cliente 
-
-        conectar.conexao();
-
-        try {
-            PreparedStatement pst = conectar.ctm.prepareStatement("insert into cliente (nome,nascimento,cpf,sexo,estado_civil,rua,cep,numero_casa,bairro,email,fone) "
-                    + "values (?,?,?,?,?,?,?,?,?,?,?)");
-            pst.setString(1, mod.getNome());
-            pst.setString(2, mod.getData());
-            pst.setString(3, mod.getCpf());
-            pst.setString(4, mod.getSexo());
-            pst.setString(5, mod.getEstadoCivil());
-            pst.setString(6, mod.getRua());
-            pst.setString(7, mod.getCep());
-            pst.setInt(8, mod.getNumeroCasa());
-            pst.setString(9, mod.getBairro());
-            pst.setString(10, mod.getEmail());
-            pst.setString(11, mod.getTelefone());
-            pst.execute();
-            //JOptionPane.showMessageDialog(null, "Dados inseridos");
-            System.out.println("Dados inseridos");
-        } catch (SQLException ex) {
-            //JOptionPane.showMessageDialog(null, "Dados não inseridos");
-            System.out.println(ex);
-        }
-
-        conectar.desconecta();
+        return ClienteDAO.CadastrarCliente(cliente);
 
     }
 
-    public void excluir(Cliente mod) {//Metodo para excluir cliente
-        conectar.conexao();
+    public static boolean AlterarCliente(String nome, String data, String cpf, String sexo, String estadoCivil, String rua,
+            String cep, int numeroCasa, String bairro, String email, String telefone) {
 
-        try {
-            PreparedStatement pst = conectar.ctm.prepareStatement("delete from cliente where cpf = ?");
-            pst.setString(1, mod.getCpf());
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Cadastro deletado");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Dados não encontrados");
-            System.out.println(ex);
-        }
-        conectar.desconecta();
+        Cliente cliente = new Cliente();
+        cliente.setNome(nome);
+        cliente.setData(data);
+        cliente.setCpf(cpf);
+        cliente.setSexo(sexo);
+        cliente.setEstadoCivil(estadoCivil);
+        cliente.setRua(rua);
+        cliente.setCep(cep);
+        cliente.setNumeroCasa(numeroCasa);
+        cliente.setBairro(bairro);
+        cliente.setEmail(email);
+        cliente.setTelefone(telefone);
 
-    }
-
-    public Cliente buscarCampo(Cliente mod) {//Metodo para pesquisar cliente
-
-        conectar.conexao();
-
-        conectar.executaSQl("select * from cliente where cpf like'" + mod.getPesquisar() + "%'");
-        try {
-            conectar.rs.first();
-
-            mod.setId(conectar.rs.getInt("id_cli"));
-            mod.setNome(conectar.rs.getString("nome"));
-            mod.setData(conectar.rs.getString("nascimento"));
-            mod.setCpf(conectar.rs.getString("cpf"));
-            mod.setSexo(conectar.rs.getString("sexo"));
-            mod.setEstadoCivil(conectar.rs.getString("estado_civil"));
-            mod.setRua(conectar.rs.getString("rua"));
-            mod.setCep(conectar.rs.getString("cep"));
-            mod.setNumeroCasa(conectar.rs.getInt("numero_casa"));
-            mod.setBairro(conectar.rs.getString("bairro"));
-            mod.setEmail(conectar.rs.getString("email"));
-            mod.setTelefone(conectar.rs.getString("fone"));
-             
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "dados nao encontrados");
-            System.out.println(ex);
-        }
-
-        conectar.desconecta();
-
-        return mod;
+        return ClienteDAO.CadastrarCliente(cliente);
 
     }
 
-    public void alterar(Cliente mod) {//Metodo para alterar cliente
+    /*  
+    public static ArrayList<String[]> BuscarRegistro(String busca) {
+ 
+             ArrayList<Cliente> listarRegistros = new ArrayList<>();
 
-        conectar.conexao();
+        ArrayList<String[]> retorno = new ArrayList<>();
 
-        try {
-            PreparedStatement pst = conectar.ctm.prepareStatement("update cliente set nome=?,nascimento=?,sexo=?,estado_civil=?,rua=?,"
-                    + "cep=?,numero_casa=?,bairro=?,email=?,fone=? where cpf=?");
-            pst.setString(1, mod.getNome());
-            pst.setString(2, mod.getData());
-            pst.setString(3, mod.getSexo());
-            pst.setString(4, mod.getEstadoCivil());
-            pst.setString(5, mod.getRua());
-            pst.setString(6, mod.getCep());
-            pst.setInt(7, mod.getNumeroCasa());
-            pst.setString(8, mod.getBairro());
-            pst.setString(9, mod.getEmail());
-            pst.setString(10, mod.getTelefone());
-            pst.setString(11, mod.getCpf());
-            pst.execute();
-            JOptionPane.showMessageDialog(null, "Dados alterados com sucesso");
+        listarRegistros = ClienteDAO.buscarRegistros(busca);
 
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Erro ao incerir codigo");
-            System.out.println(ex);
-
+        for (Cliente cliente : listarRegistros) {
+            retorno.add(new String[]{
+                String.valueOf(cliente.getId()),
+                String.valueOf(cliente.getData()),
+                String.valueOf(cliente.getCpf()),
+                String.valueOf(cliente.getSexo()),
+                String.valueOf(cliente.getEstadoCivil()),
+                String.valueOf(cliente.getRua()),
+                String.valueOf(cliente.getCep()),
+                String.valueOf(cliente.getNumeroCasa()),
+                String.valueOf(cliente.getBairro()),
+                String.valueOf(cliente.getEmail()),
+                String.valueOf(cliente.getTelefone())
+                
+            });
         }
+            
 
-        conectar.desconecta();
+        return retorno;
 
     }
-
+    
+     */
+    
+   /* 
+    public Cliente buscarCampo(Cliente cliente){
+        
+        
+        
+    }
+        */
+    
 }
