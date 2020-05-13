@@ -4,7 +4,6 @@ import com.loja.informatica.DAO.ClienteDAO;
 import com.loja.informatica.MODEL.Cliente;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Juliano
@@ -50,11 +49,15 @@ public class controllerCliente {
         return ClienteDAO.CadastrarCliente(cliente);
 
     }
+    
+    public static boolean ExcluirRegistro(int cpf) {
 
-    /*  
+        return ClienteDAO.excluirRegistro(cpf);
+    }
+
     public static ArrayList<String[]> BuscarRegistro(String busca) {
- 
-             ArrayList<Cliente> listarRegistros = new ArrayList<>();
+
+        ArrayList<Cliente> listarRegistros = new ArrayList<>();
 
         ArrayList<String[]> retorno = new ArrayList<>();
 
@@ -63,6 +66,7 @@ public class controllerCliente {
         for (Cliente cliente : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(cliente.getId()),
+                String.valueOf(cliente.getNome()),
                 String.valueOf(cliente.getData()),
                 String.valueOf(cliente.getCpf()),
                 String.valueOf(cliente.getSexo()),
@@ -73,23 +77,42 @@ public class controllerCliente {
                 String.valueOf(cliente.getBairro()),
                 String.valueOf(cliente.getEmail()),
                 String.valueOf(cliente.getTelefone())
-                
+
             });
         }
-            
 
         return retorno;
 
     }
-    
-     */
-    
-   /* 
-    public Cliente buscarCampo(Cliente cliente){
-        
-        
-        
+
+    public static ArrayList<String[]> CarregarRegistros() {
+
+        ArrayList<Cliente> listarRegistros = new ArrayList<>();
+
+        ArrayList<String[]> retorno = new ArrayList<>();
+
+        listarRegistros = ClienteDAO.carregarRegistros();
+
+        for (Cliente cliente : listarRegistros) {
+            retorno.add(new String[]{
+                String.valueOf(cliente.getId()),
+                String.valueOf(cliente.getNome()),
+                String.valueOf(cliente.getData()),
+                String.valueOf(cliente.getCpf()),
+                String.valueOf(cliente.getSexo()),
+                String.valueOf(cliente.getEstadoCivil()),
+                String.valueOf(cliente.getRua()),
+                String.valueOf(cliente.getCep()),
+                String.valueOf(cliente.getNumeroCasa()),
+                String.valueOf(cliente.getBairro()),
+                String.valueOf(cliente.getEmail()),
+                String.valueOf(cliente.getTelefone())
+
+            });
+        }
+
+        return retorno;
+
     }
-        */
-    
+
 }

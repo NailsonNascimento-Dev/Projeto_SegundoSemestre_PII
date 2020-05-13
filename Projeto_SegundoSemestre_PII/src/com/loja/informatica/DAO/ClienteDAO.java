@@ -64,18 +64,7 @@ public class ClienteDAO {
 
         return retorno;
     }
-    /*
-    public Cliente buscarCampo(Cliente cliente){
-        boolean retorno = false;
-        Connection conexao = null;
-        PreparedStatement instrucaoSQL = null;
-        
-        instrucaoSQL = conexao.prepareStatement("select * from cliente where cpf  like '" + cliente.getPesquisar() + "%'");
-        
-        cliente.setId(instrucaoSQL.getInt("id_cli"));
-        
-    } 
-    */
+
     public static boolean atualizarRegistro(Cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
@@ -89,15 +78,16 @@ public class ClienteDAO {
 
             instrucaoSQL.setString(1, cliente.getNome());
             instrucaoSQL.setString(2, cliente.getData());
-            instrucaoSQL.setString(3, cliente.getCpf());
-            instrucaoSQL.setString(4, cliente.getSexo());
-            instrucaoSQL.setString(5, cliente.getEstadoCivil());
-            instrucaoSQL.setString(6, cliente.getRua());
-            instrucaoSQL.setString(7, cliente.getCep());
-            instrucaoSQL.setInt(8, cliente.getNumeroCasa());
-            instrucaoSQL.setString(9, cliente.getBairro());
-            instrucaoSQL.setString(10, cliente.getEmail());
-            instrucaoSQL.setString(11, cliente.getTelefone());
+            instrucaoSQL.setString(3, cliente.getSexo());
+            instrucaoSQL.setString(4, cliente.getEstadoCivil());
+            instrucaoSQL.setString(5, cliente.getRua());
+            instrucaoSQL.setString(6, cliente.getCep());
+            instrucaoSQL.setInt(7, cliente.getNumeroCasa());
+            instrucaoSQL.setString(8, cliente.getBairro());
+            instrucaoSQL.setString(9, cliente.getEmail());
+            instrucaoSQL.setString(10, cliente.getTelefone());
+            instrucaoSQL.setString(11, cliente.getCpf());
+            
             
 
             int linhasAfetadas = instrucaoSQL.executeUpdate();
@@ -125,8 +115,44 @@ public class ClienteDAO {
         return retorno;
     }
     
-    
- 
+    public static boolean excluirRegistro(int cpf) {
+        boolean retorno = false;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        try {
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("delete from cliente where id_cli = ?");
+
+            instrucaoSQL.setInt(1, cpf);
+
+            int linhasAfetadas = instrucaoSQL.executeUpdate();
+
+            if (linhasAfetadas >= 1) {
+                retorno = true;
+            } else {
+                retorno = false;
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+
+            try {
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMysql.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return retorno;
+
+    }
+
         public static ArrayList<Cliente> buscarRegistros(String busca) {
         ResultSet resultado = null;
         Connection conexao = null;
@@ -138,9 +164,68 @@ public class ClienteDAO {
 
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("select * from cliente where cpf = ");
+            instrucaoSQL = conexao.prepareStatement("select * from cliente where cpf = ?");
 
             instrucaoSQL.setString(1, busca);
+
+            resultado = instrucaoSQL.executeQuery();
+
+            while (resultado.next()) {
+                Cliente cliente = new Cliente();
+
+                cliente.setId(resultado.getInt("id_cli"));
+                cliente.setNome(resultado.getString("nome"));
+                cliente.setData(resultado.getString("nascimento"));
+                cliente.setCpf(resultado.getString("cpf"));
+                cliente.setSexo(resultado.getString("sexo"));
+                cliente.setEstadoCivil(resultado.getString("estado_civil"));
+                cliente.setRua(resultado.getString("rua"));
+                cliente.setCep(resultado.getString("cep"));
+                cliente.setNumeroCasa(resultado.getInt("numero_casa"));
+                cliente.setBairro(resultado.getString("bairro"));
+                cliente.setEmail(resultado.getString("email"));
+                cliente.setTelefone(resultado.getString("fone"));
+
+
+                listarRegistros.add(cliente);
+
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            listarRegistros = null;
+        } finally {
+
+            try {
+                if (resultado != null) {
+                    resultado.close();
+                }
+                if (instrucaoSQL != null) {
+                    instrucaoSQL.close();
+                }
+
+                ConexaoMysql.fecharConexao();
+
+            } catch (SQLException ex) {
+            }
+        }
+
+        return listarRegistros;
+
+    }
+        
+         public static ArrayList<Cliente> carregarRegistros() {
+        ResultSet resultado = null;
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+
+        ArrayList<Cliente> listarRegistros = new ArrayList<>();
+
+        try {
+
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("select * from cliente");
 
             resultado = instrucaoSQL.executeQuery();
 
