@@ -22,7 +22,7 @@ public class ConexaoMysql {
     public static String DATABASE = "loja_informatica";
 
     public static String LOGIN = "root";
-    public static String SENHA = "Bemvindo1";
+    public static String SENHA = "";
 
     public static String URL = "";
 

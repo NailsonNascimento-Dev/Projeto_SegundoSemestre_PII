@@ -5,9 +5,9 @@
  */
 package com.loja.informatica.VIEWS;
 
-//import Projeto_Views.telaAdministrador;
-//import Projeto_Views.telaVendedor;
-//import javax.swing.JOptionPane;
+import com.loja.informatica.VIEWS.telaAdministrador;
+import com.loja.informatica.VIEWS.telaVendedor;
+import javax.swing.JOptionPane;
 import javax.swing.JOptionPane;
 import sun.security.util.Password;
 
@@ -54,7 +54,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(222, 222, 222));
         jPanel1.setLayout(null);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/TELLLAA.jpg"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/loja/informatica/IMAGENS/TELLLAA.jpg"))); // NOI18N
         jPanel1.add(jLabel2);
         jLabel2.setBounds(70, 30, 360, 130);
         jPanel1.add(Usuario);
@@ -69,7 +69,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(270, 290, 80, 32);
+        jButton1.setBounds(270, 290, 80, 25);
 
         jButton2.setText("sair");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -78,11 +78,11 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(360, 290, 70, 32);
+        jButton2.setBounds(360, 290, 70, 25);
 
         jLabel1.setText("Usuario");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(110, 190, 60, 16);
+        jLabel1.setBounds(110, 190, 60, 15);
 
         jLabel3.setText("Senha");
         jPanel1.add(jLabel3);
@@ -119,7 +119,7 @@ public class TelaLogin extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 166, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
