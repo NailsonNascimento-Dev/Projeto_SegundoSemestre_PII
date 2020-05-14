@@ -6,7 +6,7 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author Juliano
  */
-public class TabelaCliente extends AbstractTableModel {
+public class tabelaCliente extends AbstractTableModel {
     
     public ArrayList getLinhas() {
         return linhas;
@@ -27,7 +27,7 @@ public class TabelaCliente extends AbstractTableModel {
     private ArrayList linhas = null;
     private String[] colunas = null;
 
-    public TabelaCliente(ArrayList lin, String[] col) {
+    public tabelaCliente(ArrayList lin, String[] col) {
         setLinhas(lin);
         setColunas(col);
     }

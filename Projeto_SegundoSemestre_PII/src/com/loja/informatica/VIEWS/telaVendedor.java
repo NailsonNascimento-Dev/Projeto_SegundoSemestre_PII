@@ -5,7 +5,7 @@
  */
 package com.loja.informatica.VIEWS;
 
-import com.loja.informatica.MODEL.Cliente;
+import com.loja.informatica.MODEL.cliente;
 import com.loja.informatica.MODEL.tabelaCliente;
 import com.loja.informatica.UTILS.soCaracteres;
 import com.loja.informatica.UTILS.soNumeros;
@@ -1069,7 +1069,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         try {
 
-            Cliente cliente = new Cliente();
+            cliente cliente = new cliente();
 
             if (pesquisar == false) {//Modo buscar cliente desativado
 
@@ -1226,7 +1226,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 percorrerRegistros[11]});
         }
 
-        Cliente cliente = new Cliente();
+        cliente cliente = new cliente();
         pesquisar = true;//Ativa o modo pesquisar cliente
 
         cliente.setCpf(txtBCpf.getText());

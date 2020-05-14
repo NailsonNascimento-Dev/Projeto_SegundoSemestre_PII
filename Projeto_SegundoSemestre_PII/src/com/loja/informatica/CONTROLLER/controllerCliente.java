@@ -1,7 +1,7 @@
 package com.loja.informatica.CONTROLLER;
 
 import com.loja.informatica.DAO.ClienteDAO;
-import com.loja.informatica.MODEL.Cliente;
+import com.loja.informatica.MODEL.cliente;
 import java.util.ArrayList;
 
 /**
@@ -13,7 +13,7 @@ public class controllerCliente {
     public static boolean CadastrarCliente(String nome, String data, String cpf, String sexo, String estadoCivil, String rua,
             String cep, int numeroCasa, String bairro, String email, String telefone) {
 
-        Cliente cliente = new Cliente();
+        cliente cliente = new cliente();
         cliente.setNome(nome);
         cliente.setData(data);
         cliente.setCpf(cpf);
@@ -33,7 +33,7 @@ public class controllerCliente {
     public static boolean AlterarCliente(String nome, String data, String cpf, String sexo, String estadoCivil, String rua,
             String cep, int numeroCasa, String bairro, String email, String telefone) {
 
-        Cliente cliente = new Cliente();
+        cliente cliente = new cliente();
         cliente.setNome(nome);
         cliente.setData(data);
         cliente.setCpf(cpf);
@@ -57,13 +57,13 @@ public class controllerCliente {
 
     public static ArrayList<String[]> BuscarRegistro(String busca) {
 
-        ArrayList<Cliente> listarRegistros = new ArrayList<>();
+        ArrayList<cliente> listarRegistros = new ArrayList<>();
 
         ArrayList<String[]> retorno = new ArrayList<>();
 
         listarRegistros = ClienteDAO.buscarRegistros(busca);
 
-        for (Cliente cliente : listarRegistros) {
+        for (cliente cliente : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(cliente.getId()),
                 String.valueOf(cliente.getNome()),
@@ -87,13 +87,13 @@ public class controllerCliente {
 
     public static ArrayList<String[]> CarregarRegistros() {
 
-        ArrayList<Cliente> listarRegistros = new ArrayList<>();
+        ArrayList<cliente> listarRegistros = new ArrayList<>();
 
         ArrayList<String[]> retorno = new ArrayList<>();
 
         listarRegistros = ClienteDAO.carregarRegistros();
 
-        for (Cliente cliente : listarRegistros) {
+        for (cliente cliente : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(cliente.getId()),
                 String.valueOf(cliente.getNome()),

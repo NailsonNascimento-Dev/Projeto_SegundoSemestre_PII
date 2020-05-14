@@ -1,6 +1,6 @@
 package com.loja.informatica.DAO;
 
-import com.loja.informatica.MODEL.Cliente;
+import com.loja.informatica.MODEL.cliente;
 import com.loja.informatica.MODEL.Funcionarios;
 import com.loja.informatica.UTILS.ConexaoMysql;
 import java.sql.Connection;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class ClienteDAO {
 
-    public static boolean CadastrarCliente(Cliente cliente) {
+    public static boolean CadastrarCliente(cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -65,7 +65,7 @@ public class ClienteDAO {
         return retorno;
     }
 
-    public static boolean atualizarRegistro(Cliente cliente) {
+    public static boolean atualizarRegistro(cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -153,12 +153,12 @@ public class ClienteDAO {
 
     }
 
-        public static ArrayList<Cliente> buscarRegistros(String busca) {
+        public static ArrayList<cliente> buscarRegistros(String busca) {
         ResultSet resultado = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
-        ArrayList<Cliente> listarRegistros = new ArrayList<>();
+        ArrayList<cliente> listarRegistros = new ArrayList<>();
 
         try {
 
@@ -171,7 +171,7 @@ public class ClienteDAO {
             resultado = instrucaoSQL.executeQuery();
 
             while (resultado.next()) {
-                Cliente cliente = new Cliente();
+                cliente cliente = new cliente();
 
                 cliente.setId(resultado.getInt("id_cli"));
                 cliente.setNome(resultado.getString("nome"));
@@ -214,12 +214,12 @@ public class ClienteDAO {
 
     }
         
-         public static ArrayList<Cliente> carregarRegistros() {
+         public static ArrayList<cliente> carregarRegistros() {
         ResultSet resultado = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
 
-        ArrayList<Cliente> listarRegistros = new ArrayList<>();
+        ArrayList<cliente> listarRegistros = new ArrayList<>();
 
         try {
 
@@ -230,7 +230,7 @@ public class ClienteDAO {
             resultado = instrucaoSQL.executeQuery();
 
             while (resultado.next()) {
-                Cliente cliente = new Cliente();
+                cliente cliente = new cliente();
 
                 cliente.setId(resultado.getInt("id_cli"));
                 cliente.setNome(resultado.getString("nome"));

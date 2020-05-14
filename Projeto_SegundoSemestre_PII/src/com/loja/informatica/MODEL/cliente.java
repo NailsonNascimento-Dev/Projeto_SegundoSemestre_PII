@@ -10,7 +10,7 @@ package com.loja.informatica.MODEL;
  *
  * @author Juliano
  */
-public class Cliente extends pessoa{
+public class cliente extends pessoa{
     
    private String estadoCivil;
 

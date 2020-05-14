@@ -7,7 +7,7 @@ import java.sql.ResultSet;
 import javax.swing.JOptionPane;
 import java.sql.SQLException;
 
-public class ConexaoBancoDeDados {
+public class conexaoBancoDeDados {
 
     public Statement stm;
 

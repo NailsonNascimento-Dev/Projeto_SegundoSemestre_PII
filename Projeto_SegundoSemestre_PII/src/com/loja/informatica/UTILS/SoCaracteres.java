@@ -12,7 +12,7 @@ import javax.swing.text.PlainDocument;
  *
  * @author Juliano
  */
-public class SoCaracteres extends PlainDocument {
+public class soCaracteres extends PlainDocument {
     
      public void insertString(int offset, String str, javax.swing.text.AttributeSet attr) throws BadLocationException {
         super.insertString(offset, str.replaceAll("[^a-z|^A-Z|^ |õôóòàáâãíì]", ""),attr);
