@@ -1066,6 +1066,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
+        
 
         try {
 
@@ -1122,6 +1123,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 }
 
                 limparCampos();
+                carregarRegistrosCliente();
 
                 JOptionPane.showMessageDialog(null, "Cadastro efetuado");
 
@@ -1177,6 +1179,8 @@ public class telaVendedor extends javax.swing.JFrame {
                 }
 
                 limparCampos();
+                carregarRegistrosCliente();
+
 
                 txtCpf.setEnabled(true);
 

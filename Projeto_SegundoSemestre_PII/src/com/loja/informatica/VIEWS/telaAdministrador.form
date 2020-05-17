@@ -39,7 +39,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jTabbedPane1" pref="831" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="923" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -804,7 +804,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jPanel11" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jScrollPane4" pref="616" max="32767" attributes="0"/>
+                              <Component id="jScrollPane4" pref="708" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1256,7 +1256,7 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                          <Component id="txtQuantidade" pref="430" max="32767" attributes="0"/>
+                                          <Component id="txtQuantidade" pref="476" max="32767" attributes="0"/>
                                       </Group>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Group type="103" groupAlignment="0" attributes="0">
@@ -1296,7 +1296,7 @@
                               </Group>
                               <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="556" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="648" max="32767" attributes="0"/>
                                   <Component id="btnNovo" min="-2" pref="110" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnCriar" min="-2" pref="117" max="-2" attributes="0"/>
@@ -1494,7 +1494,7 @@
                                       <Component id="txtBusca" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="cboTipoBusca" min="-2" pref="187" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="106" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="198" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
