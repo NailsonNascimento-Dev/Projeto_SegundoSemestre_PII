@@ -22,7 +22,7 @@ public class ConexaoMysql {
     public static String DATABASE = "loja_informatica";
 
     public static String LOGIN = "root";
-    public static String SENHA = "";
+    public static String SENHA = "Bemvindo1";
 
     public static String URL = "";
 
@@ -48,7 +48,7 @@ public class ConexaoMysql {
             } catch (ClassNotFoundException e) {
                 throw new ClassCastException("O Driver de conexão com o banco de dados não foi encontrado!");
             } catch (SQLException e) {
-                throw new SQLException("Erro ao realizar conexão (Ex: login ou senha errados ou banco de dados Desconectado).");
+                throw new SQLException("Erro ao realizar conexão (Ex: login ou senha do banco de dados errados ou banco de dados Desconectado).");
             }
 
         }else{
