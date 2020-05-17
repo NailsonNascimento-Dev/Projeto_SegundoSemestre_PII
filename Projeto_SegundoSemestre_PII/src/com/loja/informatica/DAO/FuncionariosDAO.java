@@ -28,7 +28,7 @@ public class FuncionariosDAO {
 
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("INSERT INTO loja (nome, sexo, data_nascimento, cpf, cargo, rua, cep, numero_casa, bairro, email, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?)");
+            instrucaoSQL = conexao.prepareStatement("INSERT INTO funcionario (nome, sexo, data_nascimento, cpf, cargo, rua, cep, numero_casa, bairro, email, telefone, senha) VALUES (?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?)");
 
             instrucaoSQL.setString(1, funcionarios.getNome());
             instrucaoSQL.setString(2, funcionarios.getSexo());
@@ -78,7 +78,7 @@ public class FuncionariosDAO {
         try {
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("UPDATE loja SET nome = ?, sexo = ?, data_nascimento = ?, cpf = ?, cargo = ?, rua = ?, cep = ?, numero_casa = ?, bairro = ?, email = ?, telefone = ?, senha = ? WHERE id = ?");
+            instrucaoSQL = conexao.prepareStatement("UPDATE funcionario SET nome = ?, sexo = ?, data_nascimento = ?, cpf = ?, cargo = ?, rua = ?, cep = ?, numero_casa = ?, bairro = ?, email = ?, telefone = ?, senha = ? WHERE id = ?");
 
             instrucaoSQL.setString(1, funcionarios.getNome());
             instrucaoSQL.setString(2, funcionarios.getSexo());
@@ -127,7 +127,7 @@ public class FuncionariosDAO {
         try {
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("DELETE FROM loja WHERE id = ?");
+            instrucaoSQL = conexao.prepareStatement("DELETE FROM funcionario WHERE id = ?");
 
             instrucaoSQL.setInt(1, id);
 
@@ -168,7 +168,7 @@ public class FuncionariosDAO {
 
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("SELECT * FROM loja WHERE id = ? OR nome LIKE ? OR cargo LIKE ?;");
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM funcionario WHERE id = ? OR nome LIKE ? OR cargo LIKE ?;");
 
             instrucaoSQL.setString(1, busca);
             instrucaoSQL.setString(2, "%" + busca + '%');
@@ -231,7 +231,7 @@ public class FuncionariosDAO {
 
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement("SELECT * FROM loja");
+            instrucaoSQL = conexao.prepareStatement("SELECT * FROM funcionario");
 
             resultado = instrucaoSQL.executeQuery();
 
