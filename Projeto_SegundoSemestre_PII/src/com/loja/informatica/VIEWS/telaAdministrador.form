@@ -830,7 +830,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="tableMaisVendidos">
+                        <Component class="javax.swing.JTable" name="tabelaRelatorios">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="4" rowCount="8">
@@ -903,11 +903,13 @@
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
-                                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonGerarRelatorio" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="buttonExportarExcel" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel17" min="-2" pref="70" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="277" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -926,7 +928,10 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="buttonGerarRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonExportarExcel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -934,7 +939,7 @@
                         </DimensionLayout>
                       </Layout>
                       <SubComponents>
-                        <Component class="javax.swing.JButton" name="jButton1">
+                        <Component class="javax.swing.JButton" name="buttonGerarRelatorio">
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Gerar relat&#xf3;rio"/>
                           </Properties>
@@ -952,6 +957,20 @@
                         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                        </Component>
+                        <Component class="javax.swing.JButton" name="buttonExportarExcel">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Exportar Para Excel"/>
+                            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[113, 32]"/>
+                            </Property>
+                            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+                              <Dimension value="[113, 32]"/>
+                            </Property>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExportarExcelActionPerformed"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

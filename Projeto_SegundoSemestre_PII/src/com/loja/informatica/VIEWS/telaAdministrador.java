@@ -356,13 +356,14 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        tableMaisVendidos = new javax.swing.JTable();
+        tabelaRelatorios = new javax.swing.JTable();
         jPanel10 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        buttonGerarRelatorio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jDateChooser2 = new com.toedter.calendar.JDateChooser();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        buttonExportarExcel = new javax.swing.JButton();
         jPanel12 = new javax.swing.JPanel();
         jPEstoque = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -855,7 +856,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Impressão de Relatórios"));
 
-        tableMaisVendidos.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaRelatorios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"1", "Madara", "100", "I9"},
                 {"2", "Sasuke", "50", "Placa de video"},
@@ -870,15 +871,24 @@ public class telaAdministrador extends javax.swing.JFrame {
                 "id", "nome", "quantidade", "produto"
             }
         ));
-        jScrollPane4.setViewportView(tableMaisVendidos);
+        jScrollPane4.setViewportView(tabelaRelatorios);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Selecione o período"));
 
-        jButton1.setText("Gerar relatório");
+        buttonGerarRelatorio.setText("Gerar relatório");
 
         jLabel1.setText("Data incial:");
 
         jLabel17.setText("Data Fina:");
+
+        buttonExportarExcel.setText("Exportar Para Excel");
+        buttonExportarExcel.setMaximumSize(new java.awt.Dimension(113, 32));
+        buttonExportarExcel.setMinimumSize(new java.awt.Dimension(113, 32));
+        buttonExportarExcel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportarExcelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -894,9 +904,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54)
-                        .addComponent(jButton1))
+                        .addComponent(buttonGerarRelatorio)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(277, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -911,7 +923,9 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton1))
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonGerarRelatorio)
+                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -1870,6 +1884,21 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
+    private void buttonExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportarExcelActionPerformed
+        File arquivo = new File("Excel.txt");
+
+        try {
+            exporTabela(tabelaRelatorios, arquivo);
+            caminhoArquivo(tabelaRelatorios);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao exportar para excel!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+
+
+    }//GEN-LAST:event_buttonExportarExcelActionPerformed
+
     //função para validar a utilização de caracters
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {
 
@@ -1952,6 +1981,8 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton buttonCancelar;
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonExcluir;
+    private javax.swing.JButton buttonExportarExcel;
+    private javax.swing.JButton buttonGerarRelatorio;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
@@ -1971,7 +2002,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldPW_2;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JFormattedTextField fieldTelefone;
-    private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
@@ -2019,7 +2049,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable tabelaFuncionarios;
-    private javax.swing.JTable tableMaisVendidos;
+    private javax.swing.JTable tabelaRelatorios;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtCodFabricante;
