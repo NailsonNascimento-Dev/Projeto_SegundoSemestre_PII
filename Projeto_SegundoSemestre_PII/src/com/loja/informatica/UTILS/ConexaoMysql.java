@@ -19,10 +19,10 @@ public class ConexaoMysql {
     public static String DRIVER = "com.mysql.cj.jdbc.Driver";
 
     public static String SERVER = "localhost";
-    public static String DATABASE = "loja_informatica";
+    public static String DATABASE = "loja_infoHardware";
 
     public static String LOGIN = "root";
-    public static String SENHA = "Bemvindo1";
+    public static String SENHA = "";
 
     public static String URL = "";
 
