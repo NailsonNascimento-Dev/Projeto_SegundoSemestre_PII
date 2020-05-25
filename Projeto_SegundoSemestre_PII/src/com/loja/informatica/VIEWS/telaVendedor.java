@@ -7,20 +7,15 @@ package com.loja.informatica.VIEWS;
 
 import com.loja.informatica.CONTROLLER.ControllerVenda;
 import com.loja.informatica.MODEL.cliente;
-import com.loja.informatica.MODEL.tabelaCliente;
 import com.loja.informatica.UTILS.soCaracteres;
 import com.loja.informatica.UTILS.soNumeros;
-import com.loja.informatica.UTILS.conexaoBancoDeDados;
 import com.loja.informatica.CONTROLLER.controllerCliente;
 import com.loja.informatica.UTILS.ConexaoMysql;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import jdk.nashorn.internal.parser.TokenType;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import javax.swing.ListSelectionModel;
 import javax.swing.RowFilter;
 import javax.swing.table.TableRowSorter;
 
@@ -35,7 +30,7 @@ public class telaVendedor extends javax.swing.JFrame {
     boolean venda = false;//Variavel para inicicar venda
 
     controllerCliente controle = new controllerCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
-    conexaoBancoDeDados conectar = new conexaoBancoDeDados();//Classe para conectar e dasconectar do banco de dados
+    ConexaoMysql conectar = new ConexaoMysql();//Classe para conectar e dasconectar do banco de dados
 
     /**
      * Creates new form telaVendedor
