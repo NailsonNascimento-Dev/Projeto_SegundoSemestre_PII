@@ -11,7 +11,8 @@ import java.sql.SQLException;
 
 /**
  *
- * @author Azazel
+ * @author Marcos Vinícius Santos Souza
+ * Classe para abrir a conexão com o banco de dados
  */
 public class ConexaoMysql {
 
@@ -22,12 +23,17 @@ public class ConexaoMysql {
     public static String DATABASE = "loja_infoHardware";
 
     public static String LOGIN = "root";
-    public static String SENHA = "";
+    public static String SENHA = "Bemvindo1";
 
     public static String URL = "";
 
     public static Connection CONEXAO = null;
 
+    /**
+     * Metodo desenvolvido para abrir a conexão com o banco de dados
+    @throws Pode gerar erro de conexão com o banco de dados, o erro pode ser pelo login ou a senha estarem incorretos ou o banco de dados estar desconectado
+    * @return retorna uma Connection,que vai ser se a conexão está aberta ou fechada
+    */
     public static Connection abrirConexao() throws SQLException {
 
         URL = "jdbc:mysql://" + SERVER + ":3306/" + DATABASE + "?useTimezone=true&serverTimezone=UTC&useSSL=false";
@@ -63,11 +69,18 @@ public class ConexaoMysql {
 
         return CONEXAO;
     }
-    
+    /**
+     * Metodo desenvolvido para saber o status da conexão
+     * @return retorna uma String que seria o status da conexao
+     */
     public static String getStatusConexao(){
         return STATUS;
     }
-    
+    /**
+     * 
+     * Metodo Desenvolvido apenas para fechar a conexão com o banco de dados caso ela esteja aberta
+     * @return boolean, se o status estiver "Não conectado" retorna true e caso tenha dado algum problema para desconectar retorna false
+     */
     public static boolean fecharConexao(){
         boolean retorno = false;
         
