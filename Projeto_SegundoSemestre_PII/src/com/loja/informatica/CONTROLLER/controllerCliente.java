@@ -30,13 +30,12 @@ public class controllerCliente {
 
     }
 
-    public static boolean AlterarCliente(String nome, String data, String cpf, String sexo, String estadoCivil, String rua,
-            String cep, int numeroCasa, String bairro, String email, String telefone) {
+    public static boolean AlterarCliente(String nome, String data, String sexo, String estadoCivil, String rua,
+            String cep, int numeroCasa, String bairro, String email, String telefone, String cpf) {
 
         cliente cliente = new cliente();
         cliente.setNome(nome);
         cliente.setData(data);
-        cliente.setCpf(cpf);
         cliente.setSexo(sexo);
         cliente.setEstadoCivil(estadoCivil);
         cliente.setRua(rua);
@@ -45,8 +44,9 @@ public class controllerCliente {
         cliente.setBairro(bairro);
         cliente.setEmail(email);
         cliente.setTelefone(telefone);
+        cliente.setCpf(cpf);
 
-        return ClienteDAO.CadastrarCliente(cliente);
+        return ClienteDAO.atualizarRegistro(cliente);
 
     }
     

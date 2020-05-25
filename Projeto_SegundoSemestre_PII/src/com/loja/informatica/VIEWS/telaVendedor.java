@@ -5,6 +5,7 @@
  */
 package com.loja.informatica.VIEWS;
 
+import com.loja.informatica.CONTROLLER.ControllerVenda;
 import com.loja.informatica.MODEL.cliente;
 import com.loja.informatica.MODEL.tabelaCliente;
 import com.loja.informatica.UTILS.soCaracteres;
@@ -31,6 +32,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
     boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
     Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
+    boolean venda = false;//Variavel para inicicar venda
 
     controllerCliente controle = new controllerCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
     conexaoBancoDeDados conectar = new conexaoBancoDeDados();//Classe para conectar e dasconectar do banco de dados
@@ -51,6 +53,8 @@ public class telaVendedor extends javax.swing.JFrame {
         txtFiltroTipo.setDocument(new soCaracteres());
         txtFiltroMarca.setDocument(new soCaracteres());
         carregarRegistrosCliente();
+        carregarTabelaProdutos();
+        bloquearCarrinho();
 
     }
 
@@ -94,6 +98,8 @@ public class telaVendedor extends javax.swing.JFrame {
         jLabel32 = new javax.swing.JLabel();
         btLimparCarrinho = new javax.swing.JButton();
         txtCpfCompra = new javax.swing.JFormattedTextField();
+        btIniciarVenda = new javax.swing.JButton();
+        btCancelarVenda = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -195,21 +201,22 @@ public class telaVendedor extends javax.swing.JFrame {
 
         tabelaVenda.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"Placa de Video", "RTX2080", "Nvidia", "1000", "2.999,00", "33"},
-                {"Placa de Video", "GTX970", "Nvidia", "1001", "499,00", "33"},
-                {"Placa de Video", "V100S", "Nvidia", "1002", "299,00", "33"},
-                {"Placa de Video", "RTX8000", "Nvidia", "1004", "3.999,00", "03"},
-                {"Placa Mãe", "AORUS B630M", "Asus", "1003", "486,00", "99"},
-                {"Processador", "AMD RYZEN 3", "AMD", "1005", "999,00", "99"},
-                {"Processador", "I5-9600KF", "IINTEL", "1006", "1209,97", "53"},
-                {"HD", "ST1000DM010", "Seagate", "1007", "486,00", "96"},
-                {"Processador", "AMD RYZEN", " AMD", "1008", "999,00", "34"},
-                {"Teclado", "Mx Master 2S", "LOGITECH", "1042", "350,00", "31"}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
+
             }
         ));
+        tabelaVenda.getTableHeader().setReorderingAllowed(false);
         tabelaVenda.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaVendaMouseClicked(evt);
@@ -274,13 +281,15 @@ public class telaVendedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
+                "Tipo", "ID", "Marca", "Quantidade", "Preço"
             }
         ));
+        tabelaCarrinho.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tabelaCarrinho);
 
         jLabel33.setText("Valor Final R$:");
 
+        txtValorFinal.setEnabled(false);
         txtValorFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorFinalActionPerformed(evt);
@@ -308,6 +317,9 @@ public class telaVendedor extends javax.swing.JFrame {
                 txtCarrinhoQuantidadeActionPerformed(evt);
             }
         });
+
+        txtCarrinhoID.setEnabled(false);
+        txtCarrinhoID.setFocusable(false);
 
         jLabel32.setText("Quantidade");
 
@@ -359,7 +371,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addComponent(btAdicionar)
                     .addComponent(btLimparCarrinho))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btFinalizarCompra)
@@ -374,6 +386,20 @@ public class telaVendedor extends javax.swing.JFrame {
             ex.printStackTrace();
         }
 
+        btIniciarVenda.setText("Buscar");
+        btIniciarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btIniciarVendaActionPerformed(evt);
+            }
+        });
+
+        btCancelarVenda.setText("Cancelar");
+        btCancelarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btCancelarVendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
@@ -385,6 +411,10 @@ public class telaVendedor extends javax.swing.JFrame {
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCpfCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btIniciarVenda)
+                        .addGap(18, 18, 18)
+                        .addComponent(btCancelarVenda)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jPanel18, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -396,7 +426,9 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel30)
-                    .addComponent(txtCpfCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCpfCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btIniciarVenda)
+                    .addComponent(btCancelarVenda))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -689,15 +721,12 @@ public class telaVendedor extends javax.swing.JFrame {
 
             }
         ));
-        tabelaCliente.setColumnSelectionAllowed(true);
-        tabelaCliente.getTableHeader().setReorderingAllowed(false);
         tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaClienteMouseClicked(evt);
             }
         });
         jScrollPane6.setViewportView(tabelaCliente);
-        tabelaCliente.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jLabel15.setText("Cpf:");
 
@@ -1066,7 +1095,6 @@ public class telaVendedor extends javax.swing.JFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
-        
 
         try {
 
@@ -1125,8 +1153,6 @@ public class telaVendedor extends javax.swing.JFrame {
                 limparCampos();
                 carregarRegistrosCliente();
 
-                JOptionPane.showMessageDialog(null, "Cadastro efetuado");
-
             } else {//Modo pesquisar cliente ativado
 
                 if (txtNome.getText().trim().equals("")) {//Validar se o campo esta vazios
@@ -1159,7 +1185,6 @@ public class telaVendedor extends javax.swing.JFrame {
 
                 cliente.setNome(txtNome.getText());
                 cliente.setData(txtData.getText());
-                cliente.setCpf(txtCpf.getText());
                 cliente.setSexo(comboSexo.getSelectedItem().toString());
                 cliente.setEstadoCivil(comboECivil.getSelectedItem().toString());
                 cliente.setRua(txtRua.getText());
@@ -1167,10 +1192,11 @@ public class telaVendedor extends javax.swing.JFrame {
                 cliente.setBairro(txtBairro.getText());
                 cliente.setEmail(txtEmail.getText());
                 cliente.setTelefone(txtFone.getText());
+                cliente.setCpf(txtCpf.getText());
 
-                boolean retorno = controllerCliente.CadastrarCliente(cliente.getNome(), cliente.getData(), cliente.getCpf(), cliente.getSexo(),
+                boolean retorno = controllerCliente.AlterarCliente(cliente.getNome(), cliente.getData(), cliente.getSexo(),
                         cliente.getEstadoCivil(), cliente.getRua(), cliente.getCep(), cliente.getNumeroCasa(), cliente.getBairro(),
-                        cliente.getEmail(), cliente.getTelefone());
+                        cliente.getEmail(), cliente.getTelefone(), cliente.getCpf());
 
                 if (retorno == true) {
                     JOptionPane.showMessageDialog(this, "Registro alterado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1180,7 +1206,6 @@ public class telaVendedor extends javax.swing.JFrame {
 
                 limparCampos();
                 carregarRegistrosCliente();
-
 
                 txtCpf.setEnabled(true);
 
@@ -1304,7 +1329,6 @@ public class telaVendedor extends javax.swing.JFrame {
         txtEmail.setEnabled(true);
         txtFone.setEnabled(true);
         btSalvar.setEnabled(true);
-
 
     }//GEN-LAST:event_btEditarActionPerformed
 
@@ -1502,35 +1526,66 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btAdicionarActionPerformed
 
     private void tabelaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVendaMouseClicked
-        // TODO add your handling code here:
+
+        if (venda == true) {
+            int quan;//Variavel para salvar a quantidade de produtos
+            double valor;//Variavel para salvar o valor dos produtos
+            boolean x = false;
+            String valores[] = new String[5];
+
+            String quantidade = JOptionPane.showInputDialog("Quantidade: ");
+
+            DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
+
+            String id = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString());
+
+            for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
+                if (id.equals(tabelaCarrinho.getModel().getValueAt(i, 1))) {
+                    quan = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
+                    valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
+                    valorFinal = valorFinal - (quan * valor);
+                    tblCarrinho.removeRow(i);
+
+                }
+            }
+
+            valores[0] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString());
+            valores[1] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString());
+            valores[2] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
+            valores[3] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 3).toString());
+            valores[4] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 4).toString());
+
+            tblCarrinho.addRow(new Object[]{
+                valores[0],
+                valores[1],
+                valores[2],
+                quantidade,
+                valores[4],
+                quantidade,});
+
+            //Valor do produto pesquisado em transformado em numero
+            valor = Double.parseDouble(valores[4]);
+
+            quan = Integer.parseInt(quantidade);
+
+            //Conta para saber o valor final da compra
+            valorFinal += valor * quan;
+
+            //Valor final e transformado em String
+            String valFinal = String.valueOf(valorFinal);
+
+            //Campo de texto valor final recebe a String com o valor final
+            txtValorFinal.setText(valFinal);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Venda não iniciada");
+        }
+
+
     }//GEN-LAST:event_tabelaVendaMouseClicked
 
     private void btLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparCarrinhoActionPerformed
-        // TODO add your handling code here:      
-
-        try {
-            DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
-
-            //For para limpar os dodos da tabela carrinho
-            for (int i = tabelaCarrinho.getRowCount() - 1; i >= 0; i--) {
-                tblCarrinho.removeRow(i);
-            }
-            //Limpa os campos de texto
-            txtCpfCompra.setText("");
-            txtCarrinhoID.setText("");
-            txtCarrinhoQuantidade.setText("");
-
-            //Valor final recebe 0
-            valorFinal = 0.0;
-
-            //Transforma valor final em String
-            String valFinal = String.valueOf(valorFinal);
-            //Imprime no campo de texto 0 valor final 
-            txtValorFinal.setText(valFinal);
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro!!!");
-        }
+        LimparCarrinho();
     }//GEN-LAST:event_btLimparCarrinhoActionPerformed
 
     private void btFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarCompraActionPerformed
@@ -1615,6 +1670,41 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_txtBCpfKeyTyped
 
+    private void btIniciarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarVendaActionPerformed
+        if (txtCpfCompra.getText().equals("   .   .   -  ")) {
+            txtCpfCompra.requestFocus();
+            JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
+            if (txtCpfCompra.getText().equals(tabelaCliente.getModel().getValueAt(i, 3))) {
+                venda = true;
+            }
+
+        }
+        if (venda == true) {
+            iniciarVenda();
+            txtCpfCompra.setEnabled(false);
+            btIniciarVenda.setEnabled(false);
+            JOptionPane.showMessageDialog(null, "Venda Iniciada!!!");
+
+        } else {
+            JOptionPane.showMessageDialog(null, "CPF não encontrado!!!");
+        }
+
+
+    }//GEN-LAST:event_btIniciarVendaActionPerformed
+
+    private void btCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarVendaActionPerformed
+        LimparCarrinho();
+        bloquearCarrinho();
+        txtCpfCompra.setText("");
+        txtCpfCompra.setEnabled(true);
+        btIniciarVenda.setEnabled(true);
+        JOptionPane.showMessageDialog(null, "Venda Cancelada!!!");
+
+    }//GEN-LAST:event_btCancelarVendaActionPerformed
+
     public void carregarRegistrosCliente() {
 
         ArrayList<String[]> listarRegistros = controllerCliente.CarregarRegistros();
@@ -1653,6 +1743,30 @@ public class telaVendedor extends javax.swing.JFrame {
         tabelaCliente.setDefaultEditor(Object.class, null);
     }
 
+    public void carregarTabelaProdutos() {
+        ArrayList<String[]> listarRegistros = ControllerVenda.CarregarProdutos();
+        DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+        tabelaRegistros.addColumn("Tipo");
+        tabelaRegistros.addColumn("ID");
+        tabelaRegistros.addColumn("Marca");
+        tabelaRegistros.addColumn("Quantidade");
+        tabelaRegistros.addColumn("Preço");
+
+        tabelaVenda.setModel(tabelaRegistros);
+
+        for (String[] percorrerRegistros : listarRegistros) {
+            tabelaRegistros.addRow(new String[]{
+                percorrerRegistros[0],
+                percorrerRegistros[1],
+                percorrerRegistros[2],
+                percorrerRegistros[3],
+                percorrerRegistros[4]});
+        }
+        tabelaVenda.setDefaultEditor(Object.class, null);
+
+    }
+
     public void limparCampos() {
         txtNome.setText("");
         txtData.setText("");
@@ -1665,6 +1779,52 @@ public class telaVendedor extends javax.swing.JFrame {
         txtFone.setText("");
         txtBCpf.setText("");
         txtID.setText("");
+    }
+
+    public void bloquearCarrinho() {
+        txtCarrinhoID.setEnabled(false);
+        txtCarrinhoQuantidade.setEnabled(false);
+        btAdicionar.setEnabled(false);
+        btLimparCarrinho.setEnabled(false);
+        tabelaCarrinho.setEnabled(false);
+        btFinalizarCompra.setEnabled(false);
+
+    }
+
+    public void iniciarVenda() {
+        txtCarrinhoID.setEnabled(true);
+        txtCarrinhoQuantidade.setEnabled(true);
+        btAdicionar.setEnabled(true);
+        btLimparCarrinho.setEnabled(true);
+        tabelaCarrinho.setEnabled(true);
+        btFinalizarCompra.setEnabled(true);
+    }
+
+    public void LimparCarrinho() {
+        try {
+            DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
+
+            //For para limpar os dodos da tabela carrinho
+            for (int i = tabelaCarrinho.getRowCount() - 1; i >= 0; i--) {
+                tblCarrinho.removeRow(i);
+            }
+            //Limpa os campos de texto
+            txtCpfCompra.setText("");
+            txtCarrinhoID.setText("");
+            txtCarrinhoQuantidade.setText("");
+
+            //Valor final recebe 0
+            valorFinal = 0.0;
+
+            //Transforma valor final em String
+            String valFinal = String.valueOf(valorFinal);
+            //Imprime no campo de texto 0 valor final 
+            txtValorFinal.setText(valFinal);
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Erro!!!");
+        }
+
     }
 
     /**
@@ -1714,9 +1874,11 @@ public class telaVendedor extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btAdicionar;
     private javax.swing.JButton btBuscar;
+    private javax.swing.JButton btCancelarVenda;
     private javax.swing.JButton btDeletar;
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btFinalizarCompra;
+    private javax.swing.JButton btIniciarVenda;
     private javax.swing.JButton btLimparCarrinho;
     private javax.swing.JButton btNovo;
     private javax.swing.JButton btSalvar;
