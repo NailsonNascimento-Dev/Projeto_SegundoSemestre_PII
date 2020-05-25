@@ -14,8 +14,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -24,7 +22,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author nailson
+ * @author nailson, Marcos
  */
 public class telaAdministrador extends javax.swing.JFrame {
 
@@ -47,7 +45,9 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         carregarRegistrosFuncionarios();
     }
-
+/**
+ * Metodo desenvolvido para buscar um registro em especifico pelo seu ID, preenche as colunas da tabela passando as informações armazenadas em um arrayList para ela.
+ */
     public void buscarRegistro() {
         ArrayList<String[]> listarRegistros = ControllerFuncionarios.BuscarRegistro(fieldBuscarFuncionarios.getText());
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
@@ -88,8 +88,14 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
     }
-
-    public void exporTabela(JTable tabela, File file) throws IOException, NullPointerException {
+/**
+ * Metodo desenvolvido para escrever os dados de uma tabela em um arquivo txt.
+ * @param tabela recebe a tabela que será pego os dados em especifico.
+ * @param file recebe o arquivo que será escrito os dados pego na tabela.
+ * @throws IOException Pode gerar um erro ao ler e armazenar dados em um arquivo de texto.
+ * @throws NullPointerException pode gerar um erro caso o arquivo não exista.
+ */
+    public void escreverArquivoExcel(JTable tabela, File file) throws IOException, NullPointerException {
 
         TableModel model = tabela.getModel();
         FileWriter out = new FileWriter(file);
@@ -107,8 +113,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         bw.close();
         out.close();
     }
-
-    public void caminhoArquivo(JTable tabela) {
+/**
+ * Metodo desenvolvido para escolher o caminho onde o arquivo excel deseja ser salvo além de fazer a sua conversao de texto para excel.
+ * @param tabela recebe como parametro a tabela que contem os registros.
+ */
+    public void caminhoArquivoConversao(JTable tabela) {
         JFileChooser f = null;
         String path = null;
         try {
@@ -116,7 +125,7 @@ public class telaAdministrador extends javax.swing.JFrame {
             f.showSaveDialog(this);
             path = f.getSelectedFile().getPath();
 
-            exporTabela(tabela, new File(path + ".xls"));
+            escreverArquivoExcel(tabela, new File(path + ".xls"));
             JOptionPane.showMessageDialog(this, "Exportado com sucesso!");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Cancelado!");
@@ -129,6 +138,9 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Metodo desenvolvido apenas para limpar o campo da tela do funcionario quando chamado em alguma ação.
+     */
     public void limparCampos() {
         fieldBairro.setText("");
         fieldBuscarFuncionarios.setText("");
@@ -154,6 +166,9 @@ public class telaAdministrador extends javax.swing.JFrame {
         buttonExcluir.setEnabled(false);
     }
 
+    /**
+     * Metodo desenvolvido para carregar todos os registros da tabela dos funcionarios quando chamado.
+     */
     public void carregarRegistrosFuncionarios() {
         ArrayList<String[]> listarRegistros = ControllerFuncionarios.CarregarRegistros();
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
@@ -194,7 +209,19 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
     }
-
+/**
+ * Metodo desenvolvido para validar se os campos estão corretos recebendo como paramero cada campo a ser validado.
+ * @param nome
+ * @param cpf
+ * @param data
+ * @param rua
+ * @param bairro
+ * @param email
+ * @param telefone
+ * @param senha1
+ * @param senha2
+ * @return retorna true caso os campos estejam todos corretos e false caso tenha algum problema dando uma mensagem na tela onde está ocorrendo o erro ou os erros.
+ */
     public boolean validarCampos(
             //int cep,
             //int numeroCasa,
@@ -1614,6 +1641,12 @@ public class telaAdministrador extends javax.swing.JFrame {
         validacaoCaracter(evt);
     }//GEN-LAST:event_txtDescricaoKeyTyped
 
+    /**
+     * Metodo desenvolvido para o botão de cadastrar o funcionario pegando os seus dados que estão nos campos de texto passando para os atributos da classe funcionarios e depois enviando
+     * para o metodo de validar os campos e caso esteja tudo certo ele da sequencia enviando para a classe controller do funcionario e vai exibir a mensagem informando se o registro foi cadastrado com sucesso ou não.
+     * @param evt 
+     */
+    
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         boolean conversao = false;
 
@@ -1661,42 +1694,55 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
+    
     private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
-        char c = evt.getKeyChar(); //recebe o evento
-        if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-        }
+        
     }//GEN-LAST:event_fieldCepKeyTyped
-
+/**
+ * Evento desenvolvido para aceitar apenas valores numéricos.
+ * @param evt 
+ */
     private void fieldCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyReleased
         if (fieldCep.getText().trim().equals("")) {
-            JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
+            JOptionPane.showMessageDialog(this, "Apenas valores numéricos!");
         }
     }//GEN-LAST:event_fieldCepKeyReleased
-
+/**
+ * Evento desenvolvido para aceitar apenas numeros.
+ * @param evt 
+ */
     private void fieldNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyTyped
         char c = evt.getKeyChar(); //recebe o evento
         if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
         }
     }//GEN-LAST:event_fieldNumeroCasaKeyTyped
-
+/**
+ * Evento desenvolvido para aceitar apenas numeros.
+ * @param evt 
+ */
     private void fieldNumeroCasaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyReleased
         if (fieldNumeroCasa.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
         }
     }//GEN-LAST:event_fieldNumeroCasaKeyReleased
-
+/**
+ * Evento desenvolvido apenas para aceitar letras validas.
+ * @param evt 
+ */
     private void fieldRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRuaKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_fieldRuaKeyTyped
-
+/**
+ * Evento desenvolvido para aceitar apenas letras validas.
+ * @param evt 
+ */
     private void fieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBairroKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1728,8 +1774,12 @@ public class telaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldDataNacimentoActionPerformed
 
+    /**
+     * Evento desenvolvido para aceitar apenas letras validas.
+     * @param evt 
+     */
     private void fieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyTyped
-        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~ç{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
+        String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
             evt.consume();//aciona esse propriedade para eliminar a ação do evento
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
@@ -1753,11 +1803,18 @@ public class telaAdministrador extends javax.swing.JFrame {
         fieldBuscarFuncionarios.setText("");
 
     }//GEN-LAST:event_buttonRecarregarRegistrosActionPerformed
-
+/**
+ * Botão para buscar um registro em especifico chamando a função de buscar registro
+ * @param evt 
+ */
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
         buscarRegistro();
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
+    /**
+     * Botão de editar, quando se clica nele, ele pega os dados do registro em especifico que se quer editar que está na tabela e coloca seus dados nos respectivos campos para serem editados.
+     * @param evt 
+     */
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
 
         try {
@@ -1797,7 +1854,10 @@ public class telaAdministrador extends javax.swing.JFrame {
             System.out.print("");
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
-
+/**
+ * Botão desenvolvido para cancelar o modo de edição retornando ao modo normal do programa
+ * @param evt 
+ */
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja sair do modo de Edição?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1810,6 +1870,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
+    /**
+     * Botão de alterar pega as informações contidas nos campos e envia para a função de validar os campos e casa esteja tudo certo 
+     * da sequencia enviando para a classe controler então a partir disso vai mostrar caso a alteração do registro tenha sido efetuada com sucesso ou não.
+     * @param evt 
+     */
     private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
         boolean conversao = false;
         Funcionarios funcionarios = new Funcionarios();
@@ -1859,6 +1924,11 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonAlterarActionPerformed
 
+    /**
+     * Botão para excluir um registro do banco de dados, emite uma caixa de dialogo para confirmar e caso sim envia a requisição para a classe controller 
+     * junto ao id especifico do funcionario que deseja ser excluido e a partir disso vai mostrar para o usuario caso tenha excluido o registro com sucesso ou não.
+     * @param evt 
+     */
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o registro?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1884,12 +1954,17 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
+    /**
+     * Botão para exportar para excel , ele cria um arquivo de texto vazio e chama duas funcões que são parte de um todo para poder escrever os dados da tabela em um arquivo de texto e em seguida converter 
+     * esse arquivo para excel escolhendo onde o arquivo deseja ser salvo.
+     * @param evt 
+     */
     private void buttonExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportarExcelActionPerformed
         File arquivo = new File("Excel.txt");
 
         try {
-            exporTabela(tabelaRelatorios, arquivo);
-            caminhoArquivo(tabelaRelatorios);
+            escreverArquivoExcel(tabelaRelatorios, arquivo);
+            caminhoArquivoConversao(tabelaRelatorios);
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro ao exportar para excel!", "Aviso", JOptionPane.WARNING_MESSAGE);
         } catch (NullPointerException e) {
@@ -1899,7 +1974,10 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonExportarExcelActionPerformed
 
-    //função para validar a utilização de caracters
+  /**
+   * Evento desenvolvido para validação de caracteries
+   * @param evt 
+   */
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {
 
         String naoPermitidos = "!@#$%¨&*('-){}[]+=,./:;?|_ºª°§ ";//caracteres que não serão aceitos (Resolver " e \)
@@ -1909,7 +1987,10 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }
 
-    //função para validar a utilização de caracters e numeros
+   /**
+    * Evento desenvolvido para permitir apenas valores numéricos
+    * @param evt 
+    */
     private void validacaoCaracterNumero(java.awt.event.KeyEvent evt) {
 
         String naoPermitidos = "abcdefghijklmnopqrstuvwxyz!@#$%¨&*('-){}[]+=/:;,?|_ºª°§ABCDEFGHIJKLMNOPQRSTUVWXYZ";//caracteres que não serão aceitos (Resolver " e \)
@@ -1919,7 +2000,10 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }
 
-    //função para validar a utilização de caracters e numeros
+    /**
+     * Evento desenvolvido para permitir apenas valores numéricos
+     * @param evt 
+     */
     private void validacaoQuantidadeEstoque(java.awt.event.KeyEvent evt) {
 
         String naoPermitidos = "abcdefghijklmnopqrstuvwxyz.!@#$%¨&*('-){}[]+=,./:;?|_ºª°§ABCDEFGHIJKLMNOPQRSTUVWXYZ";//caracteres que não serão aceitos (Resolver " e \)
