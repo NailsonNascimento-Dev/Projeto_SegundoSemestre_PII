@@ -1701,6 +1701,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtCpfCompra.setText("");
         txtCpfCompra.setEnabled(true);
         btIniciarVenda.setEnabled(true);
+        venda = false;
         JOptionPane.showMessageDialog(null, "Venda Cancelada!!!");
 
     }//GEN-LAST:event_btCancelarVendaActionPerformed
@@ -1748,7 +1749,7 @@ public class telaVendedor extends javax.swing.JFrame {
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
         tabelaRegistros.addColumn("Tipo");
-        tabelaRegistros.addColumn("ID");
+        tabelaRegistros.addColumn("Codigo Fabricante");
         tabelaRegistros.addColumn("Marca");
         tabelaRegistros.addColumn("Quantidade");
         tabelaRegistros.addColumn("Preço");
