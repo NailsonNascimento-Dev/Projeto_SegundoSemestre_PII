@@ -11,23 +11,34 @@ package com.loja.informatica.MODEL;
  */
 public class Produto {
     
-    //atributos da classe
     private String descricao;
-    private String codigoFabricante;
+    private String modelo_codigo;
     private String marca;
-    private String tipo;
-    private String observacao;
+    private TipoProduto tipo;
     private int quantidade;
     private double preco;
+    private String observacao;
     
-
-    public double getPreco() {
-        return preco;
+    
+    
+    public Produto(){
+        
     }
 
-    public void setPreco(double preco) {
+    public Produto(String descricao, String modelo_codigo, String marca, TipoProduto tipo, int quantidade, double preco, String observacao) {
+        this.descricao = descricao;
+        this.modelo_codigo = modelo_codigo;
+        this.marca = marca;
+        this.tipo = tipo;
+        this.quantidade = quantidade;
         this.preco = preco;
+        this.observacao = observacao;
     }
+    
+    
+    
+    
+    
 
     public String getDescricao() {
         return descricao;
@@ -37,12 +48,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
-    public String getCodigoFabricante() {
-        return codigoFabricante;
+    public String getModelo_codigo() {
+        return modelo_codigo;
     }
 
-    public void setCodigoFabricante(String codigoFabricante) {
-        this.codigoFabricante = codigoFabricante;
+    public void setModelo_codigo(String modelo_codigo) {
+        this.modelo_codigo = modelo_codigo;
     }
 
     public String getMarca() {
@@ -53,11 +64,11 @@ public class Produto {
         this.marca = marca;
     }
 
-    public String getTipo() {
+    public TipoProduto getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoProduto tipo) {
         this.tipo = tipo;
     }
 
@@ -68,27 +79,23 @@ public class Produto {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
-    
-    public String getObservacao(){
+
+    public double getPreco() {
+        return preco;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+    public String getObservacao() {
         return observacao;
     }
-    
-    public void setObservacao(String observacao){
+
+    public void setObservacao(String observacao) {
         this.observacao = observacao;
     }
-    
-    
-    
-    public String toString(){
-        return(
-                "Nome: "+ descricao+
-                "\ncodigo: "+ codigoFabricante+
-                "\nMarca: "+ marca+
-                "\ntipo: "+ tipo +
-                "\nQuantiade em Estoque: " + quantidade +
-                "\nobsevação: " + observacao +
-                "\npreço: " + preco);
-    }  
-    
+
+   
     
 }

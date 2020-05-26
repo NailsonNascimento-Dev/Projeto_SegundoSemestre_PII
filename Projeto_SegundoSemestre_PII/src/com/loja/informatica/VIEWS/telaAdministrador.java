@@ -6,8 +6,11 @@
 package com.loja.informatica.VIEWS;
 
 import com.loja.informatica.CONTROLLER.ControllerFuncionarios;
+import com.loja.informatica.CONTROLLER.ControllerProduto;
+import com.loja.informatica.CONTROLLER.ControllerTipoProduto;
 import com.loja.informatica.MODEL.Funcionarios;
 import com.loja.informatica.MODEL.Produto;
+import com.loja.informatica.MODEL.TipoProduto;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -44,6 +47,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         buttonCancelar.setVisible(false);
 
         carregarRegistrosFuncionarios();
+        carregarTipoProdutos();
+        carregarRegistrosProduto();
     }
 /**
  * Metodo desenvolvido para buscar um registro em especifico pelo seu ID, preenche as colunas da tabela passando as informações armazenadas em um arrayList para ela.
@@ -935,7 +940,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(277, Short.MAX_VALUE))
+                .addContainerGap(195, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -964,7 +969,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 875, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -973,7 +978,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -981,7 +986,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 887, Short.MAX_VALUE)
+            .addGap(0, 881, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1032,7 +1037,6 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadastro de produto"));
 
-        cboTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Placa de Vídeo", "Placa de Capitura", "Placa Mãe", "Fonte", "Hard Disk (HD) / SSD", "Memória", "Gabinete", " ", " " }));
         cboTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboTipoActionPerformed(evt);
@@ -1159,7 +1163,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 648, Short.MAX_VALUE)
+                        .addGap(0, 642, Short.MAX_VALUE)
                         .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1280,7 +1284,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                             .addComponent(txtBusca)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(cboTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 198, Short.MAX_VALUE)))
+                                .addGap(0, 192, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEditarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
@@ -1308,7 +1312,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addComponent(btnEntradaProdutoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1339,15 +1343,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 923, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -1581,14 +1583,27 @@ public class telaAdministrador extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Campo 'Preço'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-
-                produto.setDescricao(txtDescricao.getText());
-                produto.setCodigoFabricante(txtCodFabricante.getText());
-                produto.setTipo(cboTipo.getSelectedItem().toString());
-                produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
-                produto.setMarca(txtMarca.getText());
-                produto.setPreco(Double.parseDouble(txtPreco.getText()));
-                produto.setObservacao(txtObservacao.getText());
+                
+                
+                
+                String descricao = txtDescricao.getText();
+                String modelo_codigo = txtCodFabricante.getText();
+                String marca = txtMarca.getText();
+                TipoProduto tipo = ((TipoProduto) cboTipo.getSelectedItem());
+                int quantidade = Integer.parseInt(txtQuantidade.getText());
+                double preco = Double.parseDouble(txtPreco.getText());
+                String observacao = txtObservacao.getText();
+                
+              
+             
+                
+                boolean statusCadastro = ControllerProduto.CadastrarProduto(descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao);      
+                if(statusCadastro){
+                  //  JOptionPane.showMessageDialog(null, "Produto cadastrado !");
+                }else{
+                    JOptionPane.showMessageDialog(null, "Produto não cadastrado !");
+                    
+                }
 
                 //System.out.println(produto.toString());
                 //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
@@ -1597,7 +1612,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 //adiciona os valores do objeto "produto" a linha da tabela
                 model.addRow(new Object[]{
                     produto.getDescricao(),
-                    produto.getCodigoFabricante(),
+                    //produto.getCodigoFabricante(),
                     produto.getTipo(),
                     produto.getQuantidade(),
                     produto.getMarca(),
@@ -1624,7 +1639,49 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro no cadastro");
         }
     }//GEN-LAST:event_btnCriarActionPerformed
+    
+   
+        public void carregarRegistrosProduto() {
 
+        ArrayList<String[]> listarRegistros = ControllerProduto.CarregarProduto();
+        DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+        tabelaRegistros.addColumn("descricao");
+        tabelaRegistros.addColumn("Código Fabricante");
+        tabelaRegistros.addColumn("Tipo / Grupo");
+        tabelaRegistros.addColumn("Quantidade");
+        tabelaRegistros.addColumn("Marca");
+        tabelaRegistros.addColumn("Preço R$");
+        
+
+       tblProdutos.setModel(tabelaRegistros);
+
+        for (String[] percorrerRegistros : listarRegistros) {
+            tabelaRegistros.addRow(new String[]{
+                percorrerRegistros[0],
+                percorrerRegistros[1],
+                percorrerRegistros[2],
+                percorrerRegistros[3],
+                percorrerRegistros[4],
+                percorrerRegistros[5],
+              });
+        }
+        tblProdutos.setDefaultEditor(Object.class, null);
+    }
+    
+    
+    
+    
+        public void carregarTipoProdutos() {
+        ArrayList<TipoProduto> listartipoProdutos = ControllerTipoProduto.CarregaTipoProduto();
+                
+        for(TipoProduto tipos: listartipoProdutos){
+            cboTipo.addItem(tipos);
+                   
+        }
+        
+    }
+    
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
         validacaoQuantidadeEstoque(evt);
     }//GEN-LAST:event_txtQuantidadeKeyTyped
@@ -2071,7 +2128,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
     private javax.swing.JButton buttonRecarregarRegistros;
-    private javax.swing.JComboBox<String> cboTipo;
+    private javax.swing.JComboBox<Object> cboTipo;
     private javax.swing.JComboBox<String> cboTipoBusca;
     private javax.swing.JComboBox<String> comboBoxSexo;
     private javax.swing.JTextField fieldBairro;

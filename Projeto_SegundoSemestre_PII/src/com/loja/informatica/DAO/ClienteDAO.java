@@ -214,7 +214,7 @@ public class ClienteDAO {
 
     }
         
-         public static ArrayList<cliente> carregarRegistros() {
+        public static ArrayList<cliente> carregarRegistros() {
         ResultSet resultado = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
