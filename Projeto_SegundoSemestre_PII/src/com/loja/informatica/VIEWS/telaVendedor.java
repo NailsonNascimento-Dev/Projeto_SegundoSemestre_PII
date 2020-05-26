@@ -276,15 +276,13 @@ public class telaVendedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "ID", "Marca", "Quantidade", "Preço"
+                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
             }
         ));
-        tabelaCarrinho.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tabelaCarrinho);
 
         jLabel33.setText("Valor Final R$:");
 
-        txtValorFinal.setEnabled(false);
         txtValorFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorFinalActionPerformed(evt);
@@ -312,9 +310,6 @@ public class telaVendedor extends javax.swing.JFrame {
                 txtCarrinhoQuantidadeActionPerformed(evt);
             }
         });
-
-        txtCarrinhoID.setEnabled(false);
-        txtCarrinhoID.setFocusable(false);
 
         jLabel32.setText("Quantidade");
 
@@ -406,7 +401,7 @@ public class telaVendedor extends javax.swing.JFrame {
                         .addComponent(jLabel30)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtCpfCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(18, 18, 18)
                         .addComponent(btIniciarVenda)
                         .addGap(18, 18, 18)
                         .addComponent(btCancelarVenda)
@@ -1696,6 +1691,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtCpfCompra.setText("");
         txtCpfCompra.setEnabled(true);
         btIniciarVenda.setEnabled(true);
+        venda = false;
         JOptionPane.showMessageDialog(null, "Venda Cancelada!!!");
 
     }//GEN-LAST:event_btCancelarVendaActionPerformed
@@ -1743,7 +1739,7 @@ public class telaVendedor extends javax.swing.JFrame {
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
         tabelaRegistros.addColumn("Tipo");
-        tabelaRegistros.addColumn("ID");
+        tabelaRegistros.addColumn("Codigo Fabricante");
         tabelaRegistros.addColumn("Marca");
         tabelaRegistros.addColumn("Quantidade");
         tabelaRegistros.addColumn("Preço");
