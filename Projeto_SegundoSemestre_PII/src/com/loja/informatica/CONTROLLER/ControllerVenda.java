@@ -24,8 +24,8 @@ public class ControllerVenda {
 
         for (Produto produto : listarRegistros) {
             retorno.add(new String[]{
-                String.valueOf(produto.getTipo()),
-                String.valueOf(produto.getCodigoFabricante()),
+                String.valueOf(produto.getGrupo()),
+                String.valueOf(produto.getModelo_codigo()),
                 String.valueOf(produto.getMarca()),
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getPreco())        

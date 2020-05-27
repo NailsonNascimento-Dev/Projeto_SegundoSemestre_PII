@@ -18,6 +18,15 @@ public class Produto {
     private int quantidade;
     private double preco;
     private String observacao;
+    private String grupo;
+
+    public String getGrupo() {
+        return grupo;
+    }
+
+    public void setGrupo(String grupo) {
+        this.grupo = grupo;
+    }
     
     
     

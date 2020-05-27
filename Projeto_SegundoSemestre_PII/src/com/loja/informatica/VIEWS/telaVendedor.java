@@ -75,7 +75,7 @@ public class telaVendedor extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtFiltroTipo = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        txtFiltroModelo = new javax.swing.JTextField();
+        txtFiltroCodigo = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         tabelaVenda = new javax.swing.JTable();
@@ -184,11 +184,11 @@ public class telaVendedor extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Modelo:");
+        jLabel3.setText("Codigo:");
 
-        txtFiltroModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtFiltroCodigo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtFiltroModeloKeyTyped(evt);
+                txtFiltroCodigoKeyTyped(evt);
             }
         });
 
@@ -245,7 +245,7 @@ public class telaVendedor extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFiltroModelo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFiltroCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -261,7 +261,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtFiltroTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(txtFiltroModelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtFiltroCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
                     .addComponent(txtFiltroMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -276,9 +276,18 @@ public class telaVendedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tipo", "Modelo", "Marca", "ID", "Preço", "Quantidade"
+                "Tipo", "Codigo Fabricante", "Marca", "Quantidade", "Preço"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, true, true, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tabelaCarrinho.getTableHeader().setReorderingAllowed(false);
         jScrollPane3.setViewportView(tabelaCarrinho);
 
         jLabel33.setText("Valor Final R$:");
@@ -303,7 +312,7 @@ public class telaVendedor extends javax.swing.JFrame {
             }
         });
 
-        jLabel31.setText("#ID produto:");
+        jLabel31.setText("Codigo:");
 
         txtCarrinhoQuantidade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -649,7 +658,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        btSalvar.setText("Salvar");
+        btSalvar.setText("Cadastrar");
         btSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btSalvarActionPerformed(evt);
@@ -711,6 +720,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
             }
         ));
+        tabelaCliente.getTableHeader().setReorderingAllowed(false);
         tabelaCliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tabelaClienteMouseClicked(evt);
@@ -1198,6 +1208,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 carregarRegistrosCliente();
 
                 txtCpf.setEnabled(true);
+                btSalvar.setText("Cadastrar");
 
                 pesquisar = false;//Desativa o modo pesquisar cliente
             }
@@ -1211,77 +1222,51 @@ public class telaVendedor extends javax.swing.JFrame {
 
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
 
-        ArrayList<String[]> listarRegistros = controllerCliente.BuscarRegistro(txtBCpf.getText());
-        DefaultTableModel tabelaRegistros = new DefaultTableModel();
-
-        tabelaRegistros.addColumn("ID");
-        tabelaRegistros.addColumn("Nome");
-        tabelaRegistros.addColumn("Data");
-        tabelaRegistros.addColumn("CPF");
-        tabelaRegistros.addColumn("Sexo");
-        tabelaRegistros.addColumn("Estado Civil");
-        tabelaRegistros.addColumn("Rua");
-        tabelaRegistros.addColumn("Cep");
-        tabelaRegistros.addColumn("N° Casa");
-        tabelaRegistros.addColumn("Bairro");
-        tabelaRegistros.addColumn("Email");
-        tabelaRegistros.addColumn("Telefone");
-
-        tabelaCliente.setModel(tabelaRegistros);
-
-        for (String[] percorrerRegistros : listarRegistros) {
-            tabelaRegistros.addRow(new String[]{
-                percorrerRegistros[0],
-                percorrerRegistros[1],
-                percorrerRegistros[2],
-                percorrerRegistros[3],
-                percorrerRegistros[4],
-                percorrerRegistros[5],
-                percorrerRegistros[6],
-                percorrerRegistros[7],
-                percorrerRegistros[8],
-                percorrerRegistros[9],
-                percorrerRegistros[10],
-                percorrerRegistros[11]});
+        if (txtBCpf.getText().equals("   .   .   -  ")) {
+            txtCpfCompra.requestFocus();
+            JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
+            return;
         }
 
-        cliente cliente = new cliente();
-        pesquisar = true;//Ativa o modo pesquisar cliente
+        for (int i = 0; i < tabelaCliente.getRowCount(); i++) {
+            if (txtBCpf.getText().equals(tabelaCliente.getModel().getValueAt(i, 3))) {
 
-        cliente.setCpf(txtBCpf.getText());
+                txtID.setText(tabelaCliente.getValueAt(i, 0).toString());
+                txtNome.setText(tabelaCliente.getValueAt(i, 1).toString());
+                txtData.setText(tabelaCliente.getValueAt(i, 2).toString());
+                txtCpf.setText(tabelaCliente.getValueAt(i, 3).toString());
+                txtBCpf.setText(tabelaCliente.getValueAt(i, 3).toString());
+                comboSexo.setSelectedItem(tabelaCliente.getValueAt(i, 4).toString());
+                comboECivil.setSelectedItem(tabelaCliente.getValueAt(i, 5).toString());
+                txtRua.setText(tabelaCliente.getValueAt(i, 6).toString());
+                txtCep.setText(tabelaCliente.getValueAt(i, 7).toString());
+                txtNum.setText(tabelaCliente.getValueAt(i, 8).toString());
+                txtBairro.setText(tabelaCliente.getValueAt(i, 9).toString());
+                txtEmail.setText(tabelaCliente.getValueAt(i, 10).toString());
+                txtFone.setText(tabelaCliente.getValueAt(i, 11).toString());
 
-        //Manda para a classe buscarCampo o valor a ser pesquisado
-        //modelo.setPesquisar(txtBCpf.getText());
-        //Cliente mod = controle.buscarCampo(modelo);
-        //Imprime nos campos de texto os dados do cliente pesquisado
-        txtID.setText(String.valueOf(cliente.getId()));
-        txtNome.setText(cliente.getNome());
-        txtData.setText(cliente.getData());
-        txtCpf.setText(cliente.getCpf());
-        comboSexo.setSelectedItem(cliente.getSexo());
-        comboECivil.setSelectedItem(cliente.getEstadoCivil());
-        txtRua.setText(cliente.getRua());
-        txtCep.setText(cliente.getCep());
-        txtNum.setText(String.valueOf(cliente.getNumeroCasa()));
-        txtBairro.setText(cliente.getBairro());
-        txtEmail.setText(cliente.getEmail());
-        txtFone.setText(cliente.getTelefone());
+                //Desabilita os campos de texto
+                txtNome.setEnabled(false);
+                txtData.setEnabled(false);
+                txtCpf.setEnabled(false);
+                comboSexo.setEnabled(false);
+                comboECivil.setEnabled(false);
+                txtRua.setEnabled(false);
+                txtCep.setEnabled(false);
+                txtNum.setEnabled(false);
+                txtBairro.setEnabled(false);
+                txtEmail.setEnabled(false);
+                txtFone.setEnabled(false);
+                btSalvar.setEnabled(false);
 
-        //Desabilita os campos de texto
-        txtNome.setEnabled(false);
-        txtData.setEnabled(false);
-        txtCpf.setEnabled(false);
-        comboSexo.setEnabled(false);
-        comboECivil.setEnabled(false);
-        txtRua.setEnabled(false);
-        txtCep.setEnabled(false);
-        txtNum.setEnabled(false);
-        txtBairro.setEnabled(false);
-        txtEmail.setEnabled(false);
-        txtFone.setEnabled(false);
-        btSalvar.setEnabled(false);
+                pesquisar = true;
+                
+            }
 
-
+        }
+        if (pesquisar == false) {
+            JOptionPane.showMessageDialog(null, "CPF não encontrado!!!");
+        }
     }//GEN-LAST:event_btBuscarActionPerformed
 
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
@@ -1302,6 +1287,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtEmail.setEnabled(true);
         txtFone.setEnabled(true);
         btSalvar.setEnabled(true);
+        btSalvar.setText("Cadastrar");
 
         pesquisar = false;//Modo pesquisar cliente desativado
     }//GEN-LAST:event_btNovoActionPerformed
@@ -1319,6 +1305,7 @@ public class telaVendedor extends javax.swing.JFrame {
         txtEmail.setEnabled(true);
         txtFone.setEnabled(true);
         btSalvar.setEnabled(true);
+        btSalvar.setText("Salvar");
 
     }//GEN-LAST:event_btEditarActionPerformed
 
@@ -1334,6 +1321,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
                 if (retorno == true) {
                     JOptionPane.showMessageDialog(this, "Registro Excluido com sucesso!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    btSalvar.setEnabled(true);
                     limparCampos();
                 } else {
                     JOptionPane.showMessageDialog(this, "Erro ao Excluir registro!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
@@ -1394,20 +1382,19 @@ public class telaVendedor extends javax.swing.JFrame {
         tabelaVenda.setRowSorter(trs);
     }//GEN-LAST:event_txtFiltroTipoKeyTyped
 
-    private void txtFiltroModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroModeloKeyTyped
-        // TODO add your handling code here:
-        txtFiltroModelo.addKeyListener(new KeyAdapter() {
+    private void txtFiltroCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroCodigoKeyTyped
+        txtFiltroCodigo.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyReleased(KeyEvent ke) {
-                trs.setRowFilter(RowFilter.regexFilter(txtFiltroModelo.getText(), 1));
+                trs.setRowFilter(RowFilter.regexFilter(txtFiltroCodigo.getText(), 1));
             }
         });
 
         DefaultTableModel tblVenda = (DefaultTableModel) tabelaVenda.getModel();
         trs = new TableRowSorter(tblVenda);
         tabelaVenda.setRowSorter(trs);
-    }//GEN-LAST:event_txtFiltroModeloKeyTyped
+    }//GEN-LAST:event_txtFiltroCodigoKeyTyped
 
     private void txtFiltroMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroMarcaActionPerformed
         // TODO add your handling code here:
@@ -1429,26 +1416,10 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroMarcaKeyTyped
 
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
-        // TODO add your handling code here:
-
         int quantidade;//Variavel para salvar a quantidade de produtos
         double valor;//Variavel para salvar o valor dos produtos
         boolean adicionar = false;//Variavel para saber se ID do produto foi encontrado
-
-        //Matriz para usar de referencia dos valor da tabela
-        String estoque[][]
-                = {
-                    {"Placa de Video", "RTX2080", "Nvidia", "1000", "2999.00", "33"},
-                    {"Placa de Video", "GTX970", "Nvidia", "1001", "499.00", "33"},
-                    {"Placa de Video", "V100S", "Nvidia", "1002", "299.00", "33"},
-                    {"Placa de Video", "RTX8000", "Nvidia", "1004", "3999.00", "03"},
-                    {"Placa Mãe", "AORUS B630M", "Asus", "1003", "486.00", "99"},
-                    {"Processador", "AMD RYZEN 3", "AMD", "1005", "999.00", "99"},
-                    {"Processador", "I5-9600KF", "INTEL", "1006", "1209.00", "53"},
-                    {"HD", "ST1000DM010", "Seagate", "1007", "486.00", "96"},
-                    {"Processador", "AMD RYZEN 7", "AMD", "1008", "999.00", "34"},
-                    {"Processador", "I7-9600KF", "INTEL", "42", "1209.00", "31"},
-                    {"Teclado", "Mx Master 2S", "LOGITECH", "1042", "350.00", "31"},};
+        int q;
 
         try {
             //Verifica se o campo ID do produto esta vazio
@@ -1471,25 +1442,40 @@ public class telaVendedor extends javax.swing.JFrame {
             //Quantidade digitada e transformada em numero inteiro
             quantidade = Integer.parseInt(txtCarrinhoQuantidade.getText());
 
-            //Busca na tabela o ID digitado
-            for (int i = 0; i < estoque.length; i++) {
-                if (busca.equals(estoque[i][3])) {
+            String valores[] = new String[5];
 
+            for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
+                if (busca.equals(tabelaCarrinho.getModel().getValueAt(i, 1))) {
+                    q = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
+                    valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
+                    valorFinal = valorFinal - (q * valor);
+                    tblCarrinho.removeRow(i);
+                }
+            }
+
+            //Busca na tabela o ID digitado
+            for (int i = 0; i < tabelaVenda.getRowCount(); i++) {
+                if (busca.equals(tabelaVenda.getModel().getValueAt(i, 1))) {
                     //Adiciona na tabela carrinho os dados do produto
+                    valores[0] = (tabelaVenda.getValueAt(i, 0).toString());
+                    valores[1] = (tabelaVenda.getValueAt(i, 1).toString());
+                    valores[2] = (tabelaVenda.getValueAt(i, 2).toString());
+                    valores[3] = (tabelaVenda.getValueAt(i, 3).toString());
+                    valores[4] = (tabelaVenda.getValueAt(i, 4).toString());
+
                     tblCarrinho.addRow(new Object[]{
-                        estoque[i][0],
-                        estoque[i][1],
-                        estoque[i][2],
-                        estoque[i][3],
-                        estoque[i][4],
-                        quantidade,});
+                        valores[0],
+                        valores[1],
+                        valores[2],
+                        quantidade,
+                        valores[4],});
 
                     //Limpa os campos de digitação
                     txtCarrinhoID.setText("");
                     txtCarrinhoQuantidade.setText("");
 
                     //Valor do produto pesquisado em transformado em numero
-                    valor = Double.parseDouble(estoque[i][4]);
+                    valor = Double.parseDouble(valores[4]);
 
                     //Conta para saber o valor final da compra
                     valorFinal += valor * quantidade;
@@ -1550,8 +1536,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 valores[1],
                 valores[2],
                 quantidade,
-                valores[4],
-                quantidade,});
+                valores[4],});
 
             //Valor do produto pesquisado em transformado em numero
             valor = Double.parseDouble(valores[4]);
@@ -1755,6 +1740,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 percorrerRegistros[4]});
         }
         tabelaVenda.setDefaultEditor(Object.class, null);
+        tabelaCarrinho.setDefaultEditor(Object.class, null);
 
     }
 
@@ -1938,8 +1924,8 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtCpfCompra;
     private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtFiltroCodigo;
     private javax.swing.JTextField txtFiltroMarca;
-    private javax.swing.JTextField txtFiltroModelo;
     private javax.swing.JTextField txtFiltroTipo;
     private javax.swing.JFormattedTextField txtFone;
     private javax.swing.JTextField txtID;

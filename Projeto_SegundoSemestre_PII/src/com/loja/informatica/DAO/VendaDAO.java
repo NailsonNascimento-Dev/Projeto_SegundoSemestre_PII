@@ -6,6 +6,7 @@
 package com.loja.informatica.DAO;
 
 import com.loja.informatica.MODEL.Produto;
+import com.loja.informatica.MODEL.TipoProduto;
 import com.loja.informatica.UTILS.ConexaoMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -38,8 +39,8 @@ public class VendaDAO {
 
             while (resultado.next()) {
                 Produto produto = new Produto();
-                produto.setTipo(resultado.getString("modelo_tipo"));
-                produto.setCodigoFabricante(resultado.getString("modelo_codigo"));
+                produto.setGrupo(resultado.getString("modelo_tipo"));
+                produto.setModelo_codigo(resultado.getString("modelo_codigo"));
                 produto.setMarca(resultado.getString("marca"));
                 produto.setQuantidade(resultado.getInt("quantidade"));
                 produto.setPreco(resultado.getDouble("preco"));
