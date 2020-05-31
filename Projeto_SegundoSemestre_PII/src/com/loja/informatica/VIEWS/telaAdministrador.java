@@ -52,39 +52,6 @@ public class telaAdministrador extends javax.swing.JFrame {
         carregarTipoProdutos();
         carregarRegistrosProduto();
     }
-    
-    public void gerarRelatorio(){
-                //Date dataInicio;
-        //Date dataFim;
-
-       // dataInicio = fieldDataInicio.getDate();
-        //dataFim = fieldDataFim.getDate();
-        
-       
-/*
-        ArrayList<String[]> listarVendas = ControllerRelatorios.BuscarRegistros(dataInicio, dataFim);
-        DefaultTableModel tabelaRelatorioDft1 = new DefaultTableModel();
-
-        tabelaRelatorioDft1.addColumn("ID Venda");
-        tabelaRelatorioDft1.addColumn("Nome");
-        tabelaRelatorioDft1.addColumn("CPF");
-        tabelaRelatorioDft1.addColumn("Datas");
-        tabelaRelatorioDft1.addColumn("Valor da Venda");
-
-        tabelaRelatorios.setModel(tabelaRelatorioDft1);
-
-        for (String[] percorrerDados : listarVendas) {
-            tabelaRelatorioDft1.addRow(new String[]{
-                percorrerDados[0],
-                percorrerDados[1],
-                percorrerDados[2],
-                percorrerDados[3],
-                percorrerDados[4]
-            });
-        }
-        */
-
-    }
 
     /**
      * Metodo desenvolvido para buscar um registro em especifico pelo seu ID,
@@ -449,7 +416,6 @@ public class telaAdministrador extends javax.swing.JFrame {
         fieldDataFim = new com.toedter.calendar.JDateChooser();
         fieldDataInicio = new com.toedter.calendar.JDateChooser();
         buttonExportarExcel = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaRelatorios2 = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
@@ -977,8 +943,6 @@ public class telaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("jButton2");
-
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -997,32 +961,25 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2)
-                .addGap(158, 158, 158))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(buttonGerarRelatorio)
-                                .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
-                        .addComponent(jButton2)
-                        .addGap(17, 17, 17))))
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(buttonGerarRelatorio)
+                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         tabelaRelatorios2.setModel(new javax.swing.table.DefaultTableModel(
@@ -2134,14 +2091,12 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportarExcelActionPerformed
 
     private void buttonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarRelatorioActionPerformed
-        //Date dataInicio;
-        //Date dataFim;
+        Date dataInicio;
+        Date dataFim;
 
-       // dataInicio = fieldDataInicio.getDate();
-        //dataFim = fieldDataFim.getDate();
-        
-       
-/*
+        dataInicio = fieldDataInicio.getDate();
+        dataFim = fieldDataFim.getDate();
+
         ArrayList<String[]> listarVendas = ControllerRelatorios.BuscarRegistros(dataInicio, dataFim);
         DefaultTableModel tabelaRelatorioDft1 = new DefaultTableModel();
 
@@ -2162,7 +2117,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 percorrerDados[4]
             });
         }
-        */
+
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
 
     /**
@@ -2282,7 +2237,6 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldPW_2;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JFormattedTextField fieldTelefone;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
