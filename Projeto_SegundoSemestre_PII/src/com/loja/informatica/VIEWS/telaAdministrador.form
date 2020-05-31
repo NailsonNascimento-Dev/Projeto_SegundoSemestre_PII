@@ -873,6 +873,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaRelatoriosMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

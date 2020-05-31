@@ -920,6 +920,11 @@ public class telaAdministrador extends javax.swing.JFrame {
             }
         ));
         tabelaRelatorios.getTableHeader().setReorderingAllowed(false);
+        tabelaRelatorios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelaRelatoriosMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(tabelaRelatorios);
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Selecione o período"));
@@ -2119,6 +2124,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
+
+    private void tabelaRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaRelatoriosMouseClicked
+       
+        ArrayList<String[]> listarVendaDescricao = ControllerRelatorios.buscarRegistroDetalhe(WIDTH);
+        
+        
+    }//GEN-LAST:event_tabelaRelatoriosMouseClicked
 
     /**
      * Evento desenvolvido para validação de caracteries
