@@ -17,6 +17,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JFileChooser;
@@ -2091,13 +2092,12 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportarExcelActionPerformed
 
     private void buttonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarRelatorioActionPerformed
-        Date dataInicio;
-        Date dataFim;
 
-        dataInicio = fieldDataInicio.getDate();
-        dataFim = fieldDataFim.getDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        String dataFormatadaInicio = simpleDateFormat.format(fieldDataInicio.getDate());
+        String dataFormatadaFim = simpleDateFormat.format(fieldDataFim.getDate());
 
-        ArrayList<String[]> listarVendas = ControllerRelatorios.BuscarRegistros(dataInicio, dataFim);
+        ArrayList<String[]> listarVendas = ControllerRelatorios.BuscarRegistros(dataFormatadaInicio, dataFormatadaFim);
         DefaultTableModel tabelaRelatorioDft1 = new DefaultTableModel();
 
         tabelaRelatorioDft1.addColumn("ID Venda");
