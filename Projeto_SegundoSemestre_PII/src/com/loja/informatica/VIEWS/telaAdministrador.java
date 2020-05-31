@@ -7,6 +7,7 @@ package com.loja.informatica.VIEWS;
 
 import com.loja.informatica.CONTROLLER.ControllerFuncionarios;
 import com.loja.informatica.CONTROLLER.ControllerProduto;
+import com.loja.informatica.CONTROLLER.ControllerRelatorios;
 import com.loja.informatica.CONTROLLER.ControllerTipoProduto;
 import com.loja.informatica.MODEL.Funcionarios;
 import com.loja.informatica.MODEL.Produto;
@@ -17,6 +18,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -25,7 +27,7 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author nailson, Marcos
+ * @author Nailson, Marcos
  */
 public class telaAdministrador extends javax.swing.JFrame {
 
@@ -50,9 +52,45 @@ public class telaAdministrador extends javax.swing.JFrame {
         carregarTipoProdutos();
         carregarRegistrosProduto();
     }
-/**
- * Metodo desenvolvido para buscar um registro em especifico pelo seu ID, preenche as colunas da tabela passando as informações armazenadas em um arrayList para ela.
- */
+    
+    public void gerarRelatorio(){
+                //Date dataInicio;
+        //Date dataFim;
+
+       // dataInicio = fieldDataInicio.getDate();
+        //dataFim = fieldDataFim.getDate();
+        
+       
+/*
+        ArrayList<String[]> listarVendas = ControllerRelatorios.BuscarRegistros(dataInicio, dataFim);
+        DefaultTableModel tabelaRelatorioDft1 = new DefaultTableModel();
+
+        tabelaRelatorioDft1.addColumn("ID Venda");
+        tabelaRelatorioDft1.addColumn("Nome");
+        tabelaRelatorioDft1.addColumn("CPF");
+        tabelaRelatorioDft1.addColumn("Datas");
+        tabelaRelatorioDft1.addColumn("Valor da Venda");
+
+        tabelaRelatorios.setModel(tabelaRelatorioDft1);
+
+        for (String[] percorrerDados : listarVendas) {
+            tabelaRelatorioDft1.addRow(new String[]{
+                percorrerDados[0],
+                percorrerDados[1],
+                percorrerDados[2],
+                percorrerDados[3],
+                percorrerDados[4]
+            });
+        }
+        */
+
+    }
+
+    /**
+     * Metodo desenvolvido para buscar um registro em especifico pelo seu ID,
+     * preenche as colunas da tabela passando as informações armazenadas em um
+     * arrayList para ela.
+     */
     public void buscarRegistro() {
         ArrayList<String[]> listarRegistros = ControllerFuncionarios.BuscarRegistro(fieldBuscarFuncionarios.getText());
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
@@ -93,13 +131,18 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
     }
-/**
- * Metodo desenvolvido para escrever os dados de uma tabela em um arquivo txt.
- * @param tabela recebe a tabela que será pego os dados em especifico.
- * @param file recebe o arquivo que será escrito os dados pego na tabela.
- * @throws IOException Pode gerar um erro ao ler e armazenar dados em um arquivo de texto.
- * @throws NullPointerException pode gerar um erro caso o arquivo não exista.
- */
+
+    /**
+     * Metodo desenvolvido para escrever os dados de uma tabela em um arquivo
+     * txt.
+     *
+     * @param tabela recebe a tabela que será pego os dados em especifico.
+     * @param file recebe o arquivo que será escrito os dados pego na tabela.
+     * @throws IOException Pode gerar um erro ao ler e armazenar dados em um
+     * arquivo de texto.
+     * @throws NullPointerException pode gerar um erro caso o arquivo não
+     * exista.
+     */
     public void escreverArquivoExcel(JTable tabela, File file) throws IOException, NullPointerException {
 
         TableModel model = tabela.getModel();
@@ -118,10 +161,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         bw.close();
         out.close();
     }
-/**
- * Metodo desenvolvido para escolher o caminho onde o arquivo excel deseja ser salvo além de fazer a sua conversao de texto para excel.
- * @param tabela recebe como parametro a tabela que contem os registros.
- */
+
+    /**
+     * Metodo desenvolvido para escolher o caminho onde o arquivo excel deseja
+     * ser salvo além de fazer a sua conversao de texto para excel.
+     *
+     * @param tabela recebe como parametro a tabela que contem os registros.
+     */
     public void caminhoArquivoConversao(JTable tabela) {
         JFileChooser f = null;
         String path = null;
@@ -144,7 +190,8 @@ public class telaAdministrador extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo desenvolvido apenas para limpar o campo da tela do funcionario quando chamado em alguma ação.
+     * Metodo desenvolvido apenas para limpar o campo da tela do funcionario
+     * quando chamado em alguma ação.
      */
     public void limparCampos() {
         fieldBairro.setText("");
@@ -172,7 +219,8 @@ public class telaAdministrador extends javax.swing.JFrame {
     }
 
     /**
-     * Metodo desenvolvido para carregar todos os registros da tabela dos funcionarios quando chamado.
+     * Metodo desenvolvido para carregar todos os registros da tabela dos
+     * funcionarios quando chamado.
      */
     public void carregarRegistrosFuncionarios() {
         ArrayList<String[]> listarRegistros = ControllerFuncionarios.CarregarRegistros();
@@ -214,19 +262,24 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
     }
-/**
- * Metodo desenvolvido para validar se os campos estão corretos recebendo como paramero cada campo a ser validado.
- * @param nome
- * @param cpf
- * @param data
- * @param rua
- * @param bairro
- * @param email
- * @param telefone
- * @param senha1
- * @param senha2
- * @return retorna true caso os campos estejam todos corretos e false caso tenha algum problema dando uma mensagem na tela onde está ocorrendo o erro ou os erros.
- */
+
+    /**
+     * Metodo desenvolvido para validar se os campos estão corretos recebendo
+     * como paramero cada campo a ser validado.
+     *
+     * @param nome
+     * @param cpf
+     * @param data
+     * @param rua
+     * @param bairro
+     * @param email
+     * @param telefone
+     * @param senha1
+     * @param senha2
+     * @return retorna true caso os campos estejam todos corretos e false caso
+     * tenha algum problema dando uma mensagem na tela onde está ocorrendo o
+     * erro ou os erros.
+     */
     public boolean validarCampos(
             //int cep,
             //int numeroCasa,
@@ -393,11 +446,12 @@ public class telaAdministrador extends javax.swing.JFrame {
         buttonGerarRelatorio = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        jDateChooser2 = new com.toedter.calendar.JDateChooser();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        fieldDataFim = new com.toedter.calendar.JDateChooser();
+        fieldDataInicio = new com.toedter.calendar.JDateChooser();
         buttonExportarExcel = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabelaRelatorios2 = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
         jPEstoque = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -904,6 +958,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Selecione o período"));
 
         buttonGerarRelatorio.setText("Gerar relatório");
+        buttonGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGerarRelatorioActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Data incial:");
 
@@ -918,6 +977,8 @@ public class telaAdministrador extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("jButton2");
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -926,38 +987,45 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(54, 54, 54)
                         .addComponent(buttonGerarRelatorio)
                         .addGap(18, 18, 18)
                         .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton2)
+                .addGap(158, 158, 158))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+            .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap(22, Short.MAX_VALUE)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(buttonGerarRelatorio)
-                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel17)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(buttonGerarRelatorio)
+                                .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                        .addComponent(jButton2)
+                        .addGap(17, 17, 17))))
         );
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelaRelatorios2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -973,8 +1041,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jTable1.getTableHeader().setReorderingAllowed(false);
-        jScrollPane5.setViewportView(jTable1);
+        tabelaRelatorios2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane5.setViewportView(tabelaRelatorios2);
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1600,9 +1668,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Campo 'Preço'  incorreto", "Aviso !", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
-                
-                
-                
+
                 String descricao = txtDescricao.getText();
                 String modelo_codigo = txtCodFabricante.getText();
                 String marca = txtMarca.getText();
@@ -1610,16 +1676,13 @@ public class telaAdministrador extends javax.swing.JFrame {
                 int quantidade = Integer.parseInt(txtQuantidade.getText());
                 double preco = Double.parseDouble(txtPreco.getText());
                 String observacao = txtObservacao.getText();
-                
-              
-             
-                
-                boolean statusCadastro = ControllerProduto.CadastrarProduto(descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao);      
-                if(statusCadastro){
-                  //  JOptionPane.showMessageDialog(null, "Produto cadastrado !");
-                }else{
+
+                boolean statusCadastro = ControllerProduto.CadastrarProduto(descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao);
+                if (statusCadastro) {
+                    //  JOptionPane.showMessageDialog(null, "Produto cadastrado !");
+                } else {
                     JOptionPane.showMessageDialog(null, "Produto não cadastrado !");
-                    
+
                 }
 
                 //System.out.println(produto.toString());
@@ -1656,9 +1719,8 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro no cadastro");
         }
     }//GEN-LAST:event_btnCriarActionPerformed
-    
-   
-        public void carregarRegistrosProduto() {
+
+    public void carregarRegistrosProduto() {
 
         ArrayList<String[]> listarRegistros = ControllerProduto.CarregarProduto();
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
@@ -1669,9 +1731,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         tabelaRegistros.addColumn("Quantidade");
         tabelaRegistros.addColumn("Marca");
         tabelaRegistros.addColumn("Preço R$");
-        
 
-       tblProdutos.setModel(tabelaRegistros);
+        tblProdutos.setModel(tabelaRegistros);
 
         for (String[] percorrerRegistros : listarRegistros) {
             tabelaRegistros.addRow(new String[]{
@@ -1680,25 +1741,21 @@ public class telaAdministrador extends javax.swing.JFrame {
                 percorrerRegistros[2],
                 percorrerRegistros[3],
                 percorrerRegistros[4],
-                percorrerRegistros[5],
-              });
+                percorrerRegistros[5],});
         }
         tblProdutos.setDefaultEditor(Object.class, null);
     }
-    
-    
-    
-    
-        public void carregarTipoProdutos() {
+
+    public void carregarTipoProdutos() {
         ArrayList<TipoProduto> listartipoProdutos = ControllerTipoProduto.CarregaTipoProduto();
-                
-        for(TipoProduto tipos: listartipoProdutos){
+
+        for (TipoProduto tipos : listartipoProdutos) {
             cboTipo.addItem(tipos);
-                   
+
         }
-        
+
     }
-    
+
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
         validacaoQuantidadeEstoque(evt);
     }//GEN-LAST:event_txtQuantidadeKeyTyped
@@ -1716,11 +1773,16 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDescricaoKeyTyped
 
     /**
-     * Metodo desenvolvido para o botão de cadastrar o funcionario pegando os seus dados que estão nos campos de texto passando para os atributos da classe funcionarios e depois enviando
-     * para o metodo de validar os campos e caso esteja tudo certo ele da sequencia enviando para a classe controller do funcionario e vai exibir a mensagem informando se o registro foi cadastrado com sucesso ou não.
-     * @param evt 
+     * Metodo desenvolvido para o botão de cadastrar o funcionario pegando os
+     * seus dados que estão nos campos de texto passando para os atributos da
+     * classe funcionarios e depois enviando para o metodo de validar os campos
+     * e caso esteja tudo certo ele da sequencia enviando para a classe
+     * controller do funcionario e vai exibir a mensagem informando se o
+     * registro foi cadastrado com sucesso ou não.
+     *
+     * @param evt
      */
-    
+
     private void buttonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCadastrarActionPerformed
         boolean conversao = false;
 
@@ -1768,42 +1830,46 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonCadastrarActionPerformed
 
-    
+
     private void fieldCepKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyTyped
-        
+
     }//GEN-LAST:event_fieldCepKeyTyped
-/**
- * Evento desenvolvido para aceitar apenas valores numéricos.
- * @param evt 
- */
+    /**
+     * Evento desenvolvido para aceitar apenas valores numéricos.
+     *
+     * @param evt
+     */
     private void fieldCepKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldCepKeyReleased
         if (fieldCep.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Apenas valores numéricos!");
         }
     }//GEN-LAST:event_fieldCepKeyReleased
-/**
- * Evento desenvolvido para aceitar apenas numeros.
- * @param evt 
- */
+    /**
+     * Evento desenvolvido para aceitar apenas numeros.
+     *
+     * @param evt
+     */
     private void fieldNumeroCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyTyped
         char c = evt.getKeyChar(); //recebe o evento
         if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
         }
     }//GEN-LAST:event_fieldNumeroCasaKeyTyped
-/**
- * Evento desenvolvido para aceitar apenas numeros.
- * @param evt 
- */
+    /**
+     * Evento desenvolvido para aceitar apenas numeros.
+     *
+     * @param evt
+     */
     private void fieldNumeroCasaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNumeroCasaKeyReleased
         if (fieldNumeroCasa.getText().trim().equals("")) {
             JOptionPane.showMessageDialog(this, "Apenas valores numeros!");
         }
     }//GEN-LAST:event_fieldNumeroCasaKeyReleased
-/**
- * Evento desenvolvido apenas para aceitar letras validas.
- * @param evt 
- */
+    /**
+     * Evento desenvolvido apenas para aceitar letras validas.
+     *
+     * @param evt
+     */
     private void fieldRuaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldRuaKeyTyped
         String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
@@ -1811,10 +1877,11 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Caractere Invalido!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_fieldRuaKeyTyped
-/**
- * Evento desenvolvido para aceitar apenas letras validas.
- * @param evt 
- */
+    /**
+     * Evento desenvolvido para aceitar apenas letras validas.
+     *
+     * @param evt
+     */
     private void fieldBairroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldBairroKeyTyped
         String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
         if (caracteres.contains(evt.getKeyChar() + "")) {// se o character que gerou o evento estiver na lista
@@ -1850,7 +1917,8 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     /**
      * Evento desenvolvido para aceitar apenas letras validas.
-     * @param evt 
+     *
+     * @param evt
      */
     private void fieldNomeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_fieldNomeKeyTyped
         String caracteres = "0987654321!@#$%¨&*('-)+=,./:;?~{}[]|_ºª°§";// lista de caracters que não devem ser aceitos
@@ -1877,17 +1945,22 @@ public class telaAdministrador extends javax.swing.JFrame {
         fieldBuscarFuncionarios.setText("");
 
     }//GEN-LAST:event_buttonRecarregarRegistrosActionPerformed
-/**
- * Botão para buscar um registro em especifico chamando a função de buscar registro
- * @param evt 
- */
+    /**
+     * Botão para buscar um registro em especifico chamando a função de buscar
+     * registro
+     *
+     * @param evt
+     */
     private void buttonBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonBuscarActionPerformed
         buscarRegistro();
     }//GEN-LAST:event_buttonBuscarActionPerformed
 
     /**
-     * Botão de editar, quando se clica nele, ele pega os dados do registro em especifico que se quer editar que está na tabela e coloca seus dados nos respectivos campos para serem editados.
-     * @param evt 
+     * Botão de editar, quando se clica nele, ele pega os dados do registro em
+     * especifico que se quer editar que está na tabela e coloca seus dados nos
+     * respectivos campos para serem editados.
+     *
+     * @param evt
      */
     private void buttonEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonEditarActionPerformed
 
@@ -1928,10 +2001,12 @@ public class telaAdministrador extends javax.swing.JFrame {
             System.out.print("");
         }
     }//GEN-LAST:event_buttonEditarActionPerformed
-/**
- * Botão desenvolvido para cancelar o modo de edição retornando ao modo normal do programa
- * @param evt 
- */
+    /**
+     * Botão desenvolvido para cancelar o modo de edição retornando ao modo
+     * normal do programa
+     *
+     * @param evt
+     */
     private void buttonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonCancelarActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Deseja sair do modo de Edição?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1945,9 +2020,12 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonCancelarActionPerformed
 
     /**
-     * Botão de alterar pega as informações contidas nos campos e envia para a função de validar os campos e casa esteja tudo certo 
-     * da sequencia enviando para a classe controler então a partir disso vai mostrar caso a alteração do registro tenha sido efetuada com sucesso ou não.
-     * @param evt 
+     * Botão de alterar pega as informações contidas nos campos e envia para a
+     * função de validar os campos e casa esteja tudo certo da sequencia
+     * enviando para a classe controler então a partir disso vai mostrar caso a
+     * alteração do registro tenha sido efetuada com sucesso ou não.
+     *
+     * @param evt
      */
     private void buttonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAlterarActionPerformed
         boolean conversao = false;
@@ -1999,9 +2077,13 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonAlterarActionPerformed
 
     /**
-     * Botão para excluir um registro do banco de dados, emite uma caixa de dialogo para confirmar e caso sim envia a requisição para a classe controller 
-     * junto ao id especifico do funcionario que deseja ser excluido e a partir disso vai mostrar para o usuario caso tenha excluido o registro com sucesso ou não.
-     * @param evt 
+     * Botão para excluir um registro do banco de dados, emite uma caixa de
+     * dialogo para confirmar e caso sim envia a requisição para a classe
+     * controller junto ao id especifico do funcionario que deseja ser excluido
+     * e a partir disso vai mostrar para o usuario caso tenha excluido o
+     * registro com sucesso ou não.
+     *
+     * @param evt
      */
     private void buttonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExcluirActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o registro?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
@@ -2029,9 +2111,12 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExcluirActionPerformed
 
     /**
-     * Botão para exportar para excel , ele cria um arquivo de texto vazio e chama duas funcões que são parte de um todo para poder escrever os dados da tabela em um arquivo de texto e em seguida converter 
-     * esse arquivo para excel escolhendo onde o arquivo deseja ser salvo.
-     * @param evt 
+     * Botão para exportar para excel , ele cria um arquivo de texto vazio e
+     * chama duas funcões que são parte de um todo para poder escrever os dados
+     * da tabela em um arquivo de texto e em seguida converter esse arquivo para
+     * excel escolhendo onde o arquivo deseja ser salvo.
+     *
+     * @param evt
      */
     private void buttonExportarExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportarExcelActionPerformed
         File arquivo = new File("Excel.txt");
@@ -2048,10 +2133,43 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     }//GEN-LAST:event_buttonExportarExcelActionPerformed
 
-  /**
-   * Evento desenvolvido para validação de caracteries
-   * @param evt 
-   */
+    private void buttonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarRelatorioActionPerformed
+        //Date dataInicio;
+        //Date dataFim;
+
+       // dataInicio = fieldDataInicio.getDate();
+        //dataFim = fieldDataFim.getDate();
+        
+       
+/*
+        ArrayList<String[]> listarVendas = ControllerRelatorios.BuscarRegistros(dataInicio, dataFim);
+        DefaultTableModel tabelaRelatorioDft1 = new DefaultTableModel();
+
+        tabelaRelatorioDft1.addColumn("ID Venda");
+        tabelaRelatorioDft1.addColumn("Nome");
+        tabelaRelatorioDft1.addColumn("CPF");
+        tabelaRelatorioDft1.addColumn("Datas");
+        tabelaRelatorioDft1.addColumn("Valor da Venda");
+
+        tabelaRelatorios.setModel(tabelaRelatorioDft1);
+
+        for (String[] percorrerDados : listarVendas) {
+            tabelaRelatorioDft1.addRow(new String[]{
+                percorrerDados[0],
+                percorrerDados[1],
+                percorrerDados[2],
+                percorrerDados[3],
+                percorrerDados[4]
+            });
+        }
+        */
+    }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
+
+    /**
+     * Evento desenvolvido para validação de caracteries
+     *
+     * @param evt
+     */
     private void validacaoCaracter(java.awt.event.KeyEvent evt) {
 
         String naoPermitidos = "!@#$%¨&*('-){}[]+=,./:;?|_ºª°§ ";//caracteres que não serão aceitos (Resolver " e \)
@@ -2061,10 +2179,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }
 
-   /**
-    * Evento desenvolvido para permitir apenas valores numéricos
-    * @param evt 
-    */
+    /**
+     * Evento desenvolvido para permitir apenas valores numéricos
+     *
+     * @param evt
+     */
     private void validacaoCaracterNumero(java.awt.event.KeyEvent evt) {
 
         String naoPermitidos = "abcdefghijklmnopqrstuvwxyz!@#$%¨&*('-){}[]+=/:;,?|_ºª°§ABCDEFGHIJKLMNOPQRSTUVWXYZ";//caracteres que não serão aceitos (Resolver " e \)
@@ -2076,7 +2195,8 @@ public class telaAdministrador extends javax.swing.JFrame {
 
     /**
      * Evento desenvolvido para permitir apenas valores numéricos
-     * @param evt 
+     *
+     * @param evt
      */
     private void validacaoQuantidadeEstoque(java.awt.event.KeyEvent evt) {
 
@@ -2152,6 +2272,8 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField fieldBuscarFuncionarios;
     private javax.swing.JFormattedTextField fieldCPF;
     private javax.swing.JFormattedTextField fieldCep;
+    private com.toedter.calendar.JDateChooser fieldDataFim;
+    private com.toedter.calendar.JDateChooser fieldDataInicio;
     private javax.swing.JFormattedTextField fieldDataNacimento;
     private javax.swing.JFormattedTextField fieldEmail;
     private javax.swing.JTextField fieldNome;
@@ -2160,8 +2282,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPasswordField fieldPW_2;
     private javax.swing.JTextField fieldRua;
     private javax.swing.JFormattedTextField fieldTelefone;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2207,9 +2328,9 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTable tabelaFuncionarios;
     private javax.swing.JTable tabelaRelatorios;
+    private javax.swing.JTable tabelaRelatorios2;
     private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtCodFabricante;
