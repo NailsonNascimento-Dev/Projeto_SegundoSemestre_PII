@@ -16,7 +16,7 @@ import java.util.Date;
  */
 public class ControllerRelatorios {
 
-    public static ArrayList<String[]> BuscarRegistros(Date dataInicio, Date dataFim) {
+    public static ArrayList<String[]> BuscarRegistros(String dataInicio, String dataFim) {
 
         ArrayList<Relatorios> listarRegistros = new ArrayList<>();
 
