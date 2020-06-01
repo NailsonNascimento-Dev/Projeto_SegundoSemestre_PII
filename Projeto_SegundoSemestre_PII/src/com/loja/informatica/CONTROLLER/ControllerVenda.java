@@ -85,7 +85,7 @@ public class ControllerVenda {
                 String.valueOf(produto.getDescricao()),
                 String.valueOf(produto.getModelo_codigo()),
                 String.valueOf(produto.getId()),
-                String.valueOf(produto.getPreco()),
+                String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getPreco()),
                 String.valueOf(produto.getData()),});
         }

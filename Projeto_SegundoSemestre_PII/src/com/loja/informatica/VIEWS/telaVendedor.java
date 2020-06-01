@@ -54,7 +54,6 @@ public class telaVendedor extends javax.swing.JFrame {
         carregarTabelaProdutos();
         bloquearCarrinho();
         carregarHistoricoDeVenda();
-
     }
 
     /**
@@ -1017,7 +1016,7 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCarrinhoQuantidadeActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-/*
+        /*
         String itensTeste[][]
                 = {
                     {"RTX2080", "Nvidia", "1000", "1", "10/01/2020", "2.999,00", "333.003.555-33"},
@@ -1059,7 +1058,7 @@ public class telaVendedor extends javax.swing.JFrame {
         //System.out.println(itensTeste[0][6]);
         //System.out.println(itensTeste[3][6]);
         //System.out.println(itensTeste[7][6]);
-*/
+         */
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void txtBuscaNumeroCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaNumeroCompraKeyTyped
@@ -1447,63 +1446,73 @@ public class telaVendedor extends javax.swing.JFrame {
 
             //Quantidade digitada e transformada em numero inteiro
             quantidade = Integer.parseInt(txtCarrinhoQuantidade.getText());
+            int n2 = 1;
 
-            String valores[] = new String[5];
-
-            for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
-                if (busca.equals(tabelaCarrinho.getModel().getValueAt(i, 1))) {
-                    q = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
-                    valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
-                    valorFinal = valorFinal - (q * valor);
-                    quantidadeFinal = quantidadeFinal - q;
-                    tblCarrinho.removeRow(i);
-                }
-            }
-
-            //Busca na tabela o ID digitado
             for (int i = 0; i < tabelaVenda.getRowCount(); i++) {
-                if (busca.equals(tabelaVenda.getModel().getValueAt(i, 1))) {
-                    //Adiciona na tabela carrinho os dados do produto
-                    valores[0] = (tabelaVenda.getValueAt(i, 0).toString());
-                    valores[1] = (tabelaVenda.getValueAt(i, 1).toString());
-                    valores[2] = (tabelaVenda.getValueAt(i, 2).toString());
-                    valores[3] = (tabelaVenda.getValueAt(i, 3).toString());
-                    valores[4] = (tabelaVenda.getValueAt(i, 4).toString());
+                 if (busca.equals(tabelaVenda.getModel().getValueAt(i, 3))) {
+                n2 = Integer.parseInt((tabelaVenda.getValueAt(i, 3).toString()));
+                 }
+            }
+            if (quantidade <= n2) {
+                String valores[] = new String[5];
 
-                    tblCarrinho.addRow(new Object[]{
-                        valores[0],
-                        valores[1],
-                        valores[2],
-                        quantidade,
-                        valores[4],});
-
-                    //Limpa os campos de digitação
-                    txtCarrinhoID.setText("");
-                    txtCarrinhoQuantidade.setText("");
-
-                    //Valor do produto pesquisado em transformado em numero
-                    valor = Double.parseDouble(valores[4]);
-
-                    //Conta para saber o valor final da compra
-                    valorFinal += valor * quantidade;
-
-                    quantidadeFinal += quantidade;
-
-                    //Valor final e transformado em String
-                    String valFinal = String.valueOf(valorFinal);
-
-                    //Campo de texto valor final recebe a String com o valor final
-                    txtValorFinal.setText(valFinal);
-
-                    adicionar = true;
+                for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
+                    if (busca.equals(tabelaCarrinho.getModel().getValueAt(i, 1))) {
+                        q = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
+                        valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
+                        valorFinal = valorFinal - (q * valor);
+                        quantidadeFinal = quantidadeFinal - q;
+                        tblCarrinho.removeRow(i);
+                    }
                 }
 
-            }
-            if (adicionar == false) {
-                JOptionPane.showMessageDialog(null, "ID não encontrado");
-            }
+                //Busca na tabela o ID digitado
+                for (int i = 0; i < tabelaVenda.getRowCount(); i++) {
+                    if (busca.equals(tabelaVenda.getModel().getValueAt(i, 1))) {
+                        //Adiciona na tabela carrinho os dados do produto
+                        valores[0] = (tabelaVenda.getValueAt(i, 0).toString());
+                        valores[1] = (tabelaVenda.getValueAt(i, 1).toString());
+                        valores[2] = (tabelaVenda.getValueAt(i, 2).toString());
+                        valores[3] = (tabelaVenda.getValueAt(i, 3).toString());
+                        valores[4] = (tabelaVenda.getValueAt(i, 4).toString());
 
-        } catch (Exception e) {
+                        tblCarrinho.addRow(new Object[]{
+                            valores[0],
+                            valores[1],
+                            valores[2],
+                            quantidade,
+                            valores[4],});
+
+                        //Limpa os campos de digitação
+                        txtCarrinhoID.setText("");
+                        txtCarrinhoQuantidade.setText("");
+
+                        //Valor do produto pesquisado em transformado em numero
+                        valor = Double.parseDouble(valores[4]);
+
+                        //Conta para saber o valor final da compra
+                        valorFinal += valor * quantidade;
+
+                        quantidadeFinal += quantidade;
+
+                        //Valor final e transformado em String
+                        String valFinal = String.valueOf(valorFinal);
+
+                        //Campo de texto valor final recebe a String com o valor final
+                        txtValorFinal.setText(valFinal);
+
+                        adicionar = true;
+                    }
+
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Quantidade indisponivel");
+            }
+                if (adicionar == false) {
+                    JOptionPane.showMessageDialog(null, "ID não encontrado");
+                }
+
+            }catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro!!!");
         }
 
@@ -1523,46 +1532,54 @@ public class telaVendedor extends javax.swing.JFrame {
             DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
 
             String id = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString());
+            String quantidade2 = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 3).toString());
 
-            for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
-                if (id.equals(tabelaCarrinho.getModel().getValueAt(i, 1))) {
-                    quan = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
-                    valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
-                    valorFinal = valorFinal - (quan * valor);
-                    quantidadeFinal = quantidadeFinal - quan;
-                    tblCarrinho.removeRow(i);
+            int n1 = Integer.parseInt(quantidade);
+            int n2 = Integer.parseInt(quantidade2);
 
+            if (n1 <= n2) {
+                for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
+                    if (id.equals(tabelaCarrinho.getModel().getValueAt(i, 1))) {
+                        quan = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
+                        valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
+                        valorFinal = valorFinal - (quan * valor);
+                        quantidadeFinal = quantidadeFinal - quan;
+                        tblCarrinho.removeRow(i);
+
+                    }
                 }
+
+                valores[0] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString());
+                valores[1] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString());
+                valores[2] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
+                valores[3] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 3).toString());
+                valores[4] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 4).toString());
+
+                tblCarrinho.addRow(new Object[]{
+                    valores[0],
+                    valores[1],
+                    valores[2],
+                    quantidade,
+                    valores[4],});
+
+                //Valor do produto pesquisado em transformado em numero
+                valor = Double.parseDouble(valores[4]);
+
+                quan = Integer.parseInt(quantidade);
+
+                //Conta para saber o valor final da compra
+                valorFinal += valor * quan;
+
+                quantidadeFinal += quan;
+
+                //Valor final e transformado em String
+                String valFinal = String.valueOf(valorFinal);
+
+                //Campo de texto valor final recebe a String com o valor final
+                txtValorFinal.setText(valFinal);
+            } else {
+                JOptionPane.showMessageDialog(null, "Quantidade Invalida");
             }
-
-            valores[0] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 0).toString());
-            valores[1] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 1).toString());
-            valores[2] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 2).toString());
-            valores[3] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 3).toString());
-            valores[4] = (tabelaVenda.getValueAt(tabelaVenda.getSelectedRow(), 4).toString());
-
-            tblCarrinho.addRow(new Object[]{
-                valores[0],
-                valores[1],
-                valores[2],
-                quantidade,
-                valores[4],});
-
-            //Valor do produto pesquisado em transformado em numero
-            valor = Double.parseDouble(valores[4]);
-
-            quan = Integer.parseInt(quantidade);
-
-            //Conta para saber o valor final da compra
-            valorFinal += valor * quan;
-
-            quantidadeFinal += quan;
-
-            //Valor final e transformado em String
-            String valFinal = String.valueOf(valorFinal);
-
-            //Campo de texto valor final recebe a String com o valor final
-            txtValorFinal.setText(valFinal);
 
         } else {
             JOptionPane.showMessageDialog(null, "Venda não iniciada");
