@@ -482,7 +482,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel3.setText("*Nome Completo");
 
-        ComboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Vendedor", "Estoquista", "Repositor", "Administrador" }));
+        ComboBoxCargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Administrador", "Vendedor" }));
 
         jLabel4.setText("*Cpf");
 
