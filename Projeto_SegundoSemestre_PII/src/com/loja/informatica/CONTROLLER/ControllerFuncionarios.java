@@ -119,4 +119,18 @@ public class ControllerFuncionarios {
 
         return retorno;
     }
+    
+    
+    
+    public static String login (String senha1, int id){
+        
+        String cargo;
+        
+        Funcionarios usuario = new Funcionarios();
+        
+       usuario.setSenha1(senha1);
+       usuario.setId(id);
+       cargo = FuncionariosDAO.telaLogin(usuario);
+      return cargo;
+    }
 }
