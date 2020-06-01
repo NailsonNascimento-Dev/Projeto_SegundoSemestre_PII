@@ -40,7 +40,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" pref="917" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" pref="1012" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -802,7 +802,7 @@
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Component id="jScrollPane5" max="32767" attributes="0"/>
                                   <Component id="jPanel10" alignment="0" max="32767" attributes="0"/>
-                                  <Component id="jScrollPane4" alignment="0" pref="869" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane4" alignment="0" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
@@ -873,6 +873,9 @@
                               <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tabelaRelatoriosMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -892,41 +895,47 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="jLabel1" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <Component id="jDateChooser1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      <Component id="fieldDataInicio" alignment="0" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" alignment="0" attributes="0">
-                                          <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fieldDataFim" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
                                           <Component id="buttonGerarRelatorio" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="buttonExportarExcel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="buttonExportarExcel2" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="buttonLimparTabelas" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel17" min="-2" pref="70" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace pref="195" max="32767" attributes="0"/>
+                                  <EmptySpace pref="24" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
                         <DimensionLayout dim="1">
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <EmptySpace pref="22" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel17" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jDateChooser2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fieldDataFim" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="102" attributes="0">
                                           <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace max="-2" attributes="0"/>
-                                          <Component id="jDateChooser1" min="-2" max="-2" attributes="0"/>
+                                          <Component id="fieldDataInicio" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="buttonGerarRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="buttonExportarExcel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonLimparTabelas" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonExportarExcel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -939,6 +948,9 @@
                           <Properties>
                             <Property name="text" type="java.lang.String" value="Gerar relat&#xf3;rio"/>
                           </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGerarRelatorioActionPerformed"/>
+                          </Events>
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel1">
                           <Properties>
@@ -947,16 +959,16 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel17">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Data Fina:"/>
+                            <Property name="text" type="java.lang.String" value="Data Final:"/>
                           </Properties>
                         </Component>
-                        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser2">
+                        <Component class="com.toedter.calendar.JDateChooser" name="fieldDataFim">
                         </Component>
-                        <Component class="com.toedter.calendar.JDateChooser" name="jDateChooser1">
+                        <Component class="com.toedter.calendar.JDateChooser" name="fieldDataInicio">
                         </Component>
                         <Component class="javax.swing.JButton" name="buttonExportarExcel">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Exportar Para Excel"/>
+                            <Property name="text" type="java.lang.String" value="Exportar  Excel Tabela 1"/>
                             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                               <Dimension value="[113, 32]"/>
                             </Property>
@@ -968,6 +980,22 @@
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExportarExcelActionPerformed"/>
                           </Events>
                         </Component>
+                        <Component class="javax.swing.JButton" name="buttonLimparTabelas">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Limpar Tabelas"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLimparTabelasActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="buttonExportarExcel2">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Exportar Excel Tabela 2"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExportarExcel2ActionPerformed"/>
+                          </Events>
+                        </Component>
                       </SubComponents>
                     </Container>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane5">
@@ -977,7 +1005,7 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable1">
+                        <Component class="javax.swing.JTable" name="tabelaRelatorios2">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="4" rowCount="0">
@@ -1025,7 +1053,7 @@
                   <Layout>
                     <DimensionLayout dim="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <EmptySpace min="0" pref="881" max="32767" attributes="0"/>
+                          <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -1143,7 +1171,7 @@
                               </Group>
                               <Component id="jScrollPane2" alignment="1" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="642" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="737" max="32767" attributes="0"/>
                                   <Component id="btnNovo" min="-2" pref="110" max="-2" attributes="0"/>
                                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="btnCriar" min="-2" pref="117" max="-2" attributes="0"/>
@@ -1331,7 +1359,7 @@
                                       <Component id="txtBusca" max="32767" attributes="0"/>
                                       <Group type="102" alignment="0" attributes="0">
                                           <Component id="cboTipoBusca" min="-2" pref="187" max="-2" attributes="0"/>
-                                          <EmptySpace min="0" pref="192" max="32767" attributes="0"/>
+                                          <EmptySpace min="0" pref="287" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
