@@ -5,6 +5,7 @@
  */
 package com.loja.informatica.VIEWS;
 
+import com.loja.informatica.CONTROLLER.ControllerFuncionarios;
 import com.loja.informatica.VIEWS.telaAdministrador;
 import com.loja.informatica.VIEWS.telaVendedor;
 import javax.swing.JOptionPane;
@@ -146,45 +147,32 @@ public class TelaLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       System.exit(0);
+        System.exit(0);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-        
-        String pass = String.valueOf( Senha.getPassword() );
-        
-        if (Usuario.getText().equals("")|| (pass.equals(""))){
-            
-           JOptionPane.showMessageDialog(this,"Campos usuario e senha invalidos");
-        }
-        
-        else  if(Usuario.getText().equals("admin")&& (pass.equals("1234"))){
-               
+
+        String pass = String.valueOf(Senha.getPassword());
+
+        int user = Integer.parseInt(Usuario.getText());
+
+        String cargo = ControllerFuncionarios.login(pass, user);
+
+        if (cargo.equals("Administrador")) {
             telaAdministrador telaAdmin = new telaAdministrador();
-             telaAdmin.setVisible(true);
-              dispose();
-               
-           }
-            
-          else if(Usuario.getText().equals("vendedor")&& (pass.equals("1234"))){
-               
+            telaAdmin.setVisible(true);
+            dispose();
+
+        } else if (cargo.equals("Vendedor")) {
             telaVendedor telavendedor = new telaVendedor();
-             telavendedor.setVisible(true);
-             dispose();
-               
-           }
-           else{
-                JOptionPane.showMessageDialog(null, "senha  incorreta!!");
-           }
-               
-      
-      
-        
-        
-        
-        
-        
+            telavendedor.setVisible(true);
+            dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Usuario ou senha invalidos");
+        }
+
+       
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
