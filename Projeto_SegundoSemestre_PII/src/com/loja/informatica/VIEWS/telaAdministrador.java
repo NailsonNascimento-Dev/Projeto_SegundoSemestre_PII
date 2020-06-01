@@ -417,6 +417,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         fieldDataInicio = new com.toedter.calendar.JDateChooser();
         buttonExportarExcel = new javax.swing.JButton();
         buttonLimparTabelas = new javax.swing.JButton();
+        buttonExportarExcel2 = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaRelatorios2 = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
@@ -940,7 +941,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel17.setText("Data Final:");
 
-        buttonExportarExcel.setText("Exportar Para Excel");
+        buttonExportarExcel.setText("Exportar  Excel Tabela 1");
         buttonExportarExcel.setMaximumSize(new java.awt.Dimension(113, 32));
         buttonExportarExcel.setMinimumSize(new java.awt.Dimension(113, 32));
         buttonExportarExcel.addActionListener(new java.awt.event.ActionListener() {
@@ -953,6 +954,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         buttonLimparTabelas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonLimparTabelasActionPerformed(evt);
+            }
+        });
+
+        buttonExportarExcel2.setText("Exportar Excel Tabela 2");
+        buttonExportarExcel2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonExportarExcel2ActionPerformed(evt);
             }
         });
 
@@ -974,9 +982,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
+                        .addComponent(buttonExportarExcel2)
+                        .addGap(18, 18, 18)
                         .addComponent(buttonLimparTabelas))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -994,7 +1004,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonGerarRelatorio)
                         .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(buttonLimparTabelas)))
+                        .addComponent(buttonLimparTabelas)
+                        .addComponent(buttonExportarExcel2)))
                 .addContainerGap())
         );
 
@@ -1026,7 +1037,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane5)
                     .addComponent(jPanel10, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 869, Short.MAX_VALUE))
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING))
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -1044,7 +1055,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 881, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1221,7 +1232,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 642, Short.MAX_VALUE)
+                        .addGap(0, 737, Short.MAX_VALUE)
                         .addComponent(btnNovo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnCriar, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1342,7 +1353,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                             .addComponent(txtBusca)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(cboTipoBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 192, Short.MAX_VALUE)))
+                                .addGap(0, 287, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnEditarProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
@@ -1402,7 +1413,7 @@ public class telaAdministrador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 917, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -2168,6 +2179,20 @@ public class telaAdministrador extends javax.swing.JFrame {
         tabelaRelatorioDft2.setNumRows(0);
     }//GEN-LAST:event_buttonLimparTabelasActionPerformed
 
+    private void buttonExportarExcel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportarExcel2ActionPerformed
+          File arquivo = new File("Excel2.txt");
+
+        try {
+            escreverArquivoExcel(tabelaRelatorios2, arquivo);
+            caminhoArquivoConversao(tabelaRelatorios2);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, "Erro ao exportar para excel!", "Aviso", JOptionPane.WARNING_MESSAGE);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
+        
+    }//GEN-LAST:event_buttonExportarExcel2ActionPerformed
+
     /**
      * Evento desenvolvido para validação de caracteries
      *
@@ -2263,6 +2288,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton buttonEditar;
     private javax.swing.JButton buttonExcluir;
     private javax.swing.JButton buttonExportarExcel;
+    private javax.swing.JButton buttonExportarExcel2;
     private javax.swing.JButton buttonGerarRelatorio;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
