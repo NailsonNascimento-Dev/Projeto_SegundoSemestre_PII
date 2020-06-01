@@ -10,6 +10,8 @@ import com.loja.informatica.MODEL.cliente;
 import com.loja.informatica.UTILS.soCaracteres;
 import com.loja.informatica.UTILS.soNumeros;
 import com.loja.informatica.CONTROLLER.controllerCliente;
+import com.loja.informatica.MODEL.Funcionarios;
+import com.loja.informatica.MODEL.Produto;
 import com.loja.informatica.UTILS.ConexaoMysql;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -27,6 +29,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
     boolean pesquisar = false;//Variavel para ativar ou desativar o modo buscar cliente
     Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
+    int quantidadeFinal = 0;//Variavel para salvar a quantidade de produtos na venda
     boolean venda = false;//Variavel para inicicar venda
 
     controllerCliente controle = new controllerCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
@@ -50,6 +53,7 @@ public class telaVendedor extends javax.swing.JFrame {
         carregarRegistrosCliente();
         carregarTabelaProdutos();
         bloquearCarrinho();
+        carregarHistoricoDeVenda();
 
     }
 
@@ -292,6 +296,7 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jLabel33.setText("Valor Final R$:");
 
+        txtValorFinal.setEnabled(false);
         txtValorFinal.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtValorFinalActionPerformed(evt);
@@ -855,9 +860,10 @@ public class telaVendedor extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Modelo", "Marca", "Nº da compra", "Quantidade", "Data", "Valor", "CPF"
+
             }
         ));
+        tblVendaRealizada.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblVendaRealizada);
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
@@ -1011,7 +1017,7 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCarrinhoQuantidadeActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-
+/*
         String itensTeste[][]
                 = {
                     {"RTX2080", "Nvidia", "1000", "1", "10/01/2020", "2.999,00", "333.003.555-33"},
@@ -1053,7 +1059,7 @@ public class telaVendedor extends javax.swing.JFrame {
         //System.out.println(itensTeste[0][6]);
         //System.out.println(itensTeste[3][6]);
         //System.out.println(itensTeste[7][6]);
-
+*/
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void txtBuscaNumeroCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaNumeroCompraKeyTyped
@@ -1260,7 +1266,7 @@ public class telaVendedor extends javax.swing.JFrame {
                 btSalvar.setEnabled(false);
 
                 pesquisar = true;
-                
+
             }
 
         }
@@ -1449,6 +1455,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     q = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
                     valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
                     valorFinal = valorFinal - (q * valor);
+                    quantidadeFinal = quantidadeFinal - q;
                     tblCarrinho.removeRow(i);
                 }
             }
@@ -1479,6 +1486,8 @@ public class telaVendedor extends javax.swing.JFrame {
 
                     //Conta para saber o valor final da compra
                     valorFinal += valor * quantidade;
+
+                    quantidadeFinal += quantidade;
 
                     //Valor final e transformado em String
                     String valFinal = String.valueOf(valorFinal);
@@ -1520,6 +1529,7 @@ public class telaVendedor extends javax.swing.JFrame {
                     quan = Integer.parseInt((tabelaCarrinho.getValueAt(i, 3).toString()));
                     valor = Double.parseDouble((tabelaCarrinho.getValueAt(i, 4).toString()));
                     valorFinal = valorFinal - (quan * valor);
+                    quantidadeFinal = quantidadeFinal - quan;
                     tblCarrinho.removeRow(i);
 
                 }
@@ -1546,6 +1556,8 @@ public class telaVendedor extends javax.swing.JFrame {
             //Conta para saber o valor final da compra
             valorFinal += valor * quan;
 
+            quantidadeFinal += quan;
+
             //Valor final e transformado em String
             String valFinal = String.valueOf(valorFinal);
 
@@ -1564,45 +1576,45 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparCarrinhoActionPerformed
 
     private void btFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarCompraActionPerformed
-        // TODO add your handling code here:
-        try {
-            //Verifica se o campo de texto Cpf esta vazio
-            if (txtCpfCompra.getText().equals("   .   .   -  ")) {
-                txtCpfCompra.requestFocus();
-                JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
-                return;
+        int id = 9;
+        int id_venda = 0;
+
+        cliente cliente = new cliente();
+        Funcionarios funcionario = new Funcionarios();
+        Produto produto = new Produto();
+
+        cliente.setCpf(txtCpfCompra.getText());
+        funcionario.setId(id);
+        produto.setQuantidade(quantidadeFinal);
+        produto.setPreco(valorFinal);
+
+        boolean retorno = ControllerVenda.RealizarVenda(cliente.getCpf(), funcionario.getId(), produto.getQuantidade(), produto.getPreco());
+
+        if (retorno == true) {
+            id_venda = ControllerVenda.IdVenda();
+
+            System.out.println("ID venda " + id_venda);
+            boolean retorno2;
+
+            for (int i = 0; i < tabelaCarrinho.getRowCount(); i++) {
+                produto.setId(id_venda);
+                produto.setModelo_codigo(tabelaCarrinho.getModel().getValueAt(i, 1).toString());
+                String quan = tabelaCarrinho.getModel().getValueAt(i, 3).toString();
+                produto.setQuantidade(Integer.parseInt(quan));
+                retorno2 = ControllerVenda.DetalhesVenda(produto.getId(), produto.getModelo_codigo(), produto.getQuantidade());
             }
-            DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
-
-            //Verifica se na tabela carrinho existe algum item
-            if (tabelaCarrinho.getRowCount() > 0) {
-                //For para limpar os dados da tabela carrinho
-                for (int i = tabelaCarrinho.getRowCount() - 1; i >= 0; i--) {
-                    tblCarrinho.removeRow(i);
-                }
-                //Limpa os campos de texto
-                txtCpfCompra.setText("");
-                txtCarrinhoID.setText("");
-                txtCarrinhoQuantidade.setText("");
-
-                //Valor final recebe 0
-                valorFinal = 0.0;
-                //Valor final e transformado emString
-                String valFinal = String.valueOf(valorFinal);
-                //Imprime no campo de texto valor final 
-                txtValorFinal.setText(valFinal);
-
-                JOptionPane.showMessageDialog(null, "Compra Finalizada");
-
-            } else {
-                JOptionPane.showMessageDialog(null, "Carrinho vazio");
-                txtCarrinhoID.requestFocus();
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Erro!!!");
+            LimparCarrinho();
+            bloquearCarrinho();
+            carregarTabelaProdutos();
+            txtCpfCompra.setText("");
+            txtCpfCompra.setEnabled(true);
+            btIniciarVenda.setEnabled(true);
+            venda = false;
+            carregarHistoricoDeVenda();
+            JOptionPane.showMessageDialog(this, "Venda Finalizada", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "Falha ao finalizar Venda", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
         }
-
     }//GEN-LAST:event_btFinalizarCompraActionPerformed
 
     private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
@@ -1719,6 +1731,31 @@ public class telaVendedor extends javax.swing.JFrame {
         tabelaCliente.setDefaultEditor(Object.class, null);
     }
 
+    public void carregarHistoricoDeVenda() {
+        ArrayList<String[]> listarRegistros = ControllerVenda.CarregarHistorico();
+        DefaultTableModel VendasRealizadas = new DefaultTableModel();
+
+        VendasRealizadas.addColumn("Nome");
+        VendasRealizadas.addColumn("CPF");
+        VendasRealizadas.addColumn("Nº da Venda");
+        VendasRealizadas.addColumn("Quantidade");
+        VendasRealizadas.addColumn("Preço");
+        VendasRealizadas.addColumn("Data");
+
+        tblVendaRealizada.setModel(VendasRealizadas);
+
+        for (String[] percorrerRegistros : listarRegistros) {
+            VendasRealizadas.addRow(new String[]{
+                percorrerRegistros[0],
+                percorrerRegistros[1],
+                percorrerRegistros[2],
+                percorrerRegistros[3],
+                percorrerRegistros[4],
+                percorrerRegistros[5]});
+        }
+        tblVendaRealizada.setDefaultEditor(Object.class, null);
+    }
+
     public void carregarTabelaProdutos() {
         ArrayList<String[]> listarRegistros = ControllerVenda.CarregarProdutos();
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
@@ -1792,6 +1829,8 @@ public class telaVendedor extends javax.swing.JFrame {
 
             //Valor final recebe 0
             valorFinal = 0.0;
+
+            quantidadeFinal = 0;
 
             //Transforma valor final em String
             String valFinal = String.valueOf(valorFinal);
