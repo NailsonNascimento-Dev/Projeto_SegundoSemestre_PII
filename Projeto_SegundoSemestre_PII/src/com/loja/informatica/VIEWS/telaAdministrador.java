@@ -19,7 +19,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -417,6 +416,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         fieldDataFim = new com.toedter.calendar.JDateChooser();
         fieldDataInicio = new com.toedter.calendar.JDateChooser();
         buttonExportarExcel = new javax.swing.JButton();
+        buttonLimparTabelas = new javax.swing.JButton();
         jScrollPane5 = new javax.swing.JScrollPane();
         tabelaRelatorios2 = new javax.swing.JTable();
         jPanel12 = new javax.swing.JPanel();
@@ -938,7 +938,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel1.setText("Data incial:");
 
-        jLabel17.setText("Data Fina:");
+        jLabel17.setText("Data Final:");
 
         buttonExportarExcel.setText("Exportar Para Excel");
         buttonExportarExcel.setMaximumSize(new java.awt.Dimension(113, 32));
@@ -946,6 +946,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         buttonExportarExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonExportarExcelActionPerformed(evt);
+            }
+        });
+
+        buttonLimparTabelas.setText("Limpar Tabelas");
+        buttonLimparTabelas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonLimparTabelasActionPerformed(evt);
             }
         });
 
@@ -965,9 +972,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(54, 54, 54)
                         .addComponent(buttonGerarRelatorio)
                         .addGap(18, 18, 18)
-                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(buttonLimparTabelas))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -984,7 +993,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addComponent(fieldDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(buttonGerarRelatorio)
-                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(buttonExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(buttonLimparTabelas)))
                 .addContainerGap())
         );
 
@@ -2126,11 +2136,37 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
 
     private void tabelaRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaRelatoriosMouseClicked
-       
-        ArrayList<String[]> listarVendaDescricao = ControllerRelatorios.buscarRegistroDetalhe(WIDTH);
-        
-        
+        int idVenda = Integer.parseInt(tabelaRelatorios.getValueAt(tabelaRelatorios.getSelectedRow(), 0).toString());
+
+        ArrayList<String[]> listarVendaDescricao = ControllerRelatorios.buscarRegistroDetalhe(idVenda);
+
+        DefaultTableModel tabelaRelatorioDft2 = new DefaultTableModel();
+
+        tabelaRelatorioDft2.addColumn("Tipo / Modelo");
+        tabelaRelatorioDft2.addColumn("Descrição");
+        tabelaRelatorioDft2.addColumn("Quantidade");
+        tabelaRelatorioDft2.addColumn("Valor Unitário");
+
+        tabelaRelatorios2.setModel(tabelaRelatorioDft2);
+
+        for (String[] percorrerDados : listarVendaDescricao) {
+            tabelaRelatorioDft2.addRow(new String[]{
+                percorrerDados[0],
+                percorrerDados[1],
+                percorrerDados[2],
+                percorrerDados[3]
+
+            });
+
+        }
     }//GEN-LAST:event_tabelaRelatoriosMouseClicked
+
+    private void buttonLimparTabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparTabelasActionPerformed
+        DefaultTableModel tabelaRelatorioDft1 = (DefaultTableModel) tabelaRelatorios.getModel();
+        tabelaRelatorioDft1.setNumRows(0);
+        DefaultTableModel tabelaRelatorioDft2 = (DefaultTableModel) tabelaRelatorios2.getModel();
+        tabelaRelatorioDft2.setNumRows(0);
+    }//GEN-LAST:event_buttonLimparTabelasActionPerformed
 
     /**
      * Evento desenvolvido para validação de caracteries
@@ -2231,6 +2267,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JButton buttonLimparTabelas;
     private javax.swing.JButton buttonRecarregarRegistros;
     private javax.swing.JComboBox<Object> cboTipo;
     private javax.swing.JComboBox<String> cboTipoBusca;

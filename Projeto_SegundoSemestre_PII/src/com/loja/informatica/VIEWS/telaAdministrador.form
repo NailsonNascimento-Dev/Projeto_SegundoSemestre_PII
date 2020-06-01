@@ -905,10 +905,12 @@
                                           <Component id="buttonGerarRelatorio" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Component id="buttonExportarExcel" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="buttonLimparTabelas" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <Component id="jLabel17" min="-2" pref="70" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace max="32767" attributes="0"/>
+                                  <EmptySpace pref="135" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                         </DimensionLayout>
@@ -930,6 +932,7 @@
                                       <Group type="103" groupAlignment="3" attributes="0">
                                           <Component id="buttonGerarRelatorio" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="buttonExportarExcel" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="buttonLimparTabelas" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -953,7 +956,7 @@
                         </Component>
                         <Component class="javax.swing.JLabel" name="jLabel17">
                           <Properties>
-                            <Property name="text" type="java.lang.String" value="Data Fina:"/>
+                            <Property name="text" type="java.lang.String" value="Data Final:"/>
                           </Properties>
                         </Component>
                         <Component class="com.toedter.calendar.JDateChooser" name="fieldDataFim">
@@ -972,6 +975,14 @@
                           </Properties>
                           <Events>
                             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonExportarExcelActionPerformed"/>
+                          </Events>
+                        </Component>
+                        <Component class="javax.swing.JButton" name="buttonLimparTabelas">
+                          <Properties>
+                            <Property name="text" type="java.lang.String" value="Limpar Tabelas"/>
+                          </Properties>
+                          <Events>
+                            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonLimparTabelasActionPerformed"/>
                           </Events>
                         </Component>
                       </SubComponents>
