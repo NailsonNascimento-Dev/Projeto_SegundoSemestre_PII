@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -276,6 +277,39 @@ public class FuncionariosDAO {
         }
 
         return listarRegistros;
+    }
+
+    public static String telaLogin(Funcionarios usuario) {
+        String cargo = "";
+        Connection conexao = null;
+        PreparedStatement instrucaoSQL = null;
+        ResultSet resultado = null;
+
+        try {
+            conexao = ConexaoMysql.abrirConexao();
+
+            instrucaoSQL = conexao.prepareStatement("select * from funcionario where id=? and senha=?");
+
+            instrucaoSQL.setInt(1, usuario.getId());
+            instrucaoSQL.setString(2, usuario.getSenha1());
+
+            //int linhasAfetadas = instrucaoSQL.executeQuery();
+            resultado = instrucaoSQL.executeQuery();
+
+          
+
+                while(resultado.next()){
+                 usuario.setCargo(resultado.getString("cargo"));
+                cargo = resultado.getString("cargo");
+                }
+               
+        
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+        return cargo;
     }
 
 }
