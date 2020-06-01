@@ -16,7 +16,7 @@ import java.util.Date;
 
 /**
  *
- * @author Azazel
+ * @author Marcos Vinícius Santos Souza
  */
 public class RelatoriosDAO {
 
@@ -83,7 +83,7 @@ public class RelatoriosDAO {
         try {
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement(" select tp.modelo_tipo, p.descricao, d.quantidade, p.preco from tipo_produto as tp inner join produto as p on p.id_tipo = tp.id_tipo inner join detalhes as d on d.modelo_codigo = p.modelo_codigo inner join venda as v where v.id_venda = ?;");
+            instrucaoSQL = conexao.prepareStatement(" select tp.modelo_tipo, p.descricao, d.quantidade, p.preco from tipo_produto as tp inner join produto as p on p.id_tipo = tp.id_tipo inner join detalhes as d on d.modelo_codigo = p.modelo_codigo inner join venda as v on v.id_venda = d.id_venda where v.id_venda = ?;");
 
             instrucaoSQL.setInt(1, idVenda);
 
