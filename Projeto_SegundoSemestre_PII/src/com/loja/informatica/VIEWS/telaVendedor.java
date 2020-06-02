@@ -31,6 +31,7 @@ public class telaVendedor extends javax.swing.JFrame {
     Double valorFinal = 0.0;//Variavel para salvar o valor final da compra
     int quantidadeFinal = 0;//Variavel para salvar a quantidade de produtos na venda
     boolean venda = false;//Variavel para inicicar venda
+    static int idVendedor = 0;
 
     controllerCliente controle = new controllerCliente();//Chama classe para Cadastrar, Pesquisar, Alterar e Excluir cliente
     ConexaoMysql conectar = new ConexaoMysql();//Classe para conectar e dasconectar do banco de dados
@@ -1016,49 +1017,6 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtCarrinhoQuantidadeActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        /*
-        String itensTeste[][]
-                = {
-                    {"RTX2080", "Nvidia", "1000", "1", "10/01/2020", "2.999,00", "333.003.555-33"},
-                    {"GTX970", "Nvidia", "1000", "2", "10/01/2020", "999,00", "333.003.555-33"},
-                    {"V100S", "Nvidia", "1000", "3", "10/01/2020", "899,00", "333.003.555-33"},
-                    {"RTX8000", "Nvidia", "1001", "1", "11/01/2020", "3.999,00", "133.903.156-03"},
-                    {"AORUS B630M", "Asus", "1002", "10", "11/01/2020", "486,00", "133.003.555-99"},
-                    {"AMD RYZEN 3", "AMD", "1002", "4", "13/01/2020", "999,00", "133.003.555-99"},
-                    {"RTX2080", "Nvidia", "1003", "2", "13/01/2020", "2.999,00", "333.003.535-53"},
-                    {"I5-9600KF", "INTEL", "1003", "1", "19/01/2020", "1.209,97", "333.003.535-53"},
-                    {"LOGITECH mk345", "LOGITECH", "1004", "1", "20/01/2020", "350,00", "233.003.255-31"},
-                    {"RTX8000", "Nvidia", "1005", "1", "21/01/2020", "3.999,00", "633.303.555-30"},
-                    {"RTX2080", "Nvidia", "1005", "2", "21/01/2020", "2.999,00", "633.303.555-30"},
-                    {"AORUS B630M", "Asus", "1006", "3", "22/01/2020", "486,00", "633.503.255-34"},
-                    {"RTX2080", "Nvidia", "1007", "6", "01/02/2020", "2.999,00", "933.503.555-39"},
-                    {"I5-9600KF", "INTEL", "1008", "1", "01/02/2020", "1.209,97", "333.003.255-32"},
-                    {"RTX2080", "Nvidia", "1009", "2", "02/02/2020", "2.999,00", "233.003.555-31"},
-                    {"I5-9600KF", "INTEL", "1009", "3", "02/02/2020", "1.209,97", "233.003.555-31"},
-                    {"AORUS B630M", "Asus", "1010", "2", "10/02/2020", "486,00", "233.303.955-96"},
-                    {"AMD RYZEN 3", "AMD", "1011", "1", "10/02/2020", "999,00", "333.803.555-34"},
-                    {"I5-9600KF", "INTEL", "1012", "1", "11/02/2020", "1.209,97", "233.003.555-31"},
-                    {"LOGITECH mk345", "LOGITECH", "1012", "1", "11/02/2020", "350,00", "233.003.555-31"},};
-
-        //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-        DefaultTableModel model = (DefaultTableModel) tblVendaRealizada.getModel();
-
-        //adiciona os valores do objeto "produto" a linha da tabela
-        for (int i = 0; i < itensTeste.length; i++) {
-            model.addRow(new Object[]{itensTeste[i][0],
-                itensTeste[i][1],
-                itensTeste[i][2],
-                itensTeste[i][3],
-                itensTeste[i][4],
-                itensTeste[i][5],
-                itensTeste[i][6],});
-
-        }
-
-        //System.out.println(itensTeste[0][6]);
-        //System.out.println(itensTeste[3][6]);
-        //System.out.println(itensTeste[7][6]);
-         */
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void txtBuscaNumeroCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaNumeroCompraKeyTyped
@@ -1593,7 +1551,7 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparCarrinhoActionPerformed
 
     private void btFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarCompraActionPerformed
-        int id = 9;
+        int id = idVendedor;
         int id_venda = 0;
 
         cliente cliente = new cliente();
@@ -1859,7 +1817,11 @@ public class telaVendedor extends javax.swing.JFrame {
         }
 
     }
-
+    public static void pegaId(int id){
+        idVendedor = id;
+        System.out.println("Pegou  " + idVendedor);
+    }
+    
     /**
      * @param args the command line arguments
      */

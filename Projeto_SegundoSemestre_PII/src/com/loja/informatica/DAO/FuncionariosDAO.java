@@ -6,6 +6,7 @@
 package com.loja.informatica.DAO;
 
 import com.loja.informatica.MODEL.Funcionarios;
+import com.loja.informatica.VIEWS.telaVendedor;
 import com.loja.informatica.UTILS.ConexaoMysql;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -284,6 +285,7 @@ public class FuncionariosDAO {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
         ResultSet resultado = null;
+        int id = 0;
 
         try {
             conexao = ConexaoMysql.abrirConexao();
@@ -296,19 +298,17 @@ public class FuncionariosDAO {
             //int linhasAfetadas = instrucaoSQL.executeQuery();
             resultado = instrucaoSQL.executeQuery();
 
-          
-
-                while(resultado.next()){
-                 usuario.setCargo(resultado.getString("cargo"));
+            while (resultado.next()) {
+                usuario.setCargo(resultado.getString("cargo"));
                 cargo = resultado.getString("cargo");
-                }
-               
-        
+                id = resultado.getInt("id");
+            }
+            telaVendedor.pegaId(id);
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-        
+
         return cargo;
     }
 

@@ -6,6 +6,8 @@
 package com.loja.informatica.VIEWS;
 
 import com.loja.informatica.CONTROLLER.ControllerFuncionarios;
+import com.loja.informatica.MODEL.Funcionarios;
+import com.loja.informatica.UTILS.soNumeros;
 import com.loja.informatica.VIEWS.telaAdministrador;
 import com.loja.informatica.VIEWS.telaVendedor;
 import javax.swing.JOptionPane;
@@ -23,6 +25,7 @@ public class TelaLogin extends javax.swing.JFrame {
      */
     public TelaLogin() {
         initComponents();
+        Usuario.setDocument(new soNumeros());
     }
 
     /**
@@ -155,7 +158,7 @@ public class TelaLogin extends javax.swing.JFrame {
         String pass = String.valueOf(Senha.getPassword());
 
         int user = Integer.parseInt(Usuario.getText());
-
+        
         String cargo = ControllerFuncionarios.login(pass, user);
 
         if (cargo.equals("Administrador")) {
