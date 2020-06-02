@@ -150,7 +150,7 @@ public class telaVendedor extends javax.swing.JFrame {
         jLabel11 = new javax.swing.JLabel();
         txtBuscaNumeroCompra = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
-        txtBuscaCpf = new javax.swing.JFormattedTextField();
+        txtBuscarCpf = new javax.swing.JTextField();
 
         jLabel2.setText("jLabel2");
 
@@ -877,7 +877,7 @@ public class telaVendedor extends javax.swing.JFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 337, Short.MAX_VALUE)
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtro"));
@@ -897,19 +897,9 @@ public class telaVendedor extends javax.swing.JFrame {
 
         jLabel16.setText("Cpf:");
 
-        try {
-            txtBuscaCpf.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("###.###.###-##")));
-        } catch (java.text.ParseException ex) {
-            ex.printStackTrace();
-        }
-        txtBuscaCpf.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscaCpfActionPerformed(evt);
-            }
-        });
-        txtBuscaCpf.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBuscarCpf.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBuscaCpfKeyTyped(evt);
+                txtBuscarCpfKeyTyped(evt);
             }
         });
 
@@ -923,11 +913,11 @@ public class telaVendedor extends javax.swing.JFrame {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscaCpf))
+                        .addComponent(txtBuscarCpf))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel11)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscaNumeroCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 526, Short.MAX_VALUE)))
+                        .addComponent(txtBuscaNumeroCompra, javax.swing.GroupLayout.DEFAULT_SIZE, 497, Short.MAX_VALUE)))
                 .addGap(157, 157, 157))
         );
         jPanel10Layout.setVerticalGroup(
@@ -935,8 +925,8 @@ public class telaVendedor extends javax.swing.JFrame {
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtBuscaCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel16))
+                    .addComponent(jLabel16)
+                    .addComponent(txtBuscarCpf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
@@ -1020,8 +1010,6 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void txtBuscaNumeroCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaNumeroCompraKeyTyped
-        // TODO add your handling code here:
-
         txtBuscaNumeroCompra.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -1034,27 +1022,6 @@ public class telaVendedor extends javax.swing.JFrame {
         trs = new TableRowSorter(model);
         tblVendaRealizada.setRowSorter(trs);
     }//GEN-LAST:event_txtBuscaNumeroCompraKeyTyped
-
-    private void txtBuscaCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaCpfKeyTyped
-
-        //System.out.println(txtBuscaCpf.getText().replaceAll("\\D", ""));
-        //System.out.println(txtBuscaCpf.getText());
-        txtBuscaCpf.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyReleased(KeyEvent ke) {
-
-                trs.setRowFilter(RowFilter.regexFilter(txtBuscaCpf.getText(), 6));
-
-            }
-        });
-        DefaultTableModel model = (DefaultTableModel) tblVendaRealizada.getModel();
-        trs = new TableRowSorter(model);
-        tblVendaRealizada.setRowSorter(trs);
-    }//GEN-LAST:event_txtBuscaCpfKeyTyped
-
-    private void txtBuscaCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaCpfActionPerformed
-        // TODO add your handling code here:       
-    }//GEN-LAST:event_txtBuscaCpfActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         // TODO add your handling code here:
@@ -1668,6 +1635,20 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btCancelarVendaActionPerformed
 
+    private void txtBuscarCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCpfKeyTyped
+               txtBuscarCpf.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent ke) {
+                trs.setRowFilter(RowFilter.regexFilter(txtBuscarCpf.getText(), 1));
+            }
+        });
+
+        DefaultTableModel model = (DefaultTableModel) tblVendaRealizada.getModel();
+        trs = new TableRowSorter(model);
+        tblVendaRealizada.setRowSorter(trs);
+    }//GEN-LAST:event_txtBuscarCpfKeyTyped
+
     public void carregarRegistrosCliente() {
 
         ArrayList<String[]> listarRegistros = controllerCliente.CarregarRegistros();
@@ -1933,8 +1914,8 @@ public class telaVendedor extends javax.swing.JFrame {
     private javax.swing.JTable tblVendaRealizada;
     private javax.swing.JFormattedTextField txtBCpf;
     private javax.swing.JTextField txtBairro;
-    private javax.swing.JFormattedTextField txtBuscaCpf;
     private javax.swing.JTextField txtBuscaNumeroCompra;
+    private javax.swing.JTextField txtBuscarCpf;
     private javax.swing.JTextField txtCarrinhoID;
     private javax.swing.JTextField txtCarrinhoQuantidade;
     private javax.swing.JFormattedTextField txtCep;
