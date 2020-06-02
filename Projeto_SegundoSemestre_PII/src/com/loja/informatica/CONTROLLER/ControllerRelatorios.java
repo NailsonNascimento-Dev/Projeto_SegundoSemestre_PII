@@ -8,7 +8,7 @@ package com.loja.informatica.CONTROLLER;
 import com.loja.informatica.DAO.RelatoriosDAO;
 import com.loja.informatica.MODEL.Relatorios;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  *
@@ -49,6 +49,7 @@ public class ControllerRelatorios {
         
         for (Relatorios relatorios : listarRegistros) {
             retorno.add(new String[]{
+                String.valueOf(relatorios.getIdVenda()),
                 String.valueOf(relatorios.getTipoModelo()),
                 String.valueOf(relatorios.getDescricao()),
                 String.valueOf(relatorios.getQuantidade()),
