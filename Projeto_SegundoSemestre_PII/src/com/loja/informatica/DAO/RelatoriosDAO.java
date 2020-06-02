@@ -12,7 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
+
 
 /**
  *
@@ -83,7 +83,7 @@ public class RelatoriosDAO {
         try {
             conexao = ConexaoMysql.abrirConexao();
 
-            instrucaoSQL = conexao.prepareStatement(" select tp.modelo_tipo, p.descricao, d.quantidade, p.preco from tipo_produto as tp inner join produto as p on p.id_tipo = tp.id_tipo inner join detalhes as d on d.modelo_codigo = p.modelo_codigo inner join venda as v on v.id_venda = d.id_venda where v.id_venda = ?;");
+            instrucaoSQL = conexao.prepareStatement(" select v.id_venda, tp.modelo_tipo, p.descricao, d.quantidade, p.preco from tipo_produto as tp inner join produto as p on p.id_tipo = tp.id_tipo inner join detalhes as d on d.modelo_codigo = p.modelo_codigo inner join venda as v on v.id_venda = d.id_venda where v.id_venda = ?;");
 
             instrucaoSQL.setInt(1, idVenda);
 
@@ -92,6 +92,7 @@ public class RelatoriosDAO {
             while (resultado.next()) {
                 Relatorios relatorios = new Relatorios();
 
+                relatorios.setIdVenda(resultado.getInt("id_venda"));
                 relatorios.setTipoModelo(resultado.getString("modelo_tipo"));
                 relatorios.setDescricao(resultado.getString("descricao"));
                 relatorios.setQuantidade(resultado.getInt("quantidade"));
