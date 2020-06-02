@@ -2153,6 +2153,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         DefaultTableModel tabelaRelatorioDft2 = new DefaultTableModel();
 
+        tabelaRelatorioDft2.addColumn("ID Venda");
         tabelaRelatorioDft2.addColumn("Tipo / Modelo");
         tabelaRelatorioDft2.addColumn("Descrição");
         tabelaRelatorioDft2.addColumn("Quantidade");
@@ -2165,7 +2166,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                 percorrerDados[0],
                 percorrerDados[1],
                 percorrerDados[2],
-                percorrerDados[3]
+                percorrerDados[3],
+                percorrerDados[4]
 
             });
 
