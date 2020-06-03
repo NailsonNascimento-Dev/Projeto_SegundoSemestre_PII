@@ -2035,7 +2035,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
 
     }//GEN-LAST:event_txtPrecoActionPerformed
-
+                   
     private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricaoActionPerformed
