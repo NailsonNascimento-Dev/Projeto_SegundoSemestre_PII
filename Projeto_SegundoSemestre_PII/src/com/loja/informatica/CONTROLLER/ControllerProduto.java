@@ -15,17 +15,14 @@ import java.util.ArrayList;
  * @author Nailson Nascimento <nailsonbr@gmail.com>
  */
 public class ControllerProduto {
-    
-    
-        //descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao
-    
-        public static boolean CadastrarProduto(String descricao, String modelo_codigo, String marca, TipoProduto tipo, 
-                                        int quantidade, double preco, String observacao) {
+
+    //descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao
+    public static boolean CadastrarProduto(String descricao, String modelo_codigo, String marca, TipoProduto tipo,
+            int quantidade, double preco, String observacao) {
 
         Produto produto = new Produto();
-          System.out.println("Teste erro !");
-        
-        
+        //System.out.println("Teste erro !");
+
         produto.setDescricao(descricao);
         produto.setModelo_codigo(modelo_codigo);
         produto.setMarca(marca);
@@ -33,15 +30,12 @@ public class ControllerProduto {
         produto.setQuantidade(quantidade);
         produto.setPreco(preco);
         produto.setObservacao(observacao);
-        
-            //System.out.println("id: " + tipo.getId_tipo() + "Descricao: " + tipo.getModelo_tipo());
-        
 
+        //System.out.println("id: " + tipo.getId_tipo() + "Descricao: " + tipo.getModelo_tipo());
         return ProdutoDAO.cadastrarProduto(produto);
     }
-  
-   
-           public static ArrayList<String[]> CarregarProduto() {
+
+    public static ArrayList<String[]> CarregarProduto() {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
 
@@ -54,18 +48,130 @@ public class ControllerProduto {
                 String.valueOf(produto.getDescricao()),
                 String.valueOf(produto.getModelo_codigo()),
                 String.valueOf(produto.getTipo().getModelo_tipo()),
+                //String.valueOf(produto.getTipo().getId_tipo()),
+
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getMarca()),
-                String.valueOf(produto.getPreco()),
-                String.valueOf(produto.getObservacao()),
-                
-
-            });
+                String.valueOf(produto.getPreco()),});
         }
 
         return retorno;
 
     }
+
+    public static ArrayList<String[]> buscarRegistrosCodigoFabricante(String busca) {
+
+        System.out.println("Controller AQui 1");
+        ArrayList<Produto> listarRegistros = new ArrayList<>();
+
+        ArrayList<String[]> retorno = new ArrayList<>();
+
+        System.out.println("Controller AQui 2");
+        listarRegistros = ProdutoDAO.buscarRegistrosCodigoFabricante(busca);
+
+        System.out.println("Controller AQui 3");
+        for (Produto produto : listarRegistros) {
+            retorno.add(new String[]{
+                String.valueOf(produto.getDescricao()),
+                String.valueOf(produto.getModelo_codigo()),
+                String.valueOf(produto.getTipo().getModelo_tipo()),
+                //String.valueOf(produto.getTipo().getId_tipo()),
+                String.valueOf(produto.getQuantidade()),
+                String.valueOf(produto.getMarca()),
+                String.valueOf(produto.getPreco()), //String.valueOf(produto.getObservacao()),
+            });
+
+        }
+
+        System.out.println("Controller AQui 4");
+        return retorno;
+
+    }
+
+    public static ArrayList<String[]> buscarRegistrosDescricao(String busca) {
+
+        System.out.println("Controller AQui 1");
+        ArrayList<Produto> listarRegistros = new ArrayList<>();
+
+        ArrayList<String[]> retorno = new ArrayList<>();
+
+        System.out.println("Controller AQui 2");
+        listarRegistros = ProdutoDAO.buscarRegistrosDescricao(busca);
+
+        System.out.println("Controller AQui 3");
+        for (Produto produto : listarRegistros) {
+            retorno.add(new String[]{
+                String.valueOf(produto.getDescricao()),
+                String.valueOf(produto.getModelo_codigo()),
+                String.valueOf(produto.getTipo().getModelo_tipo()),
+                //String.valueOf(produto.getTipo().getId_tipo()),
+                String.valueOf(produto.getQuantidade()),
+                String.valueOf(produto.getMarca()),
+                String.valueOf(produto.getPreco()), //String.valueOf(produto.getObservacao()),
+            });
+
+        }
+
+        System.out.println("Controller AQui 4");
+        return retorno;
+
+    }
+
+    public static ArrayList<String[]> buscarRegistrosTipo(String busca) {
+
+        System.out.println("Controller AQui 1");
+        ArrayList<Produto> listarRegistros = new ArrayList<>();
+
+        ArrayList<String[]> retorno = new ArrayList<>();
+
+        System.out.println("Controller AQui 2");
+        listarRegistros = ProdutoDAO.buscarRegistrosTipo(busca);
+
+        System.out.println("Controller AQui 3");
+        for (Produto produto : listarRegistros) {
+            retorno.add(new String[]{
+                String.valueOf(produto.getDescricao()),
+                String.valueOf(produto.getModelo_codigo()),
+                String.valueOf(produto.getTipo().getModelo_tipo()),
+                //String.valueOf(produto.getTipo().getId_tipo()),
+                String.valueOf(produto.getQuantidade()),
+                String.valueOf(produto.getMarca()),
+                String.valueOf(produto.getPreco()), //String.valueOf(produto.getObservacao()),
+            });
+
+        }
+
+        System.out.println("Controller AQui 4");
+        return retorno;
+
+    }
+
+    public static boolean AlterarProduto(String descricao, String modelo_codigo, String marca, TipoProduto tipo,
+            int quantidade, double preco, String observacao) {
+
+        Produto produto = new Produto();
+
+        produto.setDescricao(descricao);
+        produto.setModelo_codigo(modelo_codigo);
+        produto.setMarca(marca);
+        produto.setTipo(tipo);
+        produto.setQuantidade(quantidade);
+        produto.setPreco(preco);
+        produto.setObservacao(observacao);
+
+        System.out.println("teste 22222");
+        return ProdutoDAO.atualizarProduto(produto);
+
+    }
+
+    public static boolean ExcluirRegistro(String codigoFabricante) {
+
+        return ProdutoDAO.excluirProduto(codigoFabricante);
+    }
+
+    public static boolean adicionarProduto(String codigoFabricante, int quantidade) {
+
+        return ProdutoDAO.adicionarProduto(codigoFabricante, quantidade);
+
+    }
 }
-
-

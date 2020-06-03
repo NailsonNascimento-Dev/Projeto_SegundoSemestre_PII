@@ -986,7 +986,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(buttonLimparTabelas))
                     .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1296,6 +1296,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblProdutosMouseClicked(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblProdutos);
 
         jLabel20.setText("Buscar Produto");
@@ -1426,14 +1431,26 @@ public class telaAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
-        // TODO add your handling code here:
+        int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o produto?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 
-        if (indexLinha >= 0) {
+        if (resposta == 0) {
+            try {
+                String codigoFabricante = txtBusca.getText();
 
-            //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-            DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
-            model.removeRow(indexLinha);
+                boolean retorno = ControllerProduto.ExcluirRegistro(codigoFabricante);
 
+                if (retorno == true) {
+                    JOptionPane.showMessageDialog(this, "Registro Excluido com sucesso!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Erro ao Excluir registro!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    limparCampos();
+                }
+            } catch (Exception e) {
+                System.out.print("");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Operação Cancelada!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnDeletarProdutoActionPerformed
 
@@ -1443,10 +1460,13 @@ public class telaAdministrador extends javax.swing.JFrame {
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
         int quandidaEntradaInt = Integer.parseInt(quandidaEntrada);
 
-        String valorAtualEstoque = tblProdutos.getValueAt(indexLinha, 3).toString();
-        int valorEstoqueInt = Integer.parseInt(valorAtualEstoque);
-
-        tblProdutos.setValueAt((quandidaEntradaInt + valorEstoqueInt), indexLinha, 3);
+        boolean status = ControllerProduto.adicionarProduto(txtCodFabricante.getText(), quandidaEntradaInt);
+        
+        if(status == true){
+            JOptionPane.showMessageDialog(null, "Adicionado com Sucesso !!");
+        }else{
+            JOptionPane.showMessageDialog(null, "Valor não adicionado!!");
+        }
 
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
 
@@ -1461,6 +1481,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtObservacao.setEnabled(true);
         txtPreco.setEnabled(true);
         btnCriar.setEnabled(true);
+        btnCriar.setText("Alterar");
 
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
@@ -1484,28 +1505,50 @@ public class telaAdministrador extends javax.swing.JFrame {
         boolean valorEncontrado = false;
         switch (tipoBusca) {
             case 0:
-                //veriiica se existe itens na tabela
+                //verifica se existe itens na tabela
                 if (busca.length() > 0) {
                     System.out.println("Busca Código Fabricante ");
                     for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                         //pega linha da tabela
-                        if (busca.equals(tblProdutos.getValueAt(i, 1))) {
+                        if (busca.equals(tblProdutos.getModel().getValueAt(i, 1))) {
 
                             btnEditarProduto.setEnabled(true);
                             btnEntradaProdutoEstoque.setEnabled(true);
                             btnDeletarProduto.setEnabled(true);
+                            btnNovo.setEnabled(true);
 
-                            //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            indexLinha = i;
+                            System.out.println("AQui 1");
 
-                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
-                            txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
-                            valorEncontrado = true;
+                            System.out.println("AQUI 2");
+                            ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosCodigoFabricante(busca);
+                            System.out.println("AQUI 3");
+                            DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
+                            System.out.println("AQUI 4");
+
+                            tabelaRegistros.addColumn("Descrição");
+                            tabelaRegistros.addColumn("Código Fabricante");
+                            tabelaRegistros.addColumn("Tipo / Grupo");
+                            tabelaRegistros.addColumn("Quantidade");
+                            tabelaRegistros.addColumn("Marca");
+                            tabelaRegistros.addColumn("Preco R$");
+
+                            tblProdutos.setModel(tabelaRegistros);
+
+                            for (String[] percorrerRegistros : listarProdutos) {
+                                tabelaRegistros.addRow(new String[]{
+                                    percorrerRegistros[0],
+                                    percorrerRegistros[1],
+                                    percorrerRegistros[2],
+                                    percorrerRegistros[3],
+                                    percorrerRegistros[4],
+                                    percorrerRegistros[5]
+
+                                });
+
+                                valorEncontrado = true;
+
+                            }
                         }
                     }
 
@@ -1515,6 +1558,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
                 }
                 break;
+
             case 1:
                 if (busca.length() > 0) {
                     System.out.println("Busca Descrição");
@@ -1525,17 +1569,40 @@ public class telaAdministrador extends javax.swing.JFrame {
                             btnEditarProduto.setEnabled(true);
                             btnEntradaProdutoEstoque.setEnabled(true);
                             btnDeletarProduto.setEnabled(true);
+                            btnNovo.setEnabled(true);
 
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            indexLinha = i;
+                            //indexLinha = i;
+                            System.out.println("AQUI 2");
+                            ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosDescricao(busca);
+                            System.out.println("AQUI 3");
+                            DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
-                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
-                            txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
-                            valorEncontrado = true;
+                            System.out.println("AQUI 4");
+
+                            tabelaRegistros.addColumn("Descrição");
+                            tabelaRegistros.addColumn("Código Fabricante");
+                            tabelaRegistros.addColumn("Tipo / Grupo");
+                            tabelaRegistros.addColumn("Quantidade");
+                            tabelaRegistros.addColumn("Marca");
+                            tabelaRegistros.addColumn("Preco R$");
+
+                            tblProdutos.setModel(tabelaRegistros);
+
+                            for (String[] percorrerRegistros : listarProdutos) {
+                                tabelaRegistros.addRow(new String[]{
+                                    percorrerRegistros[0],
+                                    percorrerRegistros[1],
+                                    percorrerRegistros[2],
+                                    percorrerRegistros[3],
+                                    percorrerRegistros[4],
+                                    percorrerRegistros[5]
+
+                                });
+
+                                valorEncontrado = true;
+
+                            }
 
                         }
                     }
@@ -1555,17 +1622,41 @@ public class telaAdministrador extends javax.swing.JFrame {
                             btnEditarProduto.setEnabled(true);
                             btnEntradaProdutoEstoque.setEnabled(true);
                             btnDeletarProduto.setEnabled(true);
+                            btnNovo.setEnabled(true);
 
                             //pega valor do index da linha da tabela para podemos auterar os parametros...
                             indexLinha = i;
 
-                            txtDescricao.setText(tblProdutos.getValueAt(i, 0).toString());
-                            txtCodFabricante.setText(tblProdutos.getValueAt(i, 1).toString());
-                            cboTipo.setSelectedItem(tblProdutos.getValueAt(i, 2).toString());
-                            txtQuantidade.setText(tblProdutos.getValueAt(i, 3).toString());
-                            txtMarca.setText(tblProdutos.getValueAt(i, 4).toString());
-                            txtPreco.setText(tblProdutos.getValueAt(i, 5).toString());
-                            valorEncontrado = true;
+                            System.out.println("AQUI 2");
+                            ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosTipo(busca);
+                            System.out.println("AQUI 3");
+                            DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+                            System.out.println("AQUI 4");
+
+                            tabelaRegistros.addColumn("Descrição");
+                            tabelaRegistros.addColumn("Código Fabricante");
+                            tabelaRegistros.addColumn("Tipo / Grupo");
+                            tabelaRegistros.addColumn("Quantidade");
+                            tabelaRegistros.addColumn("Marca");
+                            tabelaRegistros.addColumn("Preco R$");
+
+                            tblProdutos.setModel(tabelaRegistros);
+
+                            for (String[] percorrerRegistros : listarProdutos) {
+                                tabelaRegistros.addRow(new String[]{
+                                    percorrerRegistros[0],
+                                    percorrerRegistros[1],
+                                    percorrerRegistros[2],
+                                    percorrerRegistros[3],
+                                    percorrerRegistros[4],
+                                    percorrerRegistros[5]
+
+                                });
+
+                                valorEncontrado = true;
+
+                            }
 
                         }
                     }
@@ -1576,6 +1667,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 }
                 break;
         }
+
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
@@ -1588,12 +1680,19 @@ public class telaAdministrador extends javax.swing.JFrame {
         buscaAtivada = false;
 
         btnCriar.setEnabled(true);
+        btnEditarProduto.setEnabled(false);
+        btnDeletarProduto.setEnabled(false);
+        btnEntradaProdutoEstoque.setEnabled(false);
+
         txtDescricao.setText("");
         txtCodFabricante.setText("");
         txtMarca.setText("");
         txtQuantidade.setText("");
         txtObservacao.setText("");
         txtPreco.setText("");
+        btnCriar.setText("Cadastrar");
+        txtBusca.setText("");
+        carregarRegistrosProduto();
 
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
@@ -1602,6 +1701,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtObservacao.setEnabled(true);
         cboTipo.setEnabled(true);
         txtPreco.setEnabled(true);
+
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
@@ -1611,16 +1711,39 @@ public class telaAdministrador extends javax.swing.JFrame {
             Produto produto = new Produto();
 
             if (buscaAtivada == true) {
-                //System.out.println("busca realizada");
-                //System.out.println("linha: " + indexLinha);
 
-                tblProdutos.setValueAt(txtDescricao.getText(), indexLinha, 0);
-                tblProdutos.setValueAt(txtCodFabricante.getText(), indexLinha, 1);
-                tblProdutos.setValueAt(cboTipo.getSelectedItem(), indexLinha, 2);
-                tblProdutos.setValueAt(txtMarca.getText(), indexLinha, 4);
-                tblProdutos.setValueAt(txtPreco.getText(), indexLinha, 5);
+                String descricao = txtDescricao.getText();
+                String modelo_codigo = txtCodFabricante.getText();
+                String marca = txtMarca.getText();
+                TipoProduto tipo = ((TipoProduto) cboTipo.getSelectedItem());
+                int quantidade = Integer.parseInt(txtQuantidade.getText());
+                double preco = Double.parseDouble(txtPreco.getText());
+                String observacao = txtObservacao.getText();
 
-                indexLinha = -1;
+                System.out.println("teste");
+
+                boolean statusAtualizacao = ControllerProduto.AlterarProduto(descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao);
+
+                if (statusAtualizacao == true) {
+
+                    //limpa campos para novo cadastro de produtos
+                    txtDescricao.setText("");
+                    txtCodFabricante.setText("");
+                    txtMarca.setText("");
+
+                    txtQuantidade.setText("");
+                    txtObservacao.setText("");
+                    txtPreco.setText("");
+
+                    //Atualiza a tabela de produtos
+                    carregarRegistrosProduto();
+
+                    indexLinha = -1;
+                    JOptionPane.showMessageDialog(null, "Alterado com Sucesso !");
+                } else {
+                    JOptionPane.showMessageDialog(null, "O Produto não foi alterado !");
+                }
+
             } else {
 
                 if (txtDescricao.getText().trim().equals("")) {
@@ -1663,34 +1786,22 @@ public class telaAdministrador extends javax.swing.JFrame {
 
                 boolean statusCadastro = ControllerProduto.CadastrarProduto(descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao);
                 if (statusCadastro) {
-                    //  JOptionPane.showMessageDialog(null, "Produto cadastrado !");
+                    JOptionPane.showMessageDialog(null, "Produto cadastrado !");
+
+                    //limpa campos para novo cadastro de produtos
+                    txtDescricao.setText("");
+                    txtCodFabricante.setText("");
+                    txtMarca.setText("");
+                    txtQuantidade.setText("");
+                    txtObservacao.setText("");
+                    txtPreco.setText("");
+
+                    //Atualiza a tabela de produtos
+                    carregarRegistrosProduto();
                 } else {
                     JOptionPane.showMessageDialog(null, "Produto não cadastrado !");
 
                 }
-
-                //System.out.println(produto.toString());
-                //resgata o modelo da tabela e atribui a uma variavel do tipo DefaultTableModel
-                DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
-
-                //adiciona os valores do objeto "produto" a linha da tabela
-                model.addRow(new Object[]{
-                    produto.getDescricao(),
-                    //produto.getCodigoFabricante(),
-                    produto.getTipo(),
-                    produto.getQuantidade(),
-                    produto.getMarca(),
-                    produto.getPreco()
-
-                });
-
-                //limpa campos para novo cadastro de produtos
-                txtDescricao.setText("");
-                txtCodFabricante.setText("");
-                txtMarca.setText("");
-                txtQuantidade.setText("");
-                txtObservacao.setText("");
-                txtPreco.setText("");
 
                 if (txtQuantidade.getText().length() == 0) {
                     System.out.println(" o campo quantiade possui");
@@ -1885,6 +1996,12 @@ public class telaAdministrador extends javax.swing.JFrame {
     private void txtBuscaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyTyped
         validacaoCaracter(evt);
         btnBusca.setEnabled(true);
+
+        if (txtBusca.getText().equals("")) {
+            carregarRegistrosProduto();
+        }
+
+
     }//GEN-LAST:event_txtBuscaKeyTyped
 
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
@@ -2143,7 +2260,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 percorrerDados[4]
             });
         }
-        
+
         tabelaRelatorios.setDefaultEditor(Object.class, null);
 
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
@@ -2174,8 +2291,8 @@ public class telaAdministrador extends javax.swing.JFrame {
             });
 
         }
-        
-         tabelaRelatorios2.setDefaultEditor(Object.class, null);
+
+        tabelaRelatorios2.setDefaultEditor(Object.class, null);
     }//GEN-LAST:event_tabelaRelatoriosMouseClicked
 
     private void buttonLimparTabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparTabelasActionPerformed
@@ -2186,7 +2303,7 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonLimparTabelasActionPerformed
 
     private void buttonExportarExcel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportarExcel2ActionPerformed
-          File arquivo = new File("Excel2.txt");
+        File arquivo = new File("Excel2.txt");
 
         try {
             escreverArquivoExcel(tabelaRelatorios2, arquivo);
@@ -2196,8 +2313,17 @@ public class telaAdministrador extends javax.swing.JFrame {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        
+
     }//GEN-LAST:event_buttonExportarExcel2ActionPerformed
+
+    private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
+        txtDescricao.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
+        txtCodFabricante.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
+        cboTipo.setSelectedItem(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
+        txtQuantidade.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
+        txtMarca.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
+        txtPreco.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 5).toString());
+    }//GEN-LAST:event_tblProdutosMouseClicked
 
     /**
      * Evento desenvolvido para validação de caracteries

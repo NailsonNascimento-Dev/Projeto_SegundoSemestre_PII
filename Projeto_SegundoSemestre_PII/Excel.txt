@@ -1,9 +1,1 @@
-id	nome	quantidade	produto	
-1	Madara	100	I9	
-2	Sasuke	50	Placa de video	
-3	Itachi	70	Pc gamer	
-4	Naruto	32	Gabinete	
-5	Sakura	51	Notebook	
-6	Tsunade	61	Mouses	
-7	Ino	47	Teclados	
-8	Hinata	71	Cadeiras gamers	
+ID Venda	Nome	CPF	Datas	Valor da Venda	
