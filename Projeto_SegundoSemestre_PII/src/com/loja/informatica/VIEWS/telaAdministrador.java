@@ -2143,6 +2143,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                 percorrerDados[4]
             });
         }
+        
+        tabelaRelatorios.setDefaultEditor(Object.class, null);
 
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
 
@@ -2172,6 +2174,8 @@ public class telaAdministrador extends javax.swing.JFrame {
             });
 
         }
+        
+         tabelaRelatorios2.setDefaultEditor(Object.class, null);
     }//GEN-LAST:event_tabelaRelatoriosMouseClicked
 
     private void buttonLimparTabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparTabelasActionPerformed
