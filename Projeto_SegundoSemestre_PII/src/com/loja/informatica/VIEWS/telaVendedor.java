@@ -47,7 +47,6 @@ public class telaVendedor extends javax.swing.JFrame {
         txtBairro.setDocument(new soCaracteres());//Importação da classe que aceita somentes letras e acentos
 
         //Implementacao da classe ValidacaoDeCampos na aba de venda
-        txtCarrinhoID.setDocument(new soNumeros());
         txtCarrinhoQuantidade.setDocument(new soNumeros());
         txtFiltroTipo.setDocument(new soCaracteres());
         txtFiltroMarca.setDocument(new soCaracteres());

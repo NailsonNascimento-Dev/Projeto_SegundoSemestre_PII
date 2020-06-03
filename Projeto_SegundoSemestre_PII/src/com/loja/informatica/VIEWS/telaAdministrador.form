@@ -1368,7 +1368,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="btnEntradaProdutoEstoque" min="-2" pref="118" max="-2" attributes="0"/>
                                   <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                                  <Component id="btnDeletarProduto" min="-2" max="-2" attributes="0"/>
+                                  <Component id="btnDeletarProduto" min="-2" pref="114" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" max="-2" attributes="0"/>
@@ -1385,17 +1385,21 @@
                               <Component id="btnBusca" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="cboTipoBusca" alignment="3" max="32767" attributes="0"/>
-                                  <Component id="btnDeletarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnEditarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnEntradaProdutoEstoque" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="cboTipoBusca" alignment="3" max="32767" attributes="0"/>
+                                          <Component id="btnEditarProduto" alignment="3" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnEntradaProdutoEstoque" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Component id="jLabel23" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jScrollPane3" pref="141" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="jLabel23" max="32767" attributes="0"/>
+                              <Component id="btnDeletarProduto" min="-2" pref="32" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jScrollPane3" pref="153" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1404,6 +1408,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txtBusca">
                   <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscaActionPerformed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscaKeyTyped"/>
                   </Events>
                 </Component>

@@ -47,6 +47,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         buttonAlterar.setEnabled(false);
         buttonExcluir.setEnabled(false);
         buttonCancelar.setVisible(false);
+        btnNovo.setEnabled(false);
 
         carregarRegistrosFuncionarios();
         carregarTipoProdutos();
@@ -1274,6 +1275,11 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Produtos Cadastrados"));
 
+        txtBusca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscaActionPerformed(evt);
+            }
+        });
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyTyped(evt);
@@ -1366,7 +1372,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEntradaProdutoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(btnDeletarProduto)))
+                        .addComponent(btnDeletarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -1378,15 +1384,17 @@ public class telaAdministrador extends javax.swing.JFrame {
                     .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(cboTipoBusca)
-                        .addComponent(btnDeletarProduto)
-                        .addComponent(btnEditarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnEntradaProdutoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(cboTipoBusca)
+                                .addComponent(btnEditarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEntradaProdutoEstoque, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel23, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+                    .addComponent(btnDeletarProduto, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -1440,11 +1448,11 @@ public class telaAdministrador extends javax.swing.JFrame {
                 boolean retorno = ControllerProduto.ExcluirRegistro(codigoFabricante);
 
                 if (retorno == true) {
-                    JOptionPane.showMessageDialog(this, "Registro Excluido com sucesso!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "produto Excluido com sucesso!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    voltarParaCadastro();
                 } else {
-                    JOptionPane.showMessageDialog(this, "Erro ao Excluir registro!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
-                    limparCampos();
+                    JOptionPane.showMessageDialog(this, "Erro ao Excluir produto!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
+                    voltarParaCadastro();
                 }
             } catch (Exception e) {
                 System.out.print("");
@@ -1458,16 +1466,34 @@ public class telaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
-        int quandidaEntradaInt = Integer.parseInt(quandidaEntrada);
-
-        boolean status = ControllerProduto.adicionarProduto(txtCodFabricante.getText(), quandidaEntradaInt);
         
-        if(status == true){
-            JOptionPane.showMessageDialog(null, "Adicionado com Sucesso !!");
+        
+        try {
+            int quandidaEntradaInt = Integer.parseInt(quandidaEntrada);
+            
+            if (quandidaEntradaInt > 0) {
+
+            boolean status = ControllerProduto.adicionarProduto(txtCodFabricante.getText(), quandidaEntradaInt);
+
+            if (status == true) {
+                JOptionPane.showMessageDialog(null, "Adicionado com Sucesso !!");
+                carregarRegistrosProduto();
+                voltarParaCadastro();
+
+                txtBusca.setText("");
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Valor não adicionado!!");
+            }
         }else{
-            JOptionPane.showMessageDialog(null, "Valor não adicionado!!");
+            JOptionPane.showMessageDialog(null, "Quantiade Precisar ser maior que zero '0' !");
         }
 
+        
+        } catch (Exception e) {
+            voltarParaCadastro();
+            
+        }
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
 
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
@@ -1483,191 +1509,201 @@ public class telaAdministrador extends javax.swing.JFrame {
         btnCriar.setEnabled(true);
         btnCriar.setText("Alterar");
 
+        //desabilita a edição do campo Código Fabricante, poois e primary ky
+        txtCodFabricante.setEnabled(false);
+
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
 
-        buscaAtivada = true;
+        if (txtBusca.equals("")) {
+            JOptionPane.showMessageDialog(null, "Digite produto que deseja buscar ou clique na linha da tabela");
 
-        int tipoBusca = cboTipoBusca.getSelectedIndex();
-        String busca = txtBusca.getText();
+        } else {
+            buscaAtivada = true;
 
-        //exibo os dados do produto buscado porém desabilita a edição.
-        btnCriar.setEnabled(false);
-        txtDescricao.setEnabled(false);
-        txtCodFabricante.setEnabled(false);
-        txtMarca.setEnabled(false);
-        txtQuantidade.setEnabled(false);
-        txtObservacao.setEnabled(false);
-        cboTipo.setEnabled(false);
-        txtPreco.setEnabled(false);
+            int tipoBusca = cboTipoBusca.getSelectedIndex();
+            String busca = txtBusca.getText();
 
-        boolean valorEncontrado = false;
-        switch (tipoBusca) {
-            case 0:
-                //verifica se existe itens na tabela
-                if (busca.length() > 0) {
-                    System.out.println("Busca Código Fabricante ");
-                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        //pega linha da tabela
-                        if (busca.equals(tblProdutos.getModel().getValueAt(i, 1))) {
+            //exibo os dados do produto buscado porém desabilita a edição.
+            btnCriar.setEnabled(false);
+            txtDescricao.setEnabled(false);
+            txtCodFabricante.setEnabled(false);
+            txtMarca.setEnabled(false);
+            txtQuantidade.setEnabled(false);
+            txtObservacao.setEnabled(false);
+            cboTipo.setEnabled(false);
+            txtPreco.setEnabled(false);
 
-                            btnEditarProduto.setEnabled(true);
-                            btnEntradaProdutoEstoque.setEnabled(true);
-                            btnDeletarProduto.setEnabled(true);
-                            btnNovo.setEnabled(true);
+            boolean valorEncontrado = false;
+            switch (tipoBusca) {
+                case 0:
+                    //verifica se existe itens na tabela
+                    if (busca.length() > 0) {
+                        System.out.println("Busca Código Fabricante ");
+                        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                            //pega linha da tabela
+                            if (busca.equals(tblProdutos.getModel().getValueAt(i, 1))) {
 
-                            System.out.println("AQui 1");
+                                btnEditarProduto.setEnabled(true);
+                                btnEntradaProdutoEstoque.setEnabled(true);
+                                btnDeletarProduto.setEnabled(true);
+                                btnNovo.setEnabled(true);
 
-                            System.out.println("AQUI 2");
-                            ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosCodigoFabricante(busca);
-                            System.out.println("AQUI 3");
-                            DefaultTableModel tabelaRegistros = new DefaultTableModel();
+                                System.out.println("AQui 1");
 
-                            System.out.println("AQUI 4");
+                                System.out.println("AQUI 2");
+                                ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosCodigoFabricante(busca);
+                                System.out.println("AQUI 3");
+                                DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
-                            tabelaRegistros.addColumn("Descrição");
-                            tabelaRegistros.addColumn("Código Fabricante");
-                            tabelaRegistros.addColumn("Tipo / Grupo");
-                            tabelaRegistros.addColumn("Quantidade");
-                            tabelaRegistros.addColumn("Marca");
-                            tabelaRegistros.addColumn("Preco R$");
+                                System.out.println("AQUI 4");
 
-                            tblProdutos.setModel(tabelaRegistros);
+                                tabelaRegistros.addColumn("Descrição");
+                                tabelaRegistros.addColumn("Código Fabricante");
+                                tabelaRegistros.addColumn("Tipo / Grupo");
+                                tabelaRegistros.addColumn("Quantidade");
+                                tabelaRegistros.addColumn("Marca");
+                                tabelaRegistros.addColumn("Preco R$");
 
-                            for (String[] percorrerRegistros : listarProdutos) {
-                                tabelaRegistros.addRow(new String[]{
-                                    percorrerRegistros[0],
-                                    percorrerRegistros[1],
-                                    percorrerRegistros[2],
-                                    percorrerRegistros[3],
-                                    percorrerRegistros[4],
-                                    percorrerRegistros[5]
+                                tblProdutos.setModel(tabelaRegistros);
 
-                                });
+                                for (String[] percorrerRegistros : listarProdutos) {
+                                    tabelaRegistros.addRow(new String[]{
+                                        percorrerRegistros[0],
+                                        percorrerRegistros[1],
+                                        percorrerRegistros[2],
+                                        percorrerRegistros[3],
+                                        percorrerRegistros[4],
+                                        percorrerRegistros[5]
 
-                                valorEncontrado = true;
+                                    });
+
+                                    valorEncontrado = true;
+
+                                }
+                            }
+                        }
+
+                        if (!valorEncontrado) {
+                            JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
+                        }
+
+                    }
+                    break;
+
+                case 1:
+                    if (busca.length() > 0) {
+                        System.out.println("Busca Descrição");
+                        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                            //pega linha da tabela
+                            if (busca.equals(tblProdutos.getValueAt(i, 0))) {
+
+                                btnEditarProduto.setEnabled(true);
+                                btnEntradaProdutoEstoque.setEnabled(true);
+                                btnDeletarProduto.setEnabled(true);
+                                btnNovo.setEnabled(true);
+
+                                //pega valor do index da linha da tabela para podemos auterar os parametros...
+                                //indexLinha = i;
+                                System.out.println("AQUI 2");
+                                ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosDescricao(busca);
+                                System.out.println("AQUI 3");
+                                DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+                                System.out.println("AQUI 4");
+
+                                tabelaRegistros.addColumn("Descrição");
+                                tabelaRegistros.addColumn("Código Fabricante");
+                                tabelaRegistros.addColumn("Tipo / Grupo");
+                                tabelaRegistros.addColumn("Quantidade");
+                                tabelaRegistros.addColumn("Marca");
+                                tabelaRegistros.addColumn("Preco R$");
+
+                                tblProdutos.setModel(tabelaRegistros);
+
+                                for (String[] percorrerRegistros : listarProdutos) {
+                                    tabelaRegistros.addRow(new String[]{
+                                        percorrerRegistros[0],
+                                        percorrerRegistros[1],
+                                        percorrerRegistros[2],
+                                        percorrerRegistros[3],
+                                        percorrerRegistros[4],
+                                        percorrerRegistros[5]
+
+                                    });
+
+                                    valorEncontrado = true;
+
+                                }
 
                             }
                         }
-                    }
 
-                    if (!valorEncontrado) {
-                        JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
-                    }
-
-                }
-                break;
-
-            case 1:
-                if (busca.length() > 0) {
-                    System.out.println("Busca Descrição");
-                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        //pega linha da tabela
-                        if (busca.equals(tblProdutos.getValueAt(i, 0))) {
-
-                            btnEditarProduto.setEnabled(true);
-                            btnEntradaProdutoEstoque.setEnabled(true);
-                            btnDeletarProduto.setEnabled(true);
-                            btnNovo.setEnabled(true);
-
-                            //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            //indexLinha = i;
-                            System.out.println("AQUI 2");
-                            ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosDescricao(busca);
-                            System.out.println("AQUI 3");
-                            DefaultTableModel tabelaRegistros = new DefaultTableModel();
-
-                            System.out.println("AQUI 4");
-
-                            tabelaRegistros.addColumn("Descrição");
-                            tabelaRegistros.addColumn("Código Fabricante");
-                            tabelaRegistros.addColumn("Tipo / Grupo");
-                            tabelaRegistros.addColumn("Quantidade");
-                            tabelaRegistros.addColumn("Marca");
-                            tabelaRegistros.addColumn("Preco R$");
-
-                            tblProdutos.setModel(tabelaRegistros);
-
-                            for (String[] percorrerRegistros : listarProdutos) {
-                                tabelaRegistros.addRow(new String[]{
-                                    percorrerRegistros[0],
-                                    percorrerRegistros[1],
-                                    percorrerRegistros[2],
-                                    percorrerRegistros[3],
-                                    percorrerRegistros[4],
-                                    percorrerRegistros[5]
-
-                                });
-
-                                valorEncontrado = true;
-
-                            }
-
+                        if (!valorEncontrado) {
+                            JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                         }
                     }
+                    break;
+                case 2:
+                    if (busca.length() > 0) {
+                        System.out.println("Busca tipo/Grupo");
+                        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                            //pega linha da tabela
+                            if (busca.equals(tblProdutos.getValueAt(i, 2))) {
 
-                    if (!valorEncontrado) {
-                        JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
-                    }
-                }
-                break;
-            case 2:
-                if (busca.length() > 0) {
-                    System.out.println("Busca tipo/Grupo");
-                    for (int i = 0; i < tblProdutos.getRowCount(); i++) {
-                        //pega linha da tabela
-                        if (busca.equals(tblProdutos.getValueAt(i, 2))) {
+                                btnEditarProduto.setEnabled(true);
+                                btnEntradaProdutoEstoque.setEnabled(true);
+                                btnDeletarProduto.setEnabled(true);
+                                btnNovo.setEnabled(true);
 
-                            btnEditarProduto.setEnabled(true);
-                            btnEntradaProdutoEstoque.setEnabled(true);
-                            btnDeletarProduto.setEnabled(true);
-                            btnNovo.setEnabled(true);
+                                //pega valor do index da linha da tabela para podemos auterar os parametros...
+                                indexLinha = i;
 
-                            //pega valor do index da linha da tabela para podemos auterar os parametros...
-                            indexLinha = i;
+                                System.out.println("AQUI 2");
+                                ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosTipo(busca);
+                                System.out.println("AQUI 3");
+                                DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
-                            System.out.println("AQUI 2");
-                            ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosTipo(busca);
-                            System.out.println("AQUI 3");
-                            DefaultTableModel tabelaRegistros = new DefaultTableModel();
+                                System.out.println("AQUI 4");
 
-                            System.out.println("AQUI 4");
+                                tabelaRegistros.addColumn("Descrição");
+                                tabelaRegistros.addColumn("Código Fabricante");
+                                tabelaRegistros.addColumn("Tipo / Grupo");
+                                tabelaRegistros.addColumn("Quantidade");
+                                tabelaRegistros.addColumn("Marca");
+                                tabelaRegistros.addColumn("Preco R$");
 
-                            tabelaRegistros.addColumn("Descrição");
-                            tabelaRegistros.addColumn("Código Fabricante");
-                            tabelaRegistros.addColumn("Tipo / Grupo");
-                            tabelaRegistros.addColumn("Quantidade");
-                            tabelaRegistros.addColumn("Marca");
-                            tabelaRegistros.addColumn("Preco R$");
+                                tblProdutos.setModel(tabelaRegistros);
 
-                            tblProdutos.setModel(tabelaRegistros);
+                                for (String[] percorrerRegistros : listarProdutos) {
+                                    tabelaRegistros.addRow(new String[]{
+                                        percorrerRegistros[0],
+                                        percorrerRegistros[1],
+                                        percorrerRegistros[2],
+                                        percorrerRegistros[3],
+                                        percorrerRegistros[4],
+                                        percorrerRegistros[5]
 
-                            for (String[] percorrerRegistros : listarProdutos) {
-                                tabelaRegistros.addRow(new String[]{
-                                    percorrerRegistros[0],
-                                    percorrerRegistros[1],
-                                    percorrerRegistros[2],
-                                    percorrerRegistros[3],
-                                    percorrerRegistros[4],
-                                    percorrerRegistros[5]
+                                    });
 
-                                });
+                                    valorEncontrado = true;
 
-                                valorEncontrado = true;
+                                }
 
                             }
+                        }
 
+                        if (!valorEncontrado) {
+                            JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
                         }
                     }
+                    break;
+            }
 
-                    if (!valorEncontrado) {
-                        JOptionPane.showMessageDialog(null, "Valor não encontrado! ");
-                    }
-                }
-                break;
         }
 
+        //final
     }//GEN-LAST:event_btnBuscaActionPerformed
 
     private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
@@ -1683,6 +1719,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         btnEditarProduto.setEnabled(false);
         btnDeletarProduto.setEnabled(false);
         btnEntradaProdutoEstoque.setEnabled(false);
+        btnNovo.setEnabled(false);
 
         txtDescricao.setText("");
         txtCodFabricante.setText("");
@@ -1719,6 +1756,16 @@ public class telaAdministrador extends javax.swing.JFrame {
                 int quantidade = Integer.parseInt(txtQuantidade.getText());
                 double preco = Double.parseDouble(txtPreco.getText());
                 String observacao = txtObservacao.getText();
+
+                //desabilita mode de busca/alteração
+                buscaAtivada = false;
+                btnCriar.setText("Cadastrar");
+
+                //desabilita botoões de alteração dos produtos
+                btnNovo.setEnabled(false);
+                btnEditarProduto.setEnabled(false);
+                btnEntradaProdutoEstoque.setEnabled(false);
+                btnDeletarProduto.setEnabled(false);
 
                 System.out.println("teste");
 
@@ -1993,15 +2040,47 @@ public class telaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricaoActionPerformed
 
+    private void voltarParaCadastro() {
+
+        //desativa botões de interação com o dado
+        btnBusca.setEnabled(false);
+        btnEditarProduto.setEnabled(false);
+        btnEntradaProdutoEstoque.setEnabled(false);
+        btnDeletarProduto.setEnabled(false);
+        btnNovo.setEnabled(false);
+        btnCriar.setEnabled(true);
+
+        //limpa dados buscados
+        txtDescricao.setText("");
+        txtCodFabricante.setText("");
+        txtMarca.setText("");
+        txtQuantidade.setText("");
+        txtPreco.setText("");
+        txtObservacao.setText("");
+        txtBusca.setText("");
+
+        //habilitar campos para novo cadastro
+        txtDescricao.setEnabled(true);
+        txtCodFabricante.setEnabled(true);
+        txtMarca.setEnabled(true);
+        cboTipo.setEnabled(true);
+        txtQuantidade.setEnabled(true);
+        txtPreco.setEnabled(true);
+        txtObservacao.setEnabled(true);
+        buscaAtivada = false;
+        btnCriar.setText("Cadastrar");
+        carregarRegistrosProduto();
+
+    }
+
     private void txtBuscaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaKeyTyped
         validacaoCaracter(evt);
         btnBusca.setEnabled(true);
 
         if (txtBusca.getText().equals("")) {
             carregarRegistrosProduto();
+            voltarParaCadastro();
         }
-
-
     }//GEN-LAST:event_txtBuscaKeyTyped
 
     private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
@@ -2317,13 +2396,78 @@ public class telaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_buttonExportarExcel2ActionPerformed
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
+
+        //passa valores da tabela para os campos de texto de cadastro/alteração
         txtDescricao.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 0).toString());
         txtCodFabricante.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString());
         cboTipo.setSelectedItem(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 2).toString());
         txtQuantidade.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
         txtMarca.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
         txtPreco.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 5).toString());
+
+        //desabilita os campos de texto, deixando apenas eles visiveis
+        txtDescricao.setEnabled(false);
+        txtCodFabricante.setEnabled(false);
+        cboTipo.setEnabled(false);
+        txtQuantidade.setEnabled(false);
+        txtMarca.setEnabled(false);
+        txtPreco.setEnabled(false);
+        txtObservacao.setEnabled(false);
+
+        //verifca a linha clicada e atualiza a tabela contendo apenas esse valor
+        String busca = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString();
+        txtBusca.setText(busca);
+
+        System.out.println(busca);
+
+        for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+            //pega linha da tabela
+
+            if (busca.equals(tblProdutos.getModel().getValueAt(i, 1))) {
+
+                btnEditarProduto.setEnabled(true);
+                btnEntradaProdutoEstoque.setEnabled(true);
+                btnDeletarProduto.setEnabled(true);
+                btnNovo.setEnabled(true);
+
+                ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosCodigoFabricante(busca);
+
+                DefaultTableModel tabelaRegistros = new DefaultTableModel();
+
+                tabelaRegistros.addColumn("Descrição");
+                tabelaRegistros.addColumn("Código Fabricante");
+                tabelaRegistros.addColumn("Tipo / Grupo");
+                tabelaRegistros.addColumn("Quantidade");
+                tabelaRegistros.addColumn("Marca");
+                tabelaRegistros.addColumn("Preco R$");
+
+                tblProdutos.setModel(tabelaRegistros);
+
+                for (String[] percorrerRegistros : listarProdutos) {
+                    tabelaRegistros.addRow(new String[]{
+                        percorrerRegistros[0],
+                        percorrerRegistros[1],
+                        percorrerRegistros[2],
+                        percorrerRegistros[3],
+                        percorrerRegistros[4],
+                        percorrerRegistros[5]
+
+                    });
+
+                }
+            }
+        }
+
+        btnEditarProduto.setEnabled(true);
+        btnBusca.setEnabled(false);
+        btnCriar.setEnabled(false);
+
+        buscaAtivada = true;
     }//GEN-LAST:event_tblProdutosMouseClicked
+
+    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscaActionPerformed
 
     /**
      * Evento desenvolvido para validação de caracteries
