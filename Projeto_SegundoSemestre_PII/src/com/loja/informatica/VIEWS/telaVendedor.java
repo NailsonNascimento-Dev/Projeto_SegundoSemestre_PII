@@ -990,24 +990,24 @@ public class telaVendedor extends javax.swing.JFrame {
 
     TableRowSorter trs;
     private void txtValorFinalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtValorFinalActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtValorFinalActionPerformed
 
     private void comboSexoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboSexoActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_comboSexoActionPerformed
 
     private void txtBuscaNumeroCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaNumeroCompraActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtBuscaNumeroCompraActionPerformed
 
     private void txtCarrinhoQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCarrinhoQuantidadeActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtCarrinhoQuantidadeActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
     }//GEN-LAST:event_jTabbedPane1MouseClicked
-
+    /**
+     * Botão para filtrar na tabela historico de venda pelo numero ca compra
+     *
+     * @param evt
+     */
     private void txtBuscaNumeroCompraKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscaNumeroCompraKeyTyped
         txtBuscaNumeroCompra.addKeyListener(new KeyAdapter() {
 
@@ -1021,10 +1021,12 @@ public class telaVendedor extends javax.swing.JFrame {
         trs = new TableRowSorter(model);
         tblVendaRealizada.setRowSorter(trs);
     }//GEN-LAST:event_txtBuscaNumeroCompraKeyTyped
-
+    /**
+     * Botão para salvar um cadastro novo de um cliente ou salvar uma alteração
+     *
+     * @param evt
+     */
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        // TODO add your handling code here:
-
         try {
 
             cliente cliente = new cliente();
@@ -1148,9 +1150,12 @@ public class telaVendedor extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btSalvarActionPerformed
-
+    /**
+     * Botão para buscar um cliente na tabela cliente
+     *
+     * @param evt
+     */
     private void btBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btBuscarActionPerformed
-
         if (txtBCpf.getText().equals("   .   .   -  ")) {
             txtCpfCompra.requestFocus();
             JOptionPane.showMessageDialog(null, "Campo Cpf incorreto", "Aviso!!!", JOptionPane.WARNING_MESSAGE);
@@ -1197,7 +1202,11 @@ public class telaVendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "CPF não encontrado!!!");
         }
     }//GEN-LAST:event_btBuscarActionPerformed
-
+    /**
+     * Botão para fazer um novo cadastro de cliente
+     *
+     * @param evt
+     */
     private void btNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btNovoActionPerformed
         carregarRegistrosCliente();
 
@@ -1220,7 +1229,11 @@ public class telaVendedor extends javax.swing.JFrame {
 
         pesquisar = false;//Modo pesquisar cliente desativado
     }//GEN-LAST:event_btNovoActionPerformed
-
+    /**
+     * Botão para editar um cliente
+     *
+     * @param evt
+     */
     private void btEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarActionPerformed
         //Ativa os campos de digitação para alterar os dados
         txtNome.setEnabled(true);
@@ -1237,7 +1250,11 @@ public class telaVendedor extends javax.swing.JFrame {
         btSalvar.setText("Salvar");
 
     }//GEN-LAST:event_btEditarActionPerformed
-
+    /**
+     * Botão para deletar um cliente
+     *
+     * @param evt
+     */
     private void btDeletarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btDeletarActionPerformed
 
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o registro?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
@@ -1283,21 +1300,19 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btDeletarActionPerformed
 
     private void txtBCpfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBCpfActionPerformed
-        // TODO add your handling code here:   
     }//GEN-LAST:event_txtBCpfActionPerformed
 
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-
-
     }//GEN-LAST:event_txtNomeActionPerformed
 
     private void txtFiltroTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroTipoActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtFiltroTipoActionPerformed
-
+    /**
+     * Metodo para filtrar na tabela produto por tipo
+     *
+     * @param evt
+     */
     private void txtFiltroTipoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroTipoKeyTyped
-        // TODO add your handling code here:         
         txtFiltroTipo.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -1310,7 +1325,11 @@ public class telaVendedor extends javax.swing.JFrame {
         trs = new TableRowSorter(tblVenda);
         tabelaVenda.setRowSorter(trs);
     }//GEN-LAST:event_txtFiltroTipoKeyTyped
-
+    /**
+     * Metodo para filtrar na tabela produto por codigo do fabricante
+     *
+     * @param evt
+     */
     private void txtFiltroCodigoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroCodigoKeyTyped
         txtFiltroCodigo.addKeyListener(new KeyAdapter() {
 
@@ -1326,11 +1345,13 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFiltroCodigoKeyTyped
 
     private void txtFiltroMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFiltroMarcaActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtFiltroMarcaActionPerformed
-
+    /**
+     * Metodo para filtrar na tabela produto por marca
+     *
+     * @param evt
+     */
     private void txtFiltroMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFiltroMarcaKeyTyped
-        // TODO add your handling code here:
         txtFiltroMarca.addKeyListener(new KeyAdapter() {
 
             @Override
@@ -1343,7 +1364,11 @@ public class telaVendedor extends javax.swing.JFrame {
         trs = new TableRowSorter(tblVenda);
         tabelaVenda.setRowSorter(trs);
     }//GEN-LAST:event_txtFiltroMarcaKeyTyped
-
+    /**
+     * Botão para adicionar um produto no carrinho
+     *
+     * @param evt
+     */
     private void btAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAdicionarActionPerformed
         int quantidade;//Variavel para salvar a quantidade de produtos
         double valor;//Variavel para salvar o valor dos produtos
@@ -1373,9 +1398,9 @@ public class telaVendedor extends javax.swing.JFrame {
             int n2 = 1;
 
             for (int i = 0; i < tabelaVenda.getRowCount(); i++) {
-                 if (busca.equals(tabelaVenda.getModel().getValueAt(i, 3))) {
-                n2 = Integer.parseInt((tabelaVenda.getValueAt(i, 3).toString()));
-                 }
+                if (busca.equals(tabelaVenda.getModel().getValueAt(i, 3))) {
+                    n2 = Integer.parseInt((tabelaVenda.getValueAt(i, 3).toString()));
+                }
             }
             if (quantidade <= n2) {
                 String valores[] = new String[5];
@@ -1429,20 +1454,24 @@ public class telaVendedor extends javax.swing.JFrame {
                     }
 
                 }
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Quantidade indisponivel");
             }
-                if (adicionar == false) {
-                    JOptionPane.showMessageDialog(null, "ID não encontrado");
-                }
+            if (adicionar == false) {
+                JOptionPane.showMessageDialog(null, "ID não encontrado");
+            }
 
-            }catch (Exception e) {
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Erro!!!");
         }
 
 
     }//GEN-LAST:event_btAdicionarActionPerformed
-
+    /**
+     * Metodo para adicionar um produto no carrinho clicando na tabela
+     *
+     * @param evt
+     */
     private void tabelaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVendaMouseClicked
 
         if (venda == true) {
@@ -1511,11 +1540,19 @@ public class telaVendedor extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_tabelaVendaMouseClicked
-
+    /**
+     * Botão para chamar metodo para limpar o carrinho
+     *
+     * @param evt
+     */
     private void btLimparCarrinhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparCarrinhoActionPerformed
         LimparCarrinho();
     }//GEN-LAST:event_btLimparCarrinhoActionPerformed
-
+    /**
+     * Botão para finalizar compra
+     *
+     * @param evt
+     */
     private void btFinalizarCompraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btFinalizarCompraActionPerformed
         int id = idVendedor;
         int id_venda = 0;
@@ -1559,9 +1596,13 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btFinalizarCompraActionPerformed
 
     private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_txtDataActionPerformed
-
+    /**
+     * Metodo para clicar na tabela cliente e os dados dele aparecer nos campos
+     * de texto
+     *
+     * @param evt
+     */
     private void tabelaClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaClienteMouseClicked
         pesquisar = true;//Ativa o modo pesquisar cliente
 
@@ -1595,9 +1636,12 @@ public class telaVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_tabelaClienteMouseClicked
 
     private void txtBCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBCpfKeyTyped
-
     }//GEN-LAST:event_txtBCpfKeyTyped
-
+    /**
+     * Botão para iniciar venda
+     *
+     * @param evt
+     */
     private void btIniciarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btIniciarVendaActionPerformed
         if (txtCpfCompra.getText().equals("   .   .   -  ")) {
             txtCpfCompra.requestFocus();
@@ -1622,7 +1666,11 @@ public class telaVendedor extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btIniciarVendaActionPerformed
-
+    /**
+     * Botão para cancelar venda
+     *
+     * @param evt
+     */
     private void btCancelarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarVendaActionPerformed
         LimparCarrinho();
         bloquearCarrinho();
@@ -1633,9 +1681,13 @@ public class telaVendedor extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Venda Cancelada!!!");
 
     }//GEN-LAST:event_btCancelarVendaActionPerformed
-
+    /**
+     * Metodo para filtar na tabela historico de venda por cpf
+     *
+     * @param evt
+     */
     private void txtBuscarCpfKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarCpfKeyTyped
-               txtBuscarCpf.addKeyListener(new KeyAdapter() {
+        txtBuscarCpf.addKeyListener(new KeyAdapter() {
 
             @Override
             public void keyReleased(KeyEvent ke) {
@@ -1648,6 +1700,10 @@ public class telaVendedor extends javax.swing.JFrame {
         tblVendaRealizada.setRowSorter(trs);
     }//GEN-LAST:event_txtBuscarCpfKeyTyped
 
+    /**
+     * Metodo para carregar na tabela os registros dos clientes cadastrados
+     *
+     */
     public void carregarRegistrosCliente() {
 
         ArrayList<String[]> listarRegistros = controllerCliente.CarregarRegistros();
@@ -1686,6 +1742,9 @@ public class telaVendedor extends javax.swing.JFrame {
         tabelaCliente.setDefaultEditor(Object.class, null);
     }
 
+    /**
+     * Metodo para carregar na tabela o historico de vendas
+     */
     public void carregarHistoricoDeVenda() {
         ArrayList<String[]> listarRegistros = ControllerVenda.CarregarHistorico();
         DefaultTableModel VendasRealizadas = new DefaultTableModel();
@@ -1711,6 +1770,9 @@ public class telaVendedor extends javax.swing.JFrame {
         tblVendaRealizada.setDefaultEditor(Object.class, null);
     }
 
+    /**
+     * Metodo para listar os produtos na tabela
+     */
     public void carregarTabelaProdutos() {
         ArrayList<String[]> listarRegistros = ControllerVenda.CarregarProdutos();
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
@@ -1736,6 +1798,9 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo para limpar os campos de texto
+     */
     public void limparCampos() {
         txtNome.setText("");
         txtData.setText("");
@@ -1750,6 +1815,9 @@ public class telaVendedor extends javax.swing.JFrame {
         txtID.setText("");
     }
 
+    /**
+     * Metodo para beixar a tabela carrinho bloqueada antes de inicicar a venda
+     */
     public void bloquearCarrinho() {
         txtCarrinhoID.setEnabled(false);
         txtCarrinhoQuantidade.setEnabled(false);
@@ -1760,6 +1828,9 @@ public class telaVendedor extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Metodo para iniciar a venda liberando o carrinho
+     */
     public void iniciarVenda() {
         txtCarrinhoID.setEnabled(true);
         txtCarrinhoQuantidade.setEnabled(true);
@@ -1769,6 +1840,9 @@ public class telaVendedor extends javax.swing.JFrame {
         btFinalizarCompra.setEnabled(true);
     }
 
+    /**
+     * Metodo para limpar o carrinho quando finalizar a venda
+     */
     public void LimparCarrinho() {
         try {
             DefaultTableModel tblCarrinho = (DefaultTableModel) tabelaCarrinho.getModel();
@@ -1797,11 +1871,17 @@ public class telaVendedor extends javax.swing.JFrame {
         }
 
     }
-    public static void pegaId(int id){
+
+    /**
+     * Metodo para pegar o id do vendedor
+     *
+     * @param int
+     */
+    public static void pegaId(int id) {
         idVendedor = id;
         System.out.println("Pegou  " + idVendedor);
     }
-    
+
     /**
      * @param args the command line arguments
      */
