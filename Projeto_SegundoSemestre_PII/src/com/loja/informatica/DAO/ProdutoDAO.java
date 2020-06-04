@@ -139,11 +139,10 @@ public class ProdutoDAO {
             conexao = ConexaoMysql.abrirConexao();
 
             instrucaoSQL = conexao.prepareStatement("select produto.descricao,produto.modelo_codigo, tipo_produto.modelo_tipo,"
-                    + "produto.quantidade, produto.marca,  produto.preco from tipo_produto"
+                    + "produto.quantidade, produto.marca,  produto.preco, produto.observacao from tipo_produto"
                     + " inner join produto on tipo_produto.id_tipo = produto.Id_tipo where produto.modelo_codigo = ?");
 
             instrucaoSQL.setString(1, busca);
-            System.out.println(" dao 1  ");
 
             resultado = instrucaoSQL.executeQuery();
 
@@ -161,7 +160,7 @@ public class ProdutoDAO {
                 produto.setTipo(tipo);
                 produto.setQuantidade(resultado.getInt("quantidade"));
                 produto.setPreco(resultado.getDouble("preco"));
-                //produto.setObservacao(resultado.getString("observacao"));
+                produto.setObservacao(resultado.getString("observacao"));
 
                 listarRegistros.add(produto);
 
@@ -208,7 +207,6 @@ public class ProdutoDAO {
                     + " inner join produto on tipo_produto.id_tipo = produto.Id_tipo where produto.descricao = ?");
 
             instrucaoSQL.setString(1, busca);
-            System.out.println(" dao 1  ");
 
             resultado = instrucaoSQL.executeQuery();
 
@@ -273,8 +271,6 @@ public class ProdutoDAO {
                     + " inner join produto on tipo_produto.id_tipo = produto.Id_tipo where tipo_produto.modelo_tipo = ?");
 
             instrucaoSQL.setString(1, busca);
-            System.out.println(" dao 1  ");
-
             resultado = instrucaoSQL.executeQuery();
 
             while (resultado.next()) {
@@ -342,11 +338,6 @@ public class ProdutoDAO {
             instrucaoSQL.setString(6, produto.getObservacao());
             instrucaoSQL.setString(7, produto.getModelo_codigo());
            
-         
-            
-
-            System.out.println("teste33333333");    
-            
             int linhasAfetadas = instrucaoSQL.executeUpdate();
 
             if (linhasAfetadas >= 1) {

@@ -1291,11 +1291,11 @@ public class telaAdministrador extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Descrição", "Código Fabricante", "Tipo / Grupo", "Quantidade", "Marca", "Preço R$"
+                "Descrição", "Código Fabricante", "Tipo / Grupo", "Quantidade", "Marca", "Preço R$", "Observações"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, true
+                false, false, false, false, false, false, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -1492,6 +1492,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         
         } catch (Exception e) {
             voltarParaCadastro();
+            JOptionPane.showMessageDialog(null, "Caracter invalido!");
             
         }
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
@@ -1503,7 +1504,6 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
         txtMarca.setEnabled(true);
-        cboTipo.setEnabled(true);
         txtObservacao.setEnabled(true);
         txtPreco.setEnabled(true);
         btnCriar.setEnabled(true);
@@ -1511,6 +1511,7 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         //desabilita a edição do campo Código Fabricante, poois e primary ky
         txtCodFabricante.setEnabled(false);
+        cboTipo.setEnabled(false);
 
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
 
@@ -1549,15 +1550,10 @@ public class telaAdministrador extends javax.swing.JFrame {
                                 btnEntradaProdutoEstoque.setEnabled(true);
                                 btnDeletarProduto.setEnabled(true);
                                 btnNovo.setEnabled(true);
-
-                                System.out.println("AQui 1");
-
-                                System.out.println("AQUI 2");
+                                
                                 ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosCodigoFabricante(busca);
-                                System.out.println("AQUI 3");
+                                
                                 DefaultTableModel tabelaRegistros = new DefaultTableModel();
-
-                                System.out.println("AQUI 4");
 
                                 tabelaRegistros.addColumn("Descrição");
                                 tabelaRegistros.addColumn("Código Fabricante");
@@ -1604,14 +1600,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                                 btnDeletarProduto.setEnabled(true);
                                 btnNovo.setEnabled(true);
 
-                                //pega valor do index da linha da tabela para podemos auterar os parametros...
-                                //indexLinha = i;
-                                System.out.println("AQUI 2");
                                 ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosDescricao(busca);
-                                System.out.println("AQUI 3");
                                 DefaultTableModel tabelaRegistros = new DefaultTableModel();
-
-                                System.out.println("AQUI 4");
 
                                 tabelaRegistros.addColumn("Descrição");
                                 tabelaRegistros.addColumn("Código Fabricante");
@@ -1660,12 +1650,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                                 //pega valor do index da linha da tabela para podemos auterar os parametros...
                                 indexLinha = i;
 
-                                System.out.println("AQUI 2");
                                 ArrayList<String[]> listarProdutos = ControllerProduto.buscarRegistrosTipo(busca);
-                                System.out.println("AQUI 3");
                                 DefaultTableModel tabelaRegistros = new DefaultTableModel();
-
-                                System.out.println("AQUI 4");
 
                                 tabelaRegistros.addColumn("Descrição");
                                 tabelaRegistros.addColumn("Código Fabricante");
@@ -1873,6 +1859,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         tabelaRegistros.addColumn("Quantidade");
         tabelaRegistros.addColumn("Marca");
         tabelaRegistros.addColumn("Preço R$");
+        tabelaRegistros.addColumn("Descrições");
 
         tblProdutos.setModel(tabelaRegistros);
 
@@ -1883,7 +1870,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                 percorrerRegistros[2],
                 percorrerRegistros[3],
                 percorrerRegistros[4],
-                percorrerRegistros[5],});
+                percorrerRegistros[5],
+                percorrerRegistros[6]});
         }
         tblProdutos.setDefaultEditor(Object.class, null);
     }
@@ -2407,6 +2395,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtQuantidade.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 3).toString());
         txtMarca.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 4).toString());
         txtPreco.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 5).toString());
+        txtObservacao.setText(tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 6).toString());
+        
 
         //desabilita os campos de texto, deixando apenas eles visiveis
         txtDescricao.setEnabled(false);
@@ -2420,8 +2410,6 @@ public class telaAdministrador extends javax.swing.JFrame {
         //verifca a linha clicada e atualiza a tabela contendo apenas esse valor
         String busca = tblProdutos.getValueAt(tblProdutos.getSelectedRow(), 1).toString();
         txtBusca.setText(busca);
-
-        System.out.println(busca);
 
         for (int i = 0; i < tblProdutos.getRowCount(); i++) {
             //pega linha da tabela
@@ -2443,6 +2431,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 tabelaRegistros.addColumn("Quantidade");
                 tabelaRegistros.addColumn("Marca");
                 tabelaRegistros.addColumn("Preco R$");
+                tabelaRegistros.addColumn("Descrições");
 
                 tblProdutos.setModel(tabelaRegistros);
 
@@ -2453,7 +2442,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                         percorrerRegistros[2],
                         percorrerRegistros[3],
                         percorrerRegistros[4],
-                        percorrerRegistros[5]
+                        percorrerRegistros[5],
+                        percorrerRegistros[6],
 
                     });
 

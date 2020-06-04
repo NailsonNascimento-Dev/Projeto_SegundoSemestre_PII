@@ -52,7 +52,8 @@ public class ControllerProduto {
 
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getMarca()),
-                String.valueOf(produto.getPreco()),});
+                String.valueOf(produto.getPreco()),
+                String.valueOf(produto.getObservacao())});
         }
 
         return retorno;
@@ -61,44 +62,36 @@ public class ControllerProduto {
 
     public static ArrayList<String[]> buscarRegistrosCodigoFabricante(String busca) {
 
-        System.out.println("Controller AQui 1");
         ArrayList<Produto> listarRegistros = new ArrayList<>();
 
         ArrayList<String[]> retorno = new ArrayList<>();
 
-        System.out.println("Controller AQui 2");
         listarRegistros = ProdutoDAO.buscarRegistrosCodigoFabricante(busca);
 
-        System.out.println("Controller AQui 3");
         for (Produto produto : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(produto.getDescricao()),
                 String.valueOf(produto.getModelo_codigo()),
                 String.valueOf(produto.getTipo().getModelo_tipo()),
-                //String.valueOf(produto.getTipo().getId_tipo()),
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getMarca()),
-                String.valueOf(produto.getPreco()), //String.valueOf(produto.getObservacao()),
-            });
+                String.valueOf(produto.getPreco()),
+                String.valueOf(produto.getObservacao()) });
 
         }
 
-        System.out.println("Controller AQui 4");
         return retorno;
 
     }
 
     public static ArrayList<String[]> buscarRegistrosDescricao(String busca) {
 
-        System.out.println("Controller AQui 1");
         ArrayList<Produto> listarRegistros = new ArrayList<>();
 
         ArrayList<String[]> retorno = new ArrayList<>();
 
-        System.out.println("Controller AQui 2");
         listarRegistros = ProdutoDAO.buscarRegistrosDescricao(busca);
 
-        System.out.println("Controller AQui 3");
         for (Produto produto : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(produto.getDescricao()),
@@ -112,22 +105,18 @@ public class ControllerProduto {
 
         }
 
-        System.out.println("Controller AQui 4");
         return retorno;
 
     }
 
     public static ArrayList<String[]> buscarRegistrosTipo(String busca) {
 
-        System.out.println("Controller AQui 1");
         ArrayList<Produto> listarRegistros = new ArrayList<>();
 
         ArrayList<String[]> retorno = new ArrayList<>();
 
-        System.out.println("Controller AQui 2");
         listarRegistros = ProdutoDAO.buscarRegistrosTipo(busca);
 
-        System.out.println("Controller AQui 3");
         for (Produto produto : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(produto.getDescricao()),
@@ -141,7 +130,6 @@ public class ControllerProduto {
 
         }
 
-        System.out.println("Controller AQui 4");
         return retorno;
 
     }
@@ -159,7 +147,6 @@ public class ControllerProduto {
         produto.setPreco(preco);
         produto.setObservacao(observacao);
 
-        System.out.println("teste 22222");
         return ProdutoDAO.atualizarProduto(produto);
 
     }
