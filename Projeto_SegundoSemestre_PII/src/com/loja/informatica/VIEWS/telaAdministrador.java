@@ -2341,6 +2341,9 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
         tabelaRelatorios.setDefaultEditor(Object.class, null);
+        
+        DefaultTableModel tabelaRelatorioDft2 = (DefaultTableModel) tabelaRelatorios2.getModel();
+        tabelaRelatorioDft2.setNumRows(0);
 
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
 
