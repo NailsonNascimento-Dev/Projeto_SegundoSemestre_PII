@@ -73,7 +73,7 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton1);
-        jButton1.setBounds(270, 290, 80, 25);
+        jButton1.setBounds(270, 290, 80, 32);
 
         jButton2.setText("sair");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -82,11 +82,11 @@ public class TelaLogin extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton2);
-        jButton2.setBounds(360, 290, 70, 25);
+        jButton2.setBounds(360, 290, 70, 32);
 
         jLabel1.setText("Usuario");
         jPanel1.add(jLabel1);
-        jLabel1.setBounds(110, 190, 60, 15);
+        jLabel1.setBounds(110, 190, 60, 16);
 
         jLabel3.setText("Senha");
         jPanel1.add(jLabel3);
@@ -94,7 +94,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Administrador"));
 
-        jLabel4.setText(" Usuario: admin  Senha:1234");
+        jLabel4.setText(" Usuario ID: 1  Senha:1234");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -115,7 +115,7 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Vendedor"));
 
-        jLabel5.setText("Usuario: vendedor Senha:1234");
+        jLabel5.setText("Usuario ID: 2 Senha:1234");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);

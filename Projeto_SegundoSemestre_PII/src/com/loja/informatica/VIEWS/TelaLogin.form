@@ -156,7 +156,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value=" Usuario: admin  Senha:1234"/>
+                <Property name="text" type="java.lang.String" value=" Usuario ID: 1  Senha:1234"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -194,7 +194,7 @@
           <SubComponents>
             <Component class="javax.swing.JLabel" name="jLabel5">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Usuario: vendedor Senha:1234"/>
+                <Property name="text" type="java.lang.String" value="Usuario ID: 2 Senha:1234"/>
               </Properties>
             </Component>
           </SubComponents>
