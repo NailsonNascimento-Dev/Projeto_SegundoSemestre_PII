@@ -95,7 +95,7 @@ public class ControllerProduto {
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getMarca()),
                 String.valueOf(produto.getPreco()),
-                String.valueOf(produto.getObservacao()) });
+                String.valueOf(produto.getObservacao())});
 
         }
 
@@ -123,8 +123,8 @@ public class ControllerProduto {
                 //String.valueOf(produto.getTipo().getId_tipo()),
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getMarca()),
-                String.valueOf(produto.getPreco()), //String.valueOf(produto.getObservacao()),
-            });
+                String.valueOf(produto.getPreco()),
+                String.valueOf(produto.getObservacao())});
 
         }
 
@@ -152,7 +152,8 @@ public class ControllerProduto {
                 //String.valueOf(produto.getTipo().getId_tipo()),
                 String.valueOf(produto.getQuantidade()),
                 String.valueOf(produto.getMarca()),
-                String.valueOf(produto.getPreco()), //String.valueOf(produto.getObservacao()),
+                String.valueOf(produto.getPreco()),
+                String.valueOf(produto.getObservacao())
             });
 
         }

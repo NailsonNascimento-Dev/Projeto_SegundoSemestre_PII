@@ -224,7 +224,7 @@ public class ProdutoDAO {
             conexao = ConexaoMysql.abrirConexao();
             //prepara a string para enviar ao banco de dados.
             instrucaoSQL = conexao.prepareStatement("select produto.descricao,produto.modelo_codigo, tipo_produto.modelo_tipo,"
-                    + "produto.quantidade, produto.marca,  produto.preco from tipo_produto"
+                    + "produto.quantidade, produto.marca, produto.preco, produto.observacao from tipo_produto"
                     + " inner join produto on tipo_produto.id_tipo = produto.Id_tipo where produto.descricao = ?");
 
             instrucaoSQL.setString(1, busca);
@@ -293,7 +293,7 @@ public class ProdutoDAO {
             conexao = ConexaoMysql.abrirConexao();
             //prepara a string para enviar ao banco de dados.
             instrucaoSQL = conexao.prepareStatement("select produto.descricao,produto.modelo_codigo, tipo_produto.modelo_tipo,"
-                    + "produto.quantidade, produto.marca,  produto.preco from tipo_produto"
+                    + "produto.quantidade, produto.marca,  produto.preco, produto.observacao from tipo_produto"
                     + " inner join produto on tipo_produto.id_tipo = produto.Id_tipo where tipo_produto.modelo_tipo = ?");
 
             instrucaoSQL.setString(1, busca);

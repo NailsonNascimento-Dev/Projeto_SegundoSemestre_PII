@@ -1569,6 +1569,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                                 tabelaRegistros.addColumn("Quantidade");
                                 tabelaRegistros.addColumn("Marca");
                                 tabelaRegistros.addColumn("Preco R$");
+                                tabelaRegistros.addColumn("Observação");
 
                                 tblProdutos.setModel(tabelaRegistros);
 
@@ -1579,7 +1580,9 @@ public class telaAdministrador extends javax.swing.JFrame {
                                         percorrerRegistros[2],
                                         percorrerRegistros[3],
                                         percorrerRegistros[4],
-                                        percorrerRegistros[5]
+                                        percorrerRegistros[5],
+                                        percorrerRegistros[6]
+                                        
 
                                     });
 
@@ -1617,6 +1620,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                                 tabelaRegistros.addColumn("Quantidade");
                                 tabelaRegistros.addColumn("Marca");
                                 tabelaRegistros.addColumn("Preco R$");
+                                tabelaRegistros.addColumn("Observação");
 
                                 tblProdutos.setModel(tabelaRegistros);
 
@@ -1627,7 +1631,9 @@ public class telaAdministrador extends javax.swing.JFrame {
                                         percorrerRegistros[2],
                                         percorrerRegistros[3],
                                         percorrerRegistros[4],
-                                        percorrerRegistros[5]
+                                        percorrerRegistros[5],
+                                        percorrerRegistros[6]
+                                        
 
                                     });
 
@@ -1667,6 +1673,8 @@ public class telaAdministrador extends javax.swing.JFrame {
                                 tabelaRegistros.addColumn("Quantidade");
                                 tabelaRegistros.addColumn("Marca");
                                 tabelaRegistros.addColumn("Preco R$");
+                                tabelaRegistros.addColumn("Observação");
+                                
 
                                 tblProdutos.setModel(tabelaRegistros);
 
@@ -1677,7 +1685,9 @@ public class telaAdministrador extends javax.swing.JFrame {
                                         percorrerRegistros[2],
                                         percorrerRegistros[3],
                                         percorrerRegistros[4],
-                                        percorrerRegistros[5]
+                                        percorrerRegistros[5],
+                                        percorrerRegistros[6]
+                                            
 
                                     });
 
@@ -1882,7 +1892,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         tabelaRegistros.addColumn("Quantidade");
         tabelaRegistros.addColumn("Marca");
         tabelaRegistros.addColumn("Preço R$");
-        tabelaRegistros.addColumn("Descrições");
+        tabelaRegistros.addColumn("Observações");
 
         tblProdutos.setModel(tabelaRegistros);
 
@@ -2498,7 +2508,7 @@ public class telaAdministrador extends javax.swing.JFrame {
                 tabelaRegistros.addColumn("Quantidade");
                 tabelaRegistros.addColumn("Marca");
                 tabelaRegistros.addColumn("Preco R$");
-                tabelaRegistros.addColumn("Descrições");
+                tabelaRegistros.addColumn("Observação");
 
                 tblProdutos.setModel(tabelaRegistros);
 
