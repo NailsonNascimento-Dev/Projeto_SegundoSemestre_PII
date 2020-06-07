@@ -1853,7 +1853,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         ArrayList<String[]> listarRegistros = ControllerProduto.CarregarProduto();
         DefaultTableModel tabelaRegistros = new DefaultTableModel();
 
-        tabelaRegistros.addColumn("descricao");
+        tabelaRegistros.addColumn("Descricao");
         tabelaRegistros.addColumn("Código Fabricante");
         tabelaRegistros.addColumn("Tipo / Grupo");
         tabelaRegistros.addColumn("Quantidade");
@@ -2107,7 +2107,10 @@ public class telaAdministrador extends javax.swing.JFrame {
     private void fieldPW_2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fieldPW_2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_fieldPW_2ActionPerformed
-
+/**
+ * Metodo desenvolvido para recarregar os registo da tabela de funcionarios
+ * @param evt 
+ */
     private void buttonRecarregarRegistrosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRecarregarRegistrosActionPerformed
         carregarRegistrosFuncionarios();
         fieldBuscarFuncionarios.setText("");
@@ -2300,7 +2303,10 @@ public class telaAdministrador extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_buttonExportarExcelActionPerformed
-
+/**
+ * Metodo desenvolvido no botão gerar relatorio para gerar um relatorio buscando atraves de uma data inicial e uma data final e esses registros são mostrados na tabela de relatorio.
+ * @param evt 
+ */
     private void buttonGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGerarRelatorioActionPerformed
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
@@ -2334,7 +2340,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         tabelaRelatorioDft2.setNumRows(0);
 
     }//GEN-LAST:event_buttonGerarRelatorioActionPerformed
-
+/**
+ * Metodo desenvolvido no evento do clique no mouse em uma determinada linha em especifico da tabela de relatorios, 
+ * assim sera exibido na segunda tabela os detalhes da venda da qual você clicou.
+ * @param evt 
+ */
     private void tabelaRelatoriosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaRelatoriosMouseClicked
         int idVenda = Integer.parseInt(tabelaRelatorios.getValueAt(tabelaRelatorios.getSelectedRow(), 0).toString());
 
@@ -2364,7 +2374,10 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         tabelaRelatorios2.setDefaultEditor(Object.class, null);
     }//GEN-LAST:event_tabelaRelatoriosMouseClicked
-
+/**
+ * Metodo desenvolvido para limpar as tabelas de relatorios
+ * @param evt 
+ */
     private void buttonLimparTabelasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLimparTabelasActionPerformed
         DefaultTableModel tabelaRelatorioDft1 = (DefaultTableModel) tabelaRelatorios.getModel();
         tabelaRelatorioDft1.setNumRows(0);
@@ -2372,6 +2385,10 @@ public class telaAdministrador extends javax.swing.JFrame {
         tabelaRelatorioDft2.setNumRows(0);
     }//GEN-LAST:event_buttonLimparTabelasActionPerformed
 
+    /**
+     * Faz a mesma coisa que o botão de exportar para excel 1 porém esse exporta a tabela de baixo que seria referente aos detalhes da venda
+     * @param evt 
+     */
     private void buttonExportarExcel2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonExportarExcel2ActionPerformed
         File arquivo = new File("Excel2.txt");
 
