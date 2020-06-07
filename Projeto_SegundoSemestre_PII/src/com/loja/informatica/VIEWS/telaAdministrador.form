@@ -1325,7 +1325,6 @@
                 </Component>
                 <Component class="javax.swing.JFormattedTextField" name="txtPreco">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPrecoActionPerformed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPrecoKeyTyped"/>
                   </Events>
                 </Component>
@@ -1408,7 +1407,6 @@
               <SubComponents>
                 <Component class="javax.swing.JTextField" name="txtBusca">
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBuscaActionPerformed"/>
                     <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtBuscaKeyTyped"/>
                   </Events>
                 </Component>

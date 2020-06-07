@@ -1179,11 +1179,6 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jLabel26.setText("Preço  *        R$ ");
 
-        txtPreco.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPrecoActionPerformed(evt);
-            }
-        });
         txtPreco.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtPrecoKeyTyped(evt);
@@ -1275,11 +1270,6 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Produtos Cadastrados"));
 
-        txtBusca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscaActionPerformed(evt);
-            }
-        });
         txtBusca.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscaKeyTyped(evt);
@@ -1437,7 +1427,11 @@ public class telaAdministrador extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**
+     * 
+     * @param evt 
+     * função para deletar/excluir o produto atraves do botão
+     */
     private void btnDeletarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletarProdutoActionPerformed
         int resposta = JOptionPane.showConfirmDialog(this, "Tem certeza que deseja excluir o produto?", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
 
@@ -1461,9 +1455,13 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Operação Cancelada!", "Aviso!", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_btnDeletarProdutoActionPerformed
-
+    /**
+     * funcão para dar entrada a uma nova quantidade de produtos ao estoque 
+     * observação o produto já deve estar cadastrado.
+     * @param evt 
+     * @throws caso seja inserido um caracter invalido ou até mesmo um numero negativo
+     */
     private void btnEntradaProdutoEstoqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntradaProdutoEstoqueActionPerformed
-        // TODO add your handling code here:
 
         String quandidaEntrada = JOptionPane.showInputDialog("Quantos itens do produto deseja incluir: ");
         
@@ -1496,11 +1494,16 @@ public class telaAdministrador extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_btnEntradaProdutoEstoqueActionPerformed
-
+    /**
+     * função para edição de produtos
+     * Observação o produto precisa estar cadastrado
+     * @param evt 
+     * 
+     */
     private void btnEditarProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarProdutoActionPerformed
-        // TODO add your handling code here:
+        
 
-        //Abilita campos para nova edição
+        //habilita campos para nova edição
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
         txtMarca.setEnabled(true);
@@ -1514,7 +1517,12 @@ public class telaAdministrador extends javax.swing.JFrame {
         cboTipo.setEnabled(false);
 
     }//GEN-LAST:event_btnEditarProdutoActionPerformed
-
+    /**
+     * função para realizar busca de produtos cadastrados
+     * Observação os produtos podem ser buscados por "Código Fabricante", 
+     * "Busca Descrição" e "Busca tipo/Grupo"
+     * @param evt 
+     */
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
 
         if (txtBusca.equals("")) {
@@ -1691,14 +1699,22 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         //final
     }//GEN-LAST:event_btnBuscaActionPerformed
-
+    /**
+     * função para validar se o que é digitado no campo "preço' esta corrato,
+     * se estiver incorreto ele alerda o usuário para utilizar somente caracteres permitidos
+     * @param evt 
+     * @see internamente ele chama a função validacaoCaracterNumero
+     */
     private void txtPrecoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecoKeyTyped
         validacaoCaracterNumero(evt);
     }//GEN-LAST:event_txtPrecoKeyTyped
-
+     /**
+     * função para resetar janela e voltar para forma de cadastro de produtos
+     * @param evt 
+     * 
+     */
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
-
+        //verifica se busca está ativa
         buscaAtivada = false;
 
         btnCriar.setEnabled(true);
@@ -1706,7 +1722,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         btnDeletarProduto.setEnabled(false);
         btnEntradaProdutoEstoque.setEnabled(false);
         btnNovo.setEnabled(false);
-
+        
+        //lipeza de campos 
         txtDescricao.setText("");
         txtCodFabricante.setText("");
         txtMarca.setText("");
@@ -1716,7 +1733,8 @@ public class telaAdministrador extends javax.swing.JFrame {
         btnCriar.setText("Cadastrar");
         txtBusca.setText("");
         carregarRegistrosProduto();
-
+        
+        //ativação dos botões
         txtDescricao.setEnabled(true);
         txtCodFabricante.setEnabled(true);
         txtMarca.setEnabled(true);
@@ -1726,7 +1744,10 @@ public class telaAdministrador extends javax.swing.JFrame {
         txtPreco.setEnabled(true);
 
     }//GEN-LAST:event_btnNovoActionPerformed
-
+    /**
+     * funcao para criação de novo produto
+     * @param evt 
+     */
     private void btnCriarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCriarActionPerformed
 
         try {
@@ -1847,7 +1868,9 @@ public class telaAdministrador extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Erro no cadastro");
         }
     }//GEN-LAST:event_btnCriarActionPerformed
-
+    /**
+     * função para carregamento de produtos na tabela de produtos.
+     */
     public void carregarRegistrosProduto() {
 
         ArrayList<String[]> listarRegistros = ControllerProduto.CarregarProduto();
@@ -1875,29 +1898,54 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
         tblProdutos.setDefaultEditor(Object.class, null);
     }
-
+    /**
+     * função para busca dos tipos de produtos permitidos
+     * observação ao trazer os tipos registrados no banco, o combobox:"cboTipo"
+     * é prenchido com o resultado.
+     */
     public void carregarTipoProdutos() {
         ArrayList<TipoProduto> listartipoProdutos = ControllerTipoProduto.CarregaTipoProduto();
-
+        
+        //laço para obtenção dos tipos de produtos cadastrados
         for (TipoProduto tipos : listartipoProdutos) {
             cboTipo.addItem(tipos);
 
         }
 
     }
-
+    /**
+     * função para validaçao dos caracters permetidos na "txtQuantidade"
+     * @param evt 
+     * @see e chamado a função: "validacaoQuantidadeEstoque" 
+     * para validar se a entrada e um numero inteiro
+     */
     private void txtQuantidadeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtQuantidadeKeyTyped
         validacaoQuantidadeEstoque(evt);
     }//GEN-LAST:event_txtQuantidadeKeyTyped
-
+    /**
+     * função para validaçao dos caracters permetidos na "txtMarca"
+     * @param evt 
+     * @see e chamado a função: "validacaoCaracter" 
+     * para validar se a entrada e um caracter valido
+     */
     private void txtMarcaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtMarcaKeyTyped
         validacaoCaracter(evt);
     }//GEN-LAST:event_txtMarcaKeyTyped
-
+    /**
+     * função para validaçao dos caracters permetidos na "txtCodFabricante"
+     * @param evt 
+     * @see e chamado a função: "validacaoCaracter" 
+     * para validar se a entrada e um caracter valido
+     */
     private void txtCodFabricanteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodFabricanteKeyTyped
         validacaoCaracter(evt);
     }//GEN-LAST:event_txtCodFabricanteKeyTyped
-
+    /**
+     * função para validaçao dos caracters permetidos na "txtDescricao"
+     * @param evt 
+     * @see e chamado a função: "validacaoCaracter" 
+     * para validar se a entrada e um caracter valido
+     */
     private void txtDescricaoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDescricaoKeyTyped
         validacaoCaracter(evt);
     }//GEN-LAST:event_txtDescricaoKeyTyped
@@ -2020,10 +2068,7 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_fieldBairroKeyTyped
 
-    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
-
-    }//GEN-LAST:event_txtPrecoActionPerformed
-                   
+                  
     private void txtDescricaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescricaoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtDescricaoActionPerformed
@@ -2402,7 +2447,12 @@ public class telaAdministrador extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_buttonExportarExcel2ActionPerformed
-
+    /**
+     * função para pegar o clique do mouse na tabela,
+     * utilizada para pegar um resgistro de produto dentro da lista de produtos 
+     * cadastrados.
+     * @param evt 
+     */
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
 
         //passa valores da tabela para os campos de texto de cadastro/alteração
@@ -2474,10 +2524,6 @@ public class telaAdministrador extends javax.swing.JFrame {
 
         buscaAtivada = true;
     }//GEN-LAST:event_tblProdutosMouseClicked
-
-    private void txtBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscaActionPerformed
 
     /**
      * Evento desenvolvido para validação de caracteries

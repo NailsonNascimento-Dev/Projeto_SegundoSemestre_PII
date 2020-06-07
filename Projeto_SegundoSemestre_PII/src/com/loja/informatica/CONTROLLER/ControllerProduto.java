@@ -14,8 +14,20 @@ import java.util.ArrayList;
  *
  * @author Nailson Nascimento <nailsonbr@gmail.com>
  */
+
 public class ControllerProduto {
 
+    /**
+     * função para criação do produto e envio para classe ProdutoDAO
+     * @param descricao
+     * @param modelo_codigo
+     * @param marca
+     * @param tipo
+     * @param quantidade
+     * @param preco
+     * @param observacao
+     * @return - retorna um boolean se foi ou não cadastrado
+     */
     //descricao, modelo_codigo, marca, tipo, quantidade, preco, observacao
     public static boolean CadastrarProduto(String descricao, String modelo_codigo, String marca, TipoProduto tipo,
             int quantidade, double preco, String observacao) {
@@ -34,7 +46,10 @@ public class ControllerProduto {
         //System.out.println("id: " + tipo.getId_tipo() + "Descricao: " + tipo.getModelo_tipo());
         return ProdutoDAO.cadastrarProduto(produto);
     }
-
+    /**
+     * função para buscar produtos cadastrados
+     * @return - retorna um ArrayList com os produtos cadastrados
+     */
     public static ArrayList<String[]> CarregarProduto() {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
@@ -59,7 +74,11 @@ public class ControllerProduto {
         return retorno;
 
     }
-
+    /**
+     * função para buscar registros no banco 
+     * @param busca
+     * @return - retorna um ArrayList com o produto selecionado, através do codigo do fabricante
+     */
     public static ArrayList<String[]> buscarRegistrosCodigoFabricante(String busca) {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
@@ -83,7 +102,11 @@ public class ControllerProduto {
         return retorno;
 
     }
-
+    /**
+     * função para buscar registros no banco 
+     * @param busca
+     * @return - retorna um ArrayList com o produto selecionado, através da Descrição
+     */
     public static ArrayList<String[]> buscarRegistrosDescricao(String busca) {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
@@ -108,7 +131,11 @@ public class ControllerProduto {
         return retorno;
 
     }
-
+    /**
+     * função para buscar registros no banco 
+     * @param busca
+     * @return - retorna um ArrayList com o produto selecionado, através do tipo do produto
+     */
     public static ArrayList<String[]> buscarRegistrosTipo(String busca) {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
@@ -133,7 +160,18 @@ public class ControllerProduto {
         return retorno;
 
     }
-
+    /**
+     * função para alterar o produto
+     * observação recebe os valores alterados para salvar no produto
+     * @param descricao
+     * @param modelo_codigo
+     * @param marca
+     * @param tipo
+     * @param quantidade
+     * @param preco
+     * @param observacao
+     * @return 
+     */
     public static boolean AlterarProduto(String descricao, String modelo_codigo, String marca, TipoProduto tipo,
             int quantidade, double preco, String observacao) {
 
@@ -150,12 +188,21 @@ public class ControllerProduto {
         return ProdutoDAO.atualizarProduto(produto);
 
     }
-
+    /**
+     * função para excluir um determinado produto através do seu codigo do fabricante 
+     * @param codigoFabricante - recebe um string "codigo do fabricante" para realizarmos a exlcusão
+     * @return - retorna um boolean "true" para iten exluido ou "false" para erro.
+     */
     public static boolean ExcluirRegistro(String codigoFabricante) {
 
         return ProdutoDAO.excluirProduto(codigoFabricante);
     }
-
+    /**
+     * função para adicionar uma determinada quantidade de produtos ao estoque 
+     * @param codigoFabricante - String para selecionar o produto atraves do seu codigo do fabricante
+     * @param quantidade - Int com a quantiade de produtos a serem adicionados
+     * @return - retorna um boolean "true" para produtos diconados com sucesso "false" se der erro
+     */
     public static boolean adicionarProduto(String codigoFabricante, int quantidade) {
 
         return ProdutoDAO.adicionarProduto(codigoFabricante, quantidade);
