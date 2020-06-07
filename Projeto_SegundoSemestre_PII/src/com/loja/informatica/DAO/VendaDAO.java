@@ -21,6 +21,11 @@ import java.util.ArrayList;
  */
 public class VendaDAO {
 
+    /**
+     * metodo para carregar os produtos
+     *
+     * @return retorna um array list com os dados do produdo
+     */
     public static ArrayList<Produto> carregarRegistros() {
         ResultSet resultado = null;
         Connection conexao = null;
@@ -73,6 +78,14 @@ public class VendaDAO {
 
     }
 
+    /**
+     * Metodo para realizar venda
+     *
+     * @param cliente
+     * @param funcionario
+     * @param produto
+     * @return retorna um boolean true caso finalize a venda e false caso não
+     */
     public static boolean RealizarVenda(cliente cliente, Funcionarios funcionario, Produto produto) {
         boolean retorno = false;
         Connection conexao = null;
@@ -116,6 +129,11 @@ public class VendaDAO {
         return retorno;
     }
 
+    /**
+     * metodo para buscar o id da venda
+     *
+     * @return retorna um int com o numero da venda
+     */
     public static int IdVenda() {
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -154,6 +172,12 @@ public class VendaDAO {
 
     }
 
+    /**
+     * metodo para buscar um produto
+     *
+     * @param produto
+     * @return retorna um boolean true caso ache e false caso não
+     */
     public static boolean DetalhesVenda(Produto produto) {
         boolean retorno = false;
         Connection conexao = null;
@@ -195,6 +219,12 @@ public class VendaDAO {
 
         return retorno;
     }
+
+    /**
+     * Metodo para carregar o historico de venda
+     *
+     * @return retorna um array list com os dados
+     */
 
     public static ArrayList<Produto> carregarHistorico() {
         ResultSet resultado = null;

@@ -15,6 +15,12 @@ import java.util.ArrayList;
  */
 public class ClienteDAO {
 
+    /**
+     * Metodo para cadastrar cliente
+     *
+     * @param cliente
+     * @return retorna um boolean true caso ache e false caso não
+     */
     public static boolean CadastrarCliente(cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
@@ -65,6 +71,12 @@ public class ClienteDAO {
         return retorno;
     }
 
+    /**
+     * Metodo para atualizar os registros do cliete
+     *
+     * @param cliente
+     * @return retorna um boolean true caso altere e false caso não
+     */
     public static boolean atualizarRegistro(cliente cliente) {
         boolean retorno = false;
         Connection conexao = null;
@@ -87,8 +99,6 @@ public class ClienteDAO {
             instrucaoSQL.setString(9, cliente.getEmail());
             instrucaoSQL.setString(10, cliente.getTelefone());
             instrucaoSQL.setString(11, cliente.getCpf());
-            
-            
 
             int linhasAfetadas = instrucaoSQL.executeUpdate();
 
@@ -114,7 +124,13 @@ public class ClienteDAO {
         }
         return retorno;
     }
-    
+
+    /**
+     * Metodo para excluir um cliente
+     *
+     * @param cpf
+     * @return retorna um boolean true caso exclua o registro e false caso não
+     */
     public static boolean excluirRegistro(int cpf) {
         boolean retorno = false;
         Connection conexao = null;
@@ -153,7 +169,13 @@ public class ClienteDAO {
 
     }
 
-        public static ArrayList<cliente> buscarRegistros(String busca) {
+    /**
+     * Metodo para buscar um registro
+     *
+     * @param busca
+     * @return retorna um array list com os dados
+     */
+    public static ArrayList<cliente> buscarRegistros(String busca) {
         ResultSet resultado = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -186,7 +208,6 @@ public class ClienteDAO {
                 cliente.setEmail(resultado.getString("email"));
                 cliente.setTelefone(resultado.getString("fone"));
 
-
                 listarRegistros.add(cliente);
 
             }
@@ -213,8 +234,14 @@ public class ClienteDAO {
         return listarRegistros;
 
     }
-        
-        public static ArrayList<cliente> carregarRegistros() {
+
+    /**
+     * Metodo para carregar os registros do cliente
+     *
+     * @return retorna um array list com os dados
+     */
+
+    public static ArrayList<cliente> carregarRegistros() {
         ResultSet resultado = null;
         Connection conexao = null;
         PreparedStatement instrucaoSQL = null;
@@ -245,7 +272,6 @@ public class ClienteDAO {
                 cliente.setEmail(resultado.getString("email"));
                 cliente.setTelefone(resultado.getString("fone"));
 
-
                 listarRegistros.add(cliente);
 
             }
@@ -272,7 +298,5 @@ public class ClienteDAO {
         return listarRegistros;
 
     }
-    
-   
 
 }
