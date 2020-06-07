@@ -15,7 +15,12 @@ import java.util.ArrayList;
  * @author Marcos Vinícius Santos Souza
  */
 public class ControllerRelatorios {
-
+/**
+ * Metodo desenvolvido para enviar a requisição da view sobre gerar um relatorio passando para classe DAO
+ * @param dataInicio
+ * @param dataFim
+ * @return retorna um array de string contendo os registros das datas em especifico
+ */
     public static ArrayList<String[]> BuscarRegistros(String dataInicio, String dataFim) {
 
         ArrayList<Relatorios> listarRegistros = new ArrayList<>();
@@ -38,7 +43,11 @@ public class ControllerRelatorios {
         return retorno;
 
     }
-    
+    /**
+     * Metodo desenvolvido para enviar a requisição para classe DAO para trazer os detalhes da venda em especifico
+     * @param idVenda
+     * @return retorna um array de string contendo os detalhes de uma venda em especifico pelo seu id
+     */
     public static ArrayList<String[]> buscarRegistroDetalhe(int idVenda){
         
         ArrayList<Relatorios> listarRegistros = new ArrayList<>();
