@@ -18,6 +18,12 @@ import java.util.ArrayList;
  */
 public class ControllerVenda {
 
+    /**
+     *
+     * metodos para buscar os produtos cadastrados
+     *
+     * @return retorna os produtos cadastrados
+     */
     public static ArrayList<String[]> CarregarProdutos() {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
@@ -40,6 +46,16 @@ public class ControllerVenda {
 
     }
 
+    /**
+     * metodo para realizar venda
+     *
+     * @param cpf
+     * @param id
+     * @param quantidade
+     * @param preco
+     * @return retorna uma boolean true casa realize a venda e false caso não
+     */
+
     public static boolean RealizarVenda(String cpf, int id, int quantidade, double preco) {
 
         cliente cliente = new cliente();
@@ -60,6 +76,14 @@ public class ControllerVenda {
         return VendaDAO.IdVenda();
     }
 
+    /**
+     * metodo para ver os datalhes da venda
+     *
+     * @param id
+     * @param modelo
+     * @param quantidade
+     * @return retorna uma boolean true caso ache e false caso não
+     */
     public static boolean DetalhesVenda(int id, String modelo, int quantidade) {
 
         Produto produto = new Produto();
@@ -72,6 +96,11 @@ public class ControllerVenda {
 
     }
 
+    /**
+     * metodo para carregar um historico de vendas
+     *
+     * @return retorna um array list com os detalhes
+     */
     public static ArrayList<String[]> CarregarHistorico() {
 
         ArrayList<Produto> listarRegistros = new ArrayList<>();
@@ -79,7 +108,7 @@ public class ControllerVenda {
         ArrayList<String[]> retorno = new ArrayList<>();
 
         listarRegistros = VendaDAO.carregarHistorico();
-        
+
         for (Produto produto : listarRegistros) {
             retorno.add(new String[]{
                 String.valueOf(produto.getDescricao()),

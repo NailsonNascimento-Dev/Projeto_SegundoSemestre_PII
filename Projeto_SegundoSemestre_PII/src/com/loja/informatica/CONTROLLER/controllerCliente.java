@@ -10,6 +10,24 @@ import java.util.ArrayList;
  */
 public class controllerCliente {
 
+    /**
+     * Metodo para cadastrar cliente
+     *
+     * @param nome
+     * @param sexo
+     * @param data
+     * @param cpf
+     * @param estadoCivil
+     * @param rua
+     * @param cep
+     * @param numeroCasa
+     * @param bairro
+     * @param email
+     * @param telefone
+     * 
+     * @return retorna true caso cadastre um cliente e false caso não
+     *
+     */
     public static boolean CadastrarCliente(String nome, String data, String cpf, String sexo, String estadoCivil, String rua,
             String cep, int numeroCasa, String bairro, String email, String telefone) {
 
@@ -29,6 +47,25 @@ public class controllerCliente {
         return ClienteDAO.CadastrarCliente(cliente);
 
     }
+    
+        /**
+     * Metodo para alterar cliente
+     *
+     * @param nome
+     * @param sexo
+     * @param data
+     * @param cpf
+     * @param estadoCivil
+     * @param rua
+     * @param cep
+     * @param numeroCasa
+     * @param bairro
+     * @param email
+     * @param telefone
+     * 
+     * @return retorna true caso altere um cliente e false caso não
+     *
+     */
 
     public static boolean AlterarCliente(String nome, String data, String sexo, String estadoCivil, String rua,
             String cep, int numeroCasa, String bairro, String email, String telefone, String cpf) {
@@ -50,11 +87,24 @@ public class controllerCliente {
 
     }
     
+    /**
+     * *
+     * @param cpf
+     * @return retorna uma boolean true caso ache e false caso não 
+     */
+
     public static boolean ExcluirRegistro(int cpf) {
 
         return ClienteDAO.excluirRegistro(cpf);
     }
 
+    /**
+     * metodo para buscar um cliente especifico nos registros
+     * 
+     * @param busca
+     * 
+     * @return retorna um array list com o registro buscado 
+     */
     public static ArrayList<String[]> BuscarRegistro(String busca) {
 
         ArrayList<cliente> listarRegistros = new ArrayList<>();
@@ -84,6 +134,12 @@ public class controllerCliente {
         return retorno;
 
     }
+    
+    /**
+     * Metodo para carregar os registros dos cliente
+     * 
+     * @return retorna um array list com os registros buscados 
+     */
 
     public static ArrayList<String[]> CarregarRegistros() {
 
