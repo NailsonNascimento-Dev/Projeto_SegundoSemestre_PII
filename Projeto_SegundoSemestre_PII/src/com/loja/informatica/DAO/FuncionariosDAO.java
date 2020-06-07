@@ -17,10 +17,15 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Azazel
+ * @author Marcos Vinícius Santos Souza
  */
 public class FuncionariosDAO {
 
+    /**
+     * Metodo desenvolvido para inserir um funcionario no banco de dados atraves dos dados enviados da classe ControllerFuncionarios
+     * @param funcionarios
+     * @return retorna true caso os dados passados consigam inserir um novo registro no banco de dados.
+     */
     public static boolean cadastrarFuncionario(Funcionarios funcionarios) {
         boolean retorno = false;
         Connection conexao = null;
@@ -71,7 +76,11 @@ public class FuncionariosDAO {
         return retorno;
 
     }
-
+/**
+ * Metodo desenvolvido para atualizar um registro em especifico no banco de dados
+ * @param funcionarios
+ * @return retorna true caso consiga atualizar os dados desse registro
+ */
     public static boolean atualizarRegistro(Funcionarios funcionarios) {
         boolean retorno = false;
         Connection conexao = null;
@@ -120,7 +129,11 @@ public class FuncionariosDAO {
         }
         return retorno;
     }
-
+/**
+ * Metodo desenvolvido para excluir um registro em especifico pelo seu id no banco de dados
+ * @param id
+ * @return retona true caso consiga excluir um registro em especifico do banco de dados
+ */
     public static boolean excluirRegistro(int id) {
         boolean retorno = false;
         Connection conexao = null;
@@ -158,7 +171,11 @@ public class FuncionariosDAO {
         return retorno;
 
     }
-
+/**
+ * Metodo desenvolvido para buscar um registro especifico ou uma categoria de registros em espefico no banco de dados
+ * @param busca
+ * @return retorna uma lista do objeto funcionario contendo os registros em questão
+ */
     public static ArrayList<Funcionarios> buscarRegistros(String busca) {
         ResultSet resultado = null;
         Connection conexao = null;
@@ -221,7 +238,10 @@ public class FuncionariosDAO {
         return listarRegistros;
 
     }
-
+/**
+ * Metodo desenvolvido para trazer todos os registros da tabela funcionarios.
+ * @return retorna uma lista do objeto funcionario contendo todos os registros da tabela funcionario
+ */
     public static ArrayList<Funcionarios> carregarRegistros() {
         ResultSet resultado = null;
         Connection conexao = null;
@@ -279,7 +299,11 @@ public class FuncionariosDAO {
 
         return listarRegistros;
     }
-
+/**
+ * Metodo desenvolvido para trazer o cargo em espeficio do funcionario baseado em seu login e senha
+ * @param usuario
+ * @return retona uma string contendo o seu cargo assim podendo fazer com que ele se conecte na tela correta na camada view
+ */
     public static String telaLogin(Funcionarios usuario) {
         String cargo = "";
         Connection conexao = null;
