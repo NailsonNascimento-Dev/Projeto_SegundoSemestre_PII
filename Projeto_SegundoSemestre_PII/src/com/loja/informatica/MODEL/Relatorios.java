@@ -8,7 +8,8 @@ package com.loja.informatica.MODEL;
 import java.util.Date;
 
 /**
- *
+ *Classe desenvolvida contendo os atributos para se ter os dados do relatorio das vendas.
+ * Contem tambem os metodos getters and setters para poder modificar os pegar os dados de suas variaveis.
  * @author Marcos Vinícius Santos Souza
  */
 public class Relatorios {
