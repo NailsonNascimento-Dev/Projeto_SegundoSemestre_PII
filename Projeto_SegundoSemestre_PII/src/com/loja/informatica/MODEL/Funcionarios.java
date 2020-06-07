@@ -7,7 +7,8 @@ package com.loja.informatica.MODEL;
 
 
 /**
- *
+ *Classe desenvolvida com os atributos para se poder cadastrar um funcionario.
+ * Contem tambem os seus metodos getters and setters que permitem modificar uma variavel e pegar o dado de uma variavel.
  * @author Azazel
  */
 public class Funcionarios{
