@@ -19,7 +19,12 @@ import java.util.ArrayList;
  * @author Marcos Vinícius Santos Souza
  */
 public class RelatoriosDAO {
-
+/**
+ * Metodo desenvolvido para buscar o registro de vendas entre dois periodos especificos com data inicial e data final.
+ * @param dataInicio
+ * @param dataFim
+ * @return retorna um array list do objeto relatorio contendo as vendas entre periodos especifico.
+ */
     public static ArrayList<Relatorios> gerarRelatorio(String dataInicio, String dataFim) {
         ResultSet resultado = null;
         Connection conexao = null;
@@ -72,7 +77,11 @@ public class RelatoriosDAO {
         return listarRegistros;
 
     }
-
+/**
+ * Metodo desenvolvido para trazer os detalhes de uma venda pelo id da venda.
+ * @param idVenda
+ * @return retorna um array list do objeto relatorios contendo os detalhes da venda.
+ */
     public static ArrayList<Relatorios> gerarRelatorio2(int idVenda) {
         ResultSet resultado = null;
         Connection conexao = null;
