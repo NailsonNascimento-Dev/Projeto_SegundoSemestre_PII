@@ -1398,7 +1398,8 @@ public class telaVendedor extends javax.swing.JFrame {
             int n2 = 1;
 
             for (int i = 0; i < tabelaVenda.getRowCount(); i++) {
-                if (busca.equals(tabelaVenda.getModel().getValueAt(i, 3))) {
+                if (busca.equals(tabelaVenda.getModel().getValueAt(i, 1))) {
+                    adicionar = true;
                     n2 = Integer.parseInt((tabelaVenda.getValueAt(i, 3).toString()));
                 }
             }
@@ -1473,7 +1474,7 @@ public class telaVendedor extends javax.swing.JFrame {
      * @param evt
      */
     private void tabelaVendaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelaVendaMouseClicked
-
+        try {
         if (venda == true) {
             int quan;//Variavel para salvar a quantidade de produtos
             double valor;//Variavel para salvar o valor dos produtos
@@ -1537,7 +1538,10 @@ public class telaVendedor extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Venda não iniciada");
         }
-
+        }
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Item Cancelado...");
+        }
 
     }//GEN-LAST:event_tabelaVendaMouseClicked
     /**
@@ -1879,7 +1883,6 @@ public class telaVendedor extends javax.swing.JFrame {
      */
     public static void pegaId(int id) {
         idVendedor = id;
-        System.out.println("Pegou  " + idVendedor);
     }
 
     /**
