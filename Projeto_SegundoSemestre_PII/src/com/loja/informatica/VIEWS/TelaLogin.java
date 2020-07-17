@@ -6,17 +6,14 @@
 package com.loja.informatica.VIEWS;
 
 import com.loja.informatica.CONTROLLER.ControllerFuncionarios;
-import com.loja.informatica.MODEL.Funcionarios;
 import com.loja.informatica.UTILS.soNumeros;
-import com.loja.informatica.VIEWS.telaAdministrador;
 import com.loja.informatica.VIEWS.telaVendedor;
 import javax.swing.JOptionPane;
-import javax.swing.JOptionPane;
-import sun.security.util.Password;
 
 /**
  *
- * @author diego
+ * @author diego and renan.smaciel
+ * 
  */
 public class TelaLogin extends javax.swing.JFrame {
 
@@ -38,7 +35,6 @@ public class TelaLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         Usuario = new javax.swing.JTextField();
         Senha = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
@@ -49,6 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tela Login");
@@ -57,10 +54,6 @@ public class TelaLogin extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(222, 222, 222));
         jPanel1.setLayout(null);
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/loja/informatica/IMAGENS/TELLLAA.jpg"))); // NOI18N
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(70, 30, 360, 130);
         jPanel1.add(Usuario);
         Usuario.setBounds(180, 190, 250, 30);
         jPanel1.add(Senha);
@@ -134,6 +127,11 @@ public class TelaLogin extends javax.swing.JFrame {
         jPanel1.add(jPanel4);
         jPanel4.setBounds(20, 350, 200, 60);
 
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/com/loja/informatica/IMAGENS/TELLLAA.jpg"))); // NOI18N
+        jLabel2.setText("jLabel2");
+        jPanel1.add(jLabel2);
+        jLabel2.setBounds(90, 40, 340, 100);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -154,26 +152,28 @@ public class TelaLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+                String pass = String.valueOf(Senha.getPassword());
 
-        String pass = String.valueOf(Senha.getPassword());
+                int user = Integer.parseInt(Usuario.getText());
 
-        int user = Integer.parseInt(Usuario.getText());
-        
-        String cargo = ControllerFuncionarios.login(pass, user);
+                String cargo = ControllerFuncionarios.login(pass, user);
 
-        if (cargo.equals("Administrador")) {
-            telaAdministrador telaAdmin = new telaAdministrador();
-            telaAdmin.setVisible(true);
-            dispose();
+                if (cargo.equals("Administrador")) {
+                    telaAdministrador telaAdmin = new telaAdministrador();
+                    telaAdmin.setVisible(true);
+                    dispose();
 
-        } else if (cargo.equals("Vendedor")) {
-            telaVendedor telavendedor = new telaVendedor();
-            telavendedor.setVisible(true);
-            dispose();
-        } else {
-            JOptionPane.showMessageDialog(null, "Usuario ou senha invalidos");
+                } else if (cargo.equals("Vendedor")) {
+                    telaVendedor telavendedor = new telaVendedor();
+                    telavendedor.setVisible(true);
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario ou senha invalidos");
+                }
+        } catch (Exception e ){
+            JOptionPane.showMessageDialog(null, "Error: "+e);
         }
-
        
 
     }//GEN-LAST:event_jButton1ActionPerformed
