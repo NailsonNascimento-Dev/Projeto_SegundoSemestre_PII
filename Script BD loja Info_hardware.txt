@@ -1,0 +1,121 @@
+create database loja_infoHardware;
+
+use loja_infohardware;
+
+CREATE TABLE cliente (
+    id_cli int unique auto_increment,
+    nome varchar(40) not null,
+    nascimento varchar(11)  null,
+    cpf varchar(15)  unique not null,
+    sexo char(20) null,
+    estado_civil char(20) null,
+    rua varchar(50) null,
+    cep varchar (10),
+    numero_casa int(6) null,
+    bairro varchar(20) null,
+    email varchar(50) not null,
+    fone varchar(15) null,
+    primary key (cpf)
+);
+
+CREATE TABLE funcionario (
+    id int (10) PRIMARY KEY auto_increment not null,
+    Nome varchar(40) not null,
+    sexo char(20) not null,
+    data_nascimento varchar(11) not null,
+    cpf varchar(15) not null,
+	cargo varchar(20) not null,
+    rua varchar(50) not null,
+    cep varchar(10) not null,
+    numero_casa int(6) not null,
+	bairro varchar(20) not null,
+    email varchar(50) null,
+    telefone varchar(15) not null,
+    senha varchar (50) not null
+);
+
+CREATE TABLE tipo_produto (
+    id_tipo int (10) PRIMARY KEY not null auto_increment ,
+    modelo_tipo varchar(50) not null
+);
+
+CREATE TABLE produto (
+    descricao varchar(50) not null,
+	modelo_codigo varchar (50) PRIMARY KEY not null,
+	marca varchar(50) not null,
+    id_tipo int (10) not null,
+    quantidade int (20) not null,
+	preco double (10,2) not null,
+    observacao text(100) not null,
+    FOREIGN KEY (id_tipo) REFERENCES tipo_produto (id_tipo)
+   );
+
+create table venda(
+id_venda int unique auto_increment,
+cpf varchar(15) not null,
+id_vendedor int not null,
+quantidade int not null,
+valor_total double(10,2) not null,
+data_hoje  datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP,
+ primary key (id_venda)
+);
+
+ create table detalhes(
+ id_venda int,
+ modelo_codigo varchar(50),
+ quantidade int not null,
+  FOREIGN KEY (id_venda) REFERENCES venda (id_venda),
+  FOREIGN KEY (modelo_codigo) REFERENCES produto (modelo_codigo)
+  );
+
+
+  insert into funcionario (Nome, sexo, data_nascimento, cpf,cargo, rua, cep, numero_casa, bairro, email, telefone, senha ) values 
+  ('Alberto Ferreira Mendes', 
+  'Homem',
+  '06/04/1993',
+  '123.456.789-99',
+  'Administrador',
+  'Rua Augusta',
+  '01305-100',
+   791,
+  'Consolação',
+  'gerente@lojainfohardware.com',
+  '(11)94904-3846',
+  '1234'
+  );
+  
+    insert into funcionario (Nome, sexo, data_nascimento, cpf,cargo, rua, cep, numero_casa, bairro, email, telefone, senha ) values 
+  ('Alfred Bueno Costa', 
+  'Homem',
+  '06/04/1983',
+  '111.333.666-99',
+  'Vendedor',
+  'Rua dos sem grana',
+  '05574-100',
+   200,
+  'Paraisopolis',
+  'alfredmordomo@gmail.com',
+  '(11)95674-9999',
+  '1234'
+  );
+
+
+insert into tipo_produto (modelo_tipo) values 
+('memoria'),
+('hd'),
+('ssd'),
+('placa mae'),
+('placa de video'),
+('processador'),
+('fonte'),
+('gabinete'),
+('teclado'),
+('mouse');
+
+  
+delimiter $$
+create trigger Atualiza_estoque after insert on detalhes for each row
+begin
+update produto set quantidade = quantidade - new.quantidade where modelo_codigo = new.modelo_codigo;
+end $$
+delimiter $$;
